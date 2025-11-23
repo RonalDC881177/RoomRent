@@ -1,5 +1,5 @@
 import React from 'react';
-import{ DarkModeProvider} from './components/DarkModeContext'
+import{ DarkModeProvider } from './components/DarkModeContext'
 import Header from './components/Header';
 import Home from './sections/Home';
 import About from './sections/About';
@@ -13,7 +13,7 @@ import Footer from './components/Footer';
 const App =() =>{
   return(
     <>
-    <darkModeProvider>
+    <DarkModeProvider>
       <Header />
       <Home />
       <About />
@@ -23,7 +23,7 @@ const App =() =>{
       <Clients />
       <Contact />
       <Footer />
-    </darkModeProvider>
+    </DarkModeProvider>
     </>
   )
 }

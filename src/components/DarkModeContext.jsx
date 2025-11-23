@@ -1,5 +1,5 @@
 // Modo oscuro
-import React, { createContext, useContext, useState} from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const DarkModeContext = createContext();
 
@@ -9,6 +9,16 @@ const DarkModeProvider = ({ children }) => {
     const toggleDarkMode = () => {
         setDarkMode(!darkMode);
     };
+
+    useEffect(() => {
+        if(darkMode){
+            document.documentElement.classList.add("dark");
+        }
+        else {
+            document.documentElement.classList.remove("dark");
+        }
+    }, [darkMode]);
+
 
     return(
         <DarkModeContext.Provider value={{ darkMode, toggleDarkMode }}>
