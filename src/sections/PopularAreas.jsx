@@ -29,15 +29,11 @@ const PopularAreas = () => {
           </div>
 
           <div className='grid lg:grid-cols-3 col-span-2 grid-cols-1 justify-center items-center gap-6'>
-            <div data-aos="zoom-in" data-aos-delay="400" style={{ backgroundImage:`url(${area1})` }} className='h-[400px] bg-cover bg-center rounded-xl'></div>
-            <div className='grid lg:grid-cols-3 col-span-2 grid-cols-1 justify-center items-center gap-6'>
-            <div data-aos="zoom-in" data-aos-delay="400" style={{ backgroundImage:`url(${area2})` }} className='h-[400px] bg-cover bg-center rounded-xl'></div>
-            <div className='grid lg:grid-cols-3 col-span-2 grid-cols-1 justify-center items-center gap-6'>
-            <div data-aos="zoom-in" data-aos-delay="400" style={{ backgroundImage:`url(${area3})` }} className='h-[400px] bg-cover bg-center rounded-xl'></div>
-
-          </div>
-          </div>
-        </div>
+  <div data-aos="zoom-in" data-aos-delay="400" style={{ backgroundImage:`url(${area1})` }} className='h-[200px] bg-cover bg-center rounded-xl transform transition-transform duration-500 hover:scale-110'></div>
+  <div data-aos="zoom-in" data-aos-delay="500" style={{ backgroundImage:`url(${area2})` }} className='h-[200px] bg-cover bg-center rounded-xl transform transition-transform duration-500 hover:scale-110'></div>
+  <div data-aos="zoom-in" data-aos-delay="600" style={{ backgroundImage:`url(${area3})` }} className='h-[200px] bg-cover bg-center rounded-xl transform transition-transform duration-500 hover:scale-110'></div>
+</div>
+      
         </div>
       </section>
     </div>

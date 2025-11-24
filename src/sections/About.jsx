@@ -18,9 +18,9 @@ const About = () => {
   const { darkMode, toggleDarkMode } = useDarkMode();
 
   return (
-    <section id='about' className={`${darkMode ? "dark bg-black" : "light bg-transparent"} w-full m-auto lg:px-40 px-10 py-20 lg:grid-cols-2 grid-cols-1 justify-center items-center gap-10`}>
+    <section id='about' className={`${darkMode ? "dark bg-black" : "light bg-transparent"} w-full m-auto lg:px-40 px-10 py-20 grid lg:grid-cols-2 grid-cols-1 justify-center items-center gap-10`}>
       <div>
-        <img data-aos="zoom-in" src={aboutimg} alt="About image" className='rounded-2-l lg:w-[500px] lg:h-[600px]' />
+        <img data-aos="zoom-in" src={aboutimg} alt="About image" className='rounded-xl lg:w-[400px] lg:h-[600px]' />
       </div>
       <div className='flex flex-col justify-center items-start gap-8'>
         <h1 data-aos='zoom-in' className='text-red-500 dark:text-white'>QUIENES SOMOS</h1>
