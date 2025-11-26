@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDarkMode } from "../components/DarkModeContext";
-/*import { property } from '../components/Export'*/
+import { property } from '../components/Export'
 import {
   FaBath,
   FaShareAlt,
@@ -16,6 +16,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const Properties = () => {
+  
   useEffect(() => {
     AOS.init({
       offset: 200,
@@ -40,15 +41,15 @@ const Properties = () => {
         {/* Property grid start */}
 
         <div id='grid-box' className='w-full grid lg:grid-cols-3 grid-cols-1 justify-center items-center gap-8'>
-{
-  Property.map((item, index) => (
-    <div data-aos="zoom-in" data-aos-delay="200" key={index} className='bg-white dark:bg-gray-800 rounded-xl w-full'>
-      <div id="image-box" className='bg-cover bg-center h-[250px] rounded-xl p-4 flex flex-col justify-between items-end' style={{backgroundImage:
-        `url(${item.images})` }}>
-
-      </div>
-    </div>
-}
+            {
+              Property.map((item, index) => (
+                <div data-aos="zoom-in" data-aos-delay="200" key={index} className='bg-white dark:bg-gray-800 rounded-xl w-full'>
+                  <div id="image-box" className='bg-cover bg-center h-[250px] rounded-xl p-4 flex flex-col justify-between items-end' style={{backgroundImage:
+                    `url(${item.images})` }}>
+                  </div>
+                </div>
+              ))
+              }
         </div>
       </section>
     </div>

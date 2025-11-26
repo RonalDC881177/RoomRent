@@ -4,12 +4,12 @@ import prop3 from "../assets/images/prop3.webp";
 import prop4 from "../assets/images/prop4.webp";
 import prop5 from "../assets/images/prop5.webp";
 import prop6 from "../assets/images/prop6.webp";
-import client1 from "../assets/images/client1.png";
+/*import client1 from "../assets/images/client1.png";
 import client2 from "../assets/images/client2.png";
 import client3 from "../assets/images/client3.png";
 import client4 from "../assets/images/client4.png";
 import client5 from "../assets/images/client5.png";
-import client6 from "../assets/images/client6.png";
+import client6 from "../assets/images/client6.png";*/
 import { MdNoteAlt } from "react-icons/md";
 import {
   FaHome,
@@ -127,7 +127,7 @@ export const service = [
   },
 ];
 
-export const client = [
+/*export const client = [
   {
     image: client1,
     name: "Dana Gilmore",
@@ -170,4 +170,4 @@ export const client = [
     feedback:
       "The WP Estate team did an outstanding job helping me buy my first home. The high level of service and dedication",
   },
-];
+];*/
