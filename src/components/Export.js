@@ -22,7 +22,7 @@ import { GoLaw } from "react-icons/go";
 export const property = [
   {
     images: prop1,
-    address: "6Downtown, Las Vegas",
+    address: "20 de Julio",
     name: "Villa with Amazing View",
     price: "$ 213.23",
     about:
@@ -34,7 +34,7 @@ export const property = [
   },
   {
     images: prop2,
-    address: "Meadows Village, Las Vegas",
+    address: "Santa Lucia",
     name: "Townhouse for Sale",
     price: "$ 345.18",
     about:
@@ -46,7 +46,7 @@ export const property = [
   },
   {
     images: prop3,
-    address: "49 DC townhall alex",
+    address: "Teusaquillo",
     name: "Duplex sea facing for rent",
     price: "$ 652.18",
     about:
@@ -58,7 +58,7 @@ export const property = [
   },
   {
     images: prop4,
-    address: "Underground street 20 texax",
+    address: "Galerias",
     name: "Villa with Side View",
     price: "$ 876.13",
     about:
@@ -70,7 +70,7 @@ export const property = [
   },
   {
     images: prop5,
-    address: "Rubari London Hills",
+    address: "Bosa-naranjos",
     name: "Awesome villa for rent",
     price: "$ 341.83",
     about:
@@ -82,7 +82,7 @@ export const property = [
   },
   {
     images: prop6,
-    address: "Northean fersh alice",
+    address: "Villa del prado",
     name: "Street Farm for sale",
     price: "$ 675.23",
     about:
