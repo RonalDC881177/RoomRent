@@ -94,7 +94,7 @@ export const property = [
   },
 ];
 
-export const service = [
+export const Service = [
   {
     icon: MdNoteAlt,
     title: "Sell your home",
@@ -127,7 +127,7 @@ export const service = [
   },
 ];
 
-export const client = [
+/*export const client = [
   {
     image: client1,
     name: "Dana Gilmore",
@@ -170,4 +170,4 @@ export const client = [
     feedback:
       "The WP Estate team did an outstanding job helping me buy my first home. The high level of service and dedication",
   },
-];
+];*/

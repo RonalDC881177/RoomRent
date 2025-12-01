@@ -21,10 +21,14 @@ const Services = () => {
     >
       <section
         id='services'
-        className={`${
-          darkMode ? 'dark bg-gray-800' : 'light bg-red-100'
-        } lg:w-[95%] w-full h-fit m-auto rounded-xl flex flex-col justify-center items-start lg:px-20 px-6 py-20 gap-10`}
-      ></section>
+        className={`${darkMode ? 'dark bg-gray-800' : 'light bg-red-100'
+          } lg:w-[95%] w-full h-fit m-auto rounded-xl flex flex-col justify-center items-start lg:px-20 px-6 py-20 gap-10`}>
+        <div className="flex flex-col justify-center items-start gap-4">
+          <h1 data-aos="zoom-in" className="text-red-500 dark:text-white">NUESTROS SERVICIOS</h1>
+        <h1 data-aos="zoom-in" className="text-black text-[40px] font-semibold leading-10 dark:text-white">Nuestros mejores servicios</h1>
+        </div>
+
+      </section>
     </div>
   )
 }
