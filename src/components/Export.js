@@ -127,7 +127,7 @@ export const Service = [
   },
 ];
 
-/*export const client = [
+export const Client = [
   {
     image: client1,
     name: "Dana Gilmore",
@@ -170,4 +170,4 @@ export const Service = [
     feedback:
       "The WP Estate team did an outstanding job helping me buy my first home. The high level of service and dedication",
   },
-];*/
+];
