@@ -14,10 +14,10 @@ import { MdNoteAlt } from "react-icons/md";
 import {
   FaHome,
   FaSearch,
-  FaNotesMedical,
+  FaCheckDouble,
   FaCameraRetro,
 } from "react-icons/fa";
-import { GoLaw } from "react-icons/go";
+import { GoPackage } from "react-icons/go";
 
 export const property = [
   {
@@ -97,33 +97,33 @@ export const property = [
 export const Service = [
   {
     icon: MdNoteAlt,
-    title: "Sell your home",
-    desc: "We sell your home at the best market price",
+    title: "Arrienda fácil, arrienda seguro",
+    desc: "Simplificamos el proceso para que disfrutes de un arriendo sin sorpresas.",
   },
   {
     icon: FaHome,
-    title: "Home loans",
-    desc: "We offer you free consultancy to get a loan",
+    title: "Confianza para Propietarios y Arrendatarios",
+    desc: "Unimos hogares confiables con personas confiables.",
   },
   {
-    icon: GoLaw,
-    title: "Legal services",
-    desc: "Expert legal help for all related property items",
+    icon: GoPackage,
+    title: "Tu match perfecto en vivienda",
+    desc: "Donde tus necesidades encuentran su espacio.",
   },
   {
     icon: FaSearch,
-    title: "Home inspection",
-    desc: "We make sure you get what you were promised",
+    title: "Home Check",
+    desc: "Tu decisión, respaldada por datos reales",
   },
   {
-    icon: FaNotesMedical,
-    title: "Evaluation",
-    desc: "We offer you free evaluation to get a mortgage loan",
+    icon: FaCheckDouble,
+    title: "Evaluaciones & Opiniones",
+    desc: "Opiniones reales para decisiones más seguras.",
   },
   {
     icon: FaCameraRetro,
-    title: "Photoshoot",
-    desc: "We prepare your home visual presentation",
+    title: "Recorrido Visual",
+    desc: "Fotografías que muestran exactamente lo que encontrarás.",
   },
 ];
 

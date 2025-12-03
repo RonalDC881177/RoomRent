@@ -50,8 +50,8 @@ const Services = () => {
               <div className="p-6 rounded-full bg-red-200">
                 <service.icon className="text-red-600 size-10 transform hover:scale-110 transition-transform duration-300 cursor-pointer" />
               </div>
-              <h1 className=" text-black text-[22px] font-semibold dark:text-white">{item.title}</h1>
-              <p className="text-lg text-slate-700 dark:text-white">{item.desc}</p>
+              <h1 className=" text-black text-[22px] font-semibold dark:text-white">{service.title}</h1>
+              <p className="text-lg text-slate-700 dark:text-white">{service.desc}</p>
               <button className="border-b-2 border-red-600 text-red-600 fon p-0 dark:text-white">LEER MÁS</button>
             </div>
           ))}

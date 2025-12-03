@@ -24,8 +24,8 @@ const About = () => {
       </div>
       <div className='flex flex-col justify-center items-start gap-8'>
         <h1 data-aos='zoom-in' className='text-red-500 dark:text-white'>QUIENES SOMOS</h1>
-        <h1 data-aos='zoom-in' data-aos-delay="200" className='text-black text-[40px] font-semibold leading-10 dark:text-white'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic, sunt.</h1>
-        <p data-aos='zoom-in' data-aos-delay="400" className='texl-xl text-gray-600 dark:text-white text-justify'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex ipsum veniam omnis ut labore laudantium molestias cumque ipsa velit, possimus pariatur laborum nihil! Cum ullam officiis obcaecati! Reiciendis, voluptatibus nemo!</p>
+        <h1 data-aos='zoom-in' data-aos-delay="200" className='text-black text-[40px] font-semibold leading-10 dark:text-white'>Tu Aliado para Encontrar o Publicar Propiedades de Forma Segura.</h1>
+        <p data-aos='zoom-in' data-aos-delay="400" className='texl-xl text-gray-600 dark:text-white text-justify'>Somos una plataforma creada para conectar personas con espacios ideales, ofreciendo procesos de arriendo claros, seguros y sin complicaciones. Creemos en la transparencia, la confianza y la tecnología como herramientas para transformar la forma en que propietarios y arrendatarios se encuentran. Nuestro objetivo es ofrecer experiencias cómodas, eficientes y confiables, donde cada usuario pueda sentirse respaldado en cada paso.</p>
         <button className='bg-red-600 dark:bg-red-700 hover:bg-black dark:hover:bg-white dark:hover:text-black text-lg p-4 text-white font-semibold rounded-xl cursor-pointer transform hover:scale-110 transition-transform duration-300'>Ver más</button>
       </div>
 

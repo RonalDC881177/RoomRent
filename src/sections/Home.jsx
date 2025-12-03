@@ -33,10 +33,7 @@ const Home = () => {
             data-aos="zoom-in"
             className="text-white text-xl lg:pr-[500px] pr-0"
           >
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa,
-            iusto fugiat! Doloremque earum, eum, obcaecati nisi sunt ducimus
-            explicabo cupiditate eos quidem officiis est molestiae enim! Officia
-            cumque dolore totam.
+            Cada rincón de Bogotá guarda un nuevo comienzo, una historia esperando ser vivida. Encuentra el tuyo hoy y da el siguiente paso hacia el hogar que te hará sentir en el lugar correcto.
           </p>
         </section>
       </div>
