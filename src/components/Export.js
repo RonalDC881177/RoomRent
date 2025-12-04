@@ -4,29 +4,24 @@ import prop3 from "../assets/images/prop3.webp";
 import prop4 from "../assets/images/prop4.webp";
 import prop5 from "../assets/images/prop5.webp";
 import prop6 from "../assets/images/prop6.webp";
-/*import client1 from "../assets/images/client1.png";
+import client1 from "../assets/images/client1.png";
 import client2 from "../assets/images/client2.png";
 import client3 from "../assets/images/client3.png";
 import client4 from "../assets/images/client4.png";
 import client5 from "../assets/images/client5.png";
-import client6 from "../assets/images/client6.png";*/
+import client6 from "../assets/images/client6.png";
 import { MdNoteAlt } from "react-icons/md";
-import {
-  FaHome,
-  FaSearch,
-  FaCheckDouble,
-  FaCameraRetro,
-} from "react-icons/fa";
+import { FaHome, FaSearch, FaCheckDouble, FaCameraRetro } from "react-icons/fa";
 import { GoPackage } from "react-icons/go";
 
 export const property = [
   {
     images: prop1,
-    address: "20 de Julio", 
+    address: "20 de Julio",
     name: "Casa 2 pisos",
     price: "$ 1.300.000",
     about:
-      "Hermosa casa de dos pisos ubicada en una zona tranquila y segura, ideal para familias que buscan comodidad y espacio.",
+      "Casa de dos pisos ubicada en una zona tranquila y segura, ideal para familias que buscan comodidad y espacio.",
     bed: 4,
     bath: 3,
     area: "75 metros",
@@ -74,7 +69,7 @@ export const property = [
     name: "Apartamento en conjunto cerrado",
     price: "$ 1.000.000",
     about:
-      "Hermoso apartamento en conjunto cerrado ubicado en una zona tranquila y segura, ideal para familias que buscan comodidad y espacio.",
+      "Apartamento en conjunto cerrado ubicado en una zona tranquila y segura.",
     bed: 4,
     bath: 3,
     area: "52 metros",
@@ -130,44 +125,44 @@ export const Service = [
 export const Client = [
   {
     image: client1,
-    name: "Dana Gilmore",
-    text: "Excellent team!",
+    name: "Camilo Ramirez",
+    text: "Proceso de arriendo transparente",
     feedback:
-      "The WP Estate team did an outstanding job helping me buy my first home. The high level of service and dedication",
+      "Soy arrendatario y lo que más me gustó fue la claridad en cada paso. Desde la búsqueda hasta la firma del contrato, todo estuvo bien explicado y sin sorpresas. Me dio mucha confianza.",
   },
   {
     image: client2,
     name: "Ana Anderson",
-    text: "Very good work",
+    text: "Excelente comunicación",
     feedback:
-      "The WP Estate team did an outstanding job helping me buy my first home. The high level of service and dedication",
+      "Me encantó la comunicación constante con los interesados. La plataforma me permitió responder dudas fácilmente y mantener todo organizado sin perder información.",
   },
   {
     image: client3,
-    name: "Albert adame",
-    text: "Very well",
+    name: "Martha Lopez",
+    text: "Variedad de opciones",
     feedback:
-      "The WP Estate team did an outstanding job helping me buy my first home. The high level of service and dedication",
+      "Buscaba un apartamento en una zona específica y encontré varias alternativas que se ajustaban a mi presupuesto. La variedad de inmuebles disponibles me facilitó tomar la mejor decisión.",
   },
   {
     image: client4,
-    name: "Dana Gilmore",
-    text: "Excellent team!",
+    name: "Dario Montez",
+    text: "Seguridad en los pagos",
     feedback:
-      "The WP Estate team did an outstanding job helping me buy my first home. The high level of service and dedication",
+      "Como propietario, lo que más valoro es la seguridad en las transacciones. Los pagos de arriendo llegan puntuales y con respaldo, lo que me da tranquilidad total.",
   },
   {
     image: client5,
-    name: "Alex gilmore",
-    text: "Excellent team!",
+    name: "Alex Garcia",
+    text: "Facilidad para encontrar inquilinos",
     feedback:
-      "The WP Estate team did an outstanding job helping me buy my first home. The high level of service and dedication",
+      "Me preocupaba el tiempo que tardaba en arrendar mi apartamento. Con esta plataforma logré encontrar inquilinos confiables en menos de una semana. Todo el proceso fue rápido y seguro.",
   },
   {
     image: client6,
-    name: "Sivay Ashbi",
-    text: "Excellent team!",
+    name: "Leonor Martinez",
+    text: "Atención personalizada",
     feedback:
-      "The WP Estate team did an outstanding job helping me buy my first home. The high level of service and dedication",
+      "Soy arrendatario y me sorprendió la atención que recibí. Me ayudaron a resolver dudas sobre el contrato y me guiaron en todo el proceso. Sentí que realmente se preocupaban por mi experiencia.",
   },
 ];
