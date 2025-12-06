@@ -39,6 +39,8 @@ const Contact = () => {
           <button className="bg-red-600 w-full text-md px-8 py-3 text-white font-semibold rounded-xl hover:bg-red-700 cursor-pointer">ENVIAR MENSAJE</button>
         </div>
         <div className="flex flex-col justify-center items-start gap-8 lg:p-20 p-6 ">
+          <h1 data-aos="zoom-in" data-aos-delay="300" className="text-red-500 text-[30px] dark:text-white" >¿Tienes dudas o quieres saber más?</h1>
+          <h1 data-aos="zoom-in" data-aos-delay="400" className="text-black text-[30px] font-semibold leading-10 dark:text-white">Escríbenos sin miedo, estamos aquí para ayudarte. Nos encanta escuchar nuevas ideas, resolver tus preguntas y acompañarte en cada paso de tu arriendo. ¡Tu mensaje es el inicio de una buena conversación!</h1>
 
         </div>
       </section>
