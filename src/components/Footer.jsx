@@ -24,9 +24,8 @@ const Footer = () => {
   return (
     <>
       <footer
-        className={`${
-          darkMode ? "dark bg-black" : "light bg-gray-800"
-        } w-full m-auto lg:px-20 px-10 py-20 grid lg:grid-cols-3 grid-cols-1 justify-center items-start lg:gap-20 gap-10`}
+        className={`${darkMode ? "dark bg-black" : "light bg-gray-800"
+          } w-full m-auto lg:px-20 px-10 py-20 grid lg:grid-cols-3 grid-cols-1 justify-center items-start lg:gap-20 gap-10`}
       >
         <div className="flex flex-col justify-center items-start gap-5">
           <h1 className="text-white text-2xl font-semibold">
@@ -75,17 +74,30 @@ const Footer = () => {
             <p className="text-slate-200">Santiago Basto</p>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center gap-5">  
+        <div className="flex flex-col justify-center items-center gap-5">
           <div>
             <img src={sena} alt="Sena Logo" className="w-[150px] rounded-lg transform hover:scale-110 cursor-pointer transition-transform duration-300" />
-            
+
           </div>
           <h1 className="text-white text-2xl font-semibold">Servicio Nacional de Aprendizaje (SENA)</h1>
           <p className="text-white text- font-semibold">Ficha:3311941 <br />Tecnologo en analisis y desarrollo de software</p>
         </div>
       </footer>
+      {/* top button */}
+      <div id="icon-box" className="bg-red-600 p-4 rounded-full hover:bg-black cursor-pointer fixed lg:bottom-12 bottom-6 right-6">
+        <Link to="Home" spy={true} offset={-100} smooth={true}>
+          <FaArrowUp className="size-6 text-white" />
+        </Link>
+      </div>
+      {/* dark mode button */}
+      <div>
+<button onClick={toggleDarkMode} className="flex items-center p-4 rounded-full bg-orange-500 fixed lg:top-52 right-6 top-6">
+  {darkMode ? <FaMoon size={25} className="text-black"/> : <FaSun size={24} className="text-black" />}
+</button>
+      </div>
     </>
   );
+
 };
 
 export default Footer;
