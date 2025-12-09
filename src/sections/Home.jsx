@@ -14,7 +14,7 @@ const Home = () => {
     });
   }, [])
 
-  const { darkMode, toggleDarkMode } = useDarkMode();
+  const { darkMode } = useDarkMode();
   return (
     <>
       <div className={`${darkMode ? "dark bg-black" : "light bg-white"}`}>
@@ -45,7 +45,7 @@ const Home = () => {
         <div data-aos="zoom-in" id='form' className={`${darkMode ? 'dark bg-gray-800' : 'light bg-white'} lg:w-[70%] w-full m-auto grid lg:grid-cols-4 grid-cols-1 justify-center items-center gap-6 p-8 rounded-xl -mt-14`}>
           <div className='w-full'>
             <h1 className='text-black font-semibold dark:text-white'>LOCALIDAD</h1>
-            <select name="selectOption" id="selectOption" className='bg-white p-2 border-b-[1px] w-full mt-2 border-[#c9c7c1] text-gray-500 text-md'>
+            <select name="selectOption" id="selectOption" className='bg-white p-2 border-b w-full mt-2 border-[#c9c7c1] text-gray-500 text-md'>
               <option value="Localidad" disabled selected>Selecciona Localidad</option>
               <option value="Option1">Antonio Nariño</option>
               <option value="Option2">Barrios Unidos</option>
@@ -70,7 +70,7 @@ const Home = () => {
           </div>
           <div className='w-full'>
             <h1 className='text-black font-semibold dark:text-white'>TIPO</h1>
-            <select name="selectOption" id="selectOption" className='bg-white p-2 border-b-[1px] w-full mt-2 border-[#c9c7c1] text-gray-500 text-md'>
+            <select name="selectOption" id="selectOption" className='bg-white p-2 border-b w-full mt-2 border-[#c9c7c1] text-gray-500 text-md'>
               <option value="" disabled selected>Selecciona Tipo</option>
               <option value="Option1">Casa</option>
               <option value="Option2">Apartamento</option>
@@ -80,7 +80,7 @@ const Home = () => {
           </div>
           <div className='w-full'>
             <h1 className='text-black font-semibold dark:text-white'>PRECIO</h1>
-            <select name="selectOption" id="selectOption" className='bg-white p-2 border-b-[1px] w-full mt-2 border-[#c9c7c1] text-gray-500 text-md'>
+            <select name="selectOption" id="selectOption" className='bg-white p-2 border-b w-full mt-2 border-[#c9c7c1] text-gray-500 text-md'>
               <option value="Precio" disabled selected>Selecciona Precio</option>
               <option value="Option1">Menos de 500.000</option>
               <option value="Option2">De 500.000 a 1.000.000</option>

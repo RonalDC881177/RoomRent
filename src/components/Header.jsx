@@ -6,7 +6,7 @@ import useDarkMode from './useDarkMode';
 import { FaPhoneAlt, FaUserCircle } from 'react-icons/fa'
 
 const Header = () => {
-  const { darkMode, toggleDarkMode } = useDarkMode();
+  const { darkMode} = useDarkMode();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -53,7 +53,7 @@ const Header = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`${isMenuOpen ? 'flex' : 'hidden'} w-full h-fit bg-slate-800 p-4 absolute top-[80px] left-0`} onClick={closeMenu}>
+      <div className={`${isMenuOpen ? 'flex' : 'hidden'} w-full h-fit bg-slate-800 p-4 absolute top-20 left-0`} onClick={closeMenu}>
         <ul className="flex flex-col justify-center items-center gap-2 w-full">
           {navItems.map(({ link, path }) => (
             <Link

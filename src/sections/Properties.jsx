@@ -26,7 +26,7 @@ const Properties = () => {
     });
   }, []);
 
-  const { darkMode, toggleDarkMode } = useDarkMode();
+  const { darkMode } = useDarkMode();
   return (
     <div className={`${darkMode ? "dark bg-black" : "light bg-transparent"}`}>
       <section
@@ -116,7 +116,7 @@ const Properties = () => {
                     <h1 className="dark:text-white">{item.area}</h1>
                   </div>
                 </div>
-                <div className="w-full h-[1px] bg-gray-200 mt-8">
+                <div className="w-full mt-8">
                   <div
                     id="owner-info"
                     className="flex justify-between items-center w-full mt-2"
