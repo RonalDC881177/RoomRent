@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {useDarkMode} from "../components/DarkModeContext";
+import useDarkMode from "../components/useDarkMode";
 import cityimg from "../assets/images/city.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -41,12 +41,12 @@ const Home = () => {
 
       {/* Form Section */}
 
-      <div className={`${darkMode ? 'dark bg-black' : 'light bg-transparent'} z-10`}>
+      <div className={`${darkMode ? 'dark bg-black' :'light bg-transparent'} z-10`}>
         <div data-aos="zoom-in" id='form' className={`${darkMode ? 'dark bg-gray-800' : 'light bg-white'} lg:w-[70%] w-full m-auto grid lg:grid-cols-4 grid-cols-1 justify-center items-center gap-6 p-8 rounded-xl -mt-14`}>
           <div className='w-full'>
             <h1 className='text-black font-semibold dark:text-white'>LOCALIDAD</h1>
             <select name="selectOption" id="selectOption" className='bg-white p-2 border-b-[1px] w-full mt-2 border-[#c9c7c1] text-gray-500 text-md'>
-              <option value="" disabled selected>Selecciona Localidad</option>
+              <option value="Localidad" disabled selected>Selecciona Localidad</option>
               <option value="Option1">Antonio Nariño</option>
               <option value="Option2">Barrios Unidos</option>
               <option value="Option3">Bosa</option>
@@ -81,7 +81,7 @@ const Home = () => {
           <div className='w-full'>
             <h1 className='text-black font-semibold dark:text-white'>PRECIO</h1>
             <select name="selectOption" id="selectOption" className='bg-white p-2 border-b-[1px] w-full mt-2 border-[#c9c7c1] text-gray-500 text-md'>
-              <option value="" disabled selected>Selecciona Precio</option>
+              <option value="Precio" disabled selected>Selecciona Precio</option>
               <option value="Option1">Menos de 500.000</option>
               <option value="Option2">De 500.000 a 1.000.000</option>
               <option value="Option3">De 1.000.000 a 1.500.000</option>

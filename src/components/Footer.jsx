@@ -1,5 +1,5 @@
 import React from "react";
-import { useDarkMode } from "./DarkModeContext";
+import useDarkMode from './useDarkMode';
 import {
   FaFacebookF,
   FaThreads,
@@ -91,10 +91,17 @@ const Footer = () => {
       </div>
       {/* dark mode button */}
       <div>
-<button onClick={toggleDarkMode} className="flex items-center p-4 rounded-full bg-orange-500 fixed lg:top-52 right-6 top-6">
-  {darkMode ? <FaMoon size={25} className="text-black"/> : <FaSun size={24} className="text-black" />}
-</button>
-      </div>
+  <button
+    onClick={toggleDarkMode}
+    className="flex items-center p-4 rounded-full bg-orange-500 dark:bg-gray-800 fixed lg:top-52 right-6 top-6"
+  >
+    {darkMode ? (
+      <FaMoon size={25} className="text-white" />   
+    ) : (
+      <FaSun size={24} className="text-black" />   
+    )}
+  </button>
+</div>
     </>
   );
 

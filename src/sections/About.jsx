@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import aboutimg from "../assets/images/sala.jpg";
-import { useDarkMode } from "../components/DarkModeContext";
+import useDarkMode from "../components/useDarkMode";
 import AOS from "aos";
 import "aos/dist/aos.css";
 

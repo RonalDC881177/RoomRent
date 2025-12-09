@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Client } from "../components/Export";
-import { useDarkMode } from "../components/DarkModeContext";
+import useDarkMode from "../components/useDarkMode";
 import { FaStar } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";

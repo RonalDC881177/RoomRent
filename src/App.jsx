@@ -1,5 +1,5 @@
 import React from 'react';
-import{ DarkModeProvider } from './components/DarkModeContext'
+import DarkModeProvider from "./components/DarkModeProvider";
 import Header from './components/Header';
 import Home from './sections/Home';
 import About from './sections/About';

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDarkMode } from "../components/DarkModeContext";
+import useDarkMode from "../components/useDarkMode";
 import { property } from "../components/Export";
 import {
   FaBath,

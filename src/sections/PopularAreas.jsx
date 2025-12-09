@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDarkMode } from "../components/DarkModeContext";
+import useDarkMode from "../components/useDarkMode";
 import area1 from "../assets/images/House.jpg";
 import area2 from "../assets/images/Apartment.jpg";
 import area3 from "../assets/images/Room.jpeg";
