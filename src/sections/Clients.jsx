@@ -15,7 +15,7 @@ const Clients = () => {
     });
   }, []);
 
-  const { darkMode, toggleDarkMode } = useDarkMode();
+  const { darkMode } = useDarkMode();
 
   return (
     <div className={darkMode ? "dark bg-black" : "light bg-transparent"}>
@@ -24,7 +24,7 @@ const Clients = () => {
         className="lg:w-[95%] w-full h-fit m-auto bg-cover bg-center rounded-xl flex justify-center flex-col items-start lg:px-20 px-6 py-20 gap-20"
       >
         <div className="flex flex-col justify-center items-start gap-4">
-          <h1 data-aos="zoom-in" className="text-red-500 dark:text-white">
+          <h1 data-aos="zoom-in" className="text-[#2d2c55] dark:text-white font-semibold">
             NUESTROS CLIENTES
           </h1>
           <h1 className=" text-black dark:text-white text-[40px] font-semibold leading-10">
@@ -40,7 +40,7 @@ const Clients = () => {
               data-aos="zoom-in"
               data-aos-delay="200"
               key={index}
-              className="bg-white dark:bg-gray-900 hover:bg-red-100 cursor-pointer p-12 flex flex-col justify-center gap-6 rounded-xl w-full">
+              className="bg-white dark:bg-gray-900 hover:bg-[#71BFD1] cursor-pointer p-12 flex flex-col justify-center gap-6 rounded-xl w-full">
                 <div className="flex justify-start items-center w-full gap-4">
                   <img src={item.image} alt="" className="w-[70px] h-[70px] rounded-full object-cover transform hover-scale-110 transition-transform duration-300" />
                   <div className="flex flex-col justify-center items-start gap-1">

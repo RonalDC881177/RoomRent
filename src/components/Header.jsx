@@ -22,9 +22,9 @@ const Header = () => {
   ];
 
   return (
-    <nav className={`${darkMode ? 'dark bg-black' : 'light bg-[#f3f3f3]'} flex justify-between items-center gap-4 lg:px-20 px-4 py-3 sticky top-0 z-30`}>
+    <nav className={`${darkMode ? 'dark bg-[#65727c]' : 'light bg-[#cadffb]'} flex justify-between items-center gap-4 lg:px-20 px-4 py-3 sticky top-0 z-30`}>
       <div id='logo'>
-        <img src={logo} alt="Room Rent Logo" className="lg:w-[150px] w-[120px] dark:invert" />
+        <img src={logo} alt="Room Rent Logo" className="lg:w-[150px] w-[120px] rounded-xl dark:invert" />
       </div>
 
       {/* Desktop Menu */}
@@ -32,7 +32,7 @@ const Header = () => {
         {navItems.map(({ link, path }) => (
           <Link
             key={path}
-            className="text-black text-[15px] uppercase cursor-pointer px-3 py-2 dark:text-white rounded-lg hover:bg-red-600 hover:text-white"
+            className="text-black text-[15px] uppercase cursor-pointer px-3 py-2 dark:text-white rounded-lg hover:bg-[#517399] hover:text-white"
             to={path}
             spy={true}
             offset={-100}
@@ -58,7 +58,7 @@ const Header = () => {
           {navItems.map(({ link, path }) => (
             <Link
               key={path}
-              className="text-white uppercase font-semibold cursor-pointer p-3 rounded-lg hover:bg-red-600 hover:text-black w-full text-center"
+              className="text-white uppercase font-semibold cursor-pointer p-3 rounded-lg hover:bg-[#517399] hover:text-black w-full text-center"
               to={path}
               spy={true}
               offset={-100}
@@ -73,10 +73,10 @@ const Header = () => {
       {/* Contact Info */}
       <div className="flex items-center lg:gap-8 gap-2">
         <div className="flex items-center lg:gap-3 gap-1">
-          <FaPhoneAlt className="size-5 text-red-600" />
+          <FaPhoneAlt className="size-7 text-[#517399]" />
           <h1 className="lg:text-xl text-sm text-black dark:text-white font-semibold">300-000-00-00</h1>
         </div>
-        <FaUserCircle className="size-6 text-red-600" />
+        <FaUserCircle className="size-7 text-[#517399]" />
       </div>
     </nav>
   );

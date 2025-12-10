@@ -34,7 +34,7 @@ const Properties = () => {
         className="lg:w-[90%] m-auto lg:px-20 px-6 py-20 w-full flex flex-col justify-center items-start gap-10"
       >
         <div className="flex flex-col justify-center items-start gap-4">
-          <h1 data-aos="zoom-in" className="text-red-500 dark:text-white">
+          <h1 data-aos="zoom-in" className="text-[#2d2c55] dark:text-white font-semibold">
             PROPIEDADES
           </h1>
           <h1
@@ -67,12 +67,12 @@ const Properties = () => {
               >
                 <div id="top" className="flex justify-between items-end w-full">
                   <div>
-                    <button className="px-3 py-1 bg-red-600 hover:bg-white hover:text-black text-white rounded-full text-[13px]">
+                    <button className="px-3 py-1 bg-[#517399] hover:bg-white hover:text-black text-white rounded-full text-[13px]">
                       Ver mas
                     </button>
                   </div>
                   <div className="flex justify-between items-center gap-3">
-                    <button className="px-3 py-1 bg-red-600 hover:bg-white hover:text-black text-white rounded-full text-[13px]">
+                    <button className="px-3 py-1 bg-[#517399] hover:bg-white hover:text-black text-white rounded-full text-[13px]">
                       Apartamento
                     </button>
                   </div>
@@ -95,7 +95,7 @@ const Properties = () => {
                 <h1 className=" text-xl text-black font-semibold dark:text-white">
                   {item.name}
                 </h1>
-                <h1 className="text-2xl text- text-red-600 font-bold dark:text-white">
+                <h1 className="text-2xl text- text-[#517399] font-bold dark:text-white">
                   {item.price}
                 </h1>
                 <p className="dark:text-white">{item.about}</p>
@@ -104,15 +104,15 @@ const Properties = () => {
                   className="flex justify-center items-start gap-4"
                 >
                   <div className="flex justify-center items-start gap-2">
-                    <FaBath className="size-5 text-red-400" />
+                    <FaBath className="size-5 text-[#517399]" />
                     <h1 className="dark:text-white">{item.bath}</h1>
                   </div>
                   <div className="flex justify-center items-start gap-2">
-                    <FaBed className="size-5 text-red-400" />
+                    <FaBed className="size-5 text-[#517399]" />
                     <h1 className="dark:text-white">{item.bed}</h1>
                   </div>
                   <div className="flex justify-center items-start gap-2">
-                    <MdSpaceDashboard className="size-5 text-red-400" />
+                    <MdSpaceDashboard className="size-5 text-[#517399]" />
                     <h1 className="dark:text-white">{item.area}</h1>
                   </div>
                 </div>
@@ -122,13 +122,13 @@ const Properties = () => {
                     className="flex justify-between items-center w-full mt-2"
                   >
                     <div className=" flex justify-center items-center gap-2">
-                      <FaUserCircle className="size-5 text-red-400" />
+                      <FaUserCircle className="size-5 text-[#517399]" />
                       <h1 className="dark:text-white">{item.owner}</h1>
                     </div>
                     <div className=" flex justify-center items-center gap-4">
-                      <div className=" p-2 border-2 border-gray-200 hover:bg-black cursor-pointer transform hover: scale-110 transition-transform duration-300"><FaShareAlt className="size-4 text-red-400"/></div>
-                      <div className=" p-2 border-2 border-gray-200 hover:bg-black cursor-pointer transform hover: scale-110 transition-transform duration-300"><FaHeart className="size-4 text-red-400"/></div>
-                      <div className=" p-2 border-2 border-gray-200 hover:bg-black cursor-pointer transform hover: scale-110 transition-transform duration-300"><FaPlus className="size-4 text-red-400"/></div>
+                      <div className=" p-2 border-2 border-gray-200 hover:bg-black cursor-pointer transform hover: scale-110 transition-transform duration-300"><FaShareAlt className="size-4 text-[#517399]"/></div>
+                      <div className=" p-2 border-2 border-gray-200 hover:bg-black cursor-pointer transform hover: scale-110 transition-transform duration-300"><FaHeart className="size-4 text-[#517399]"/></div>
+                      <div className=" p-2 border-2 border-gray-200 hover:bg-black cursor-pointer transform hover: scale-110 transition-transform duration-300"><FaPlus className="size-4 text-[#517399]"/></div>
                     </div>
                   </div>
                 </div>
