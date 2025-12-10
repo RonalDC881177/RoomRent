@@ -1,5 +1,4 @@
-import React from 'react';
-import DarkModeProvider from "./components/DarkModeProvider";
+import { Routes, Route } from "react-router-dom";
 import Header from './components/Header';
 import Home from './sections/Home';
 import About from './sections/About';
@@ -10,22 +9,41 @@ import Clients from './sections/Clients';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
 
-const App =() =>{
-  return(
+import Login from "./components/Login";
+import Register from "./components/Register";
+
+const App = () => {
+  return (
     <>
-    <DarkModeProvider>
-      <Header />
-      <Home />
-      <About />
-      <PopularAreas />
-      <Properties />
-      <Services />
-      <Clients />
-      <Contact />
-      <Footer />
-    </DarkModeProvider>
+      <Routes>
+
+        {/* --- RUTA PRINCIPAL (LANDING PAGE) --- */}
+        <Route
+          path="/"
+          element={
+            <>
+              <Header />
+              <Home />
+              <About />
+              <PopularAreas />
+              <Properties />
+              <Services />
+              <Clients />
+              <Contact />
+              <Footer />
+            </>
+          }
+        />
+
+        {/* RUTA LOGIN */}
+        <Route path="/login" element={<Login />} />
+
+        {/* RUTA REGISTRO */}
+        <Route path="/register" element={<Register />} />
+
+      </Routes>
     </>
-  )
-}
+  );
+};
 
 export default App;

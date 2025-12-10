@@ -1,5 +1,6 @@
 import {StrictMode} from 'react'
 import {createRoot} from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom';
 import './index.css'
 import App from './App.jsx'
 import DarkModeProvider from './components/DarkModeProvider';
@@ -8,8 +9,10 @@ import DarkModeProvider from './components/DarkModeProvider';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <DarkModeProvider>
-      <App/>
-    </DarkModeProvider>
+    <BrowserRouter> 
+      <DarkModeProvider>
+        <App/>
+      </DarkModeProvider>
+    </BrowserRouter>
   </StrictMode>,
 )

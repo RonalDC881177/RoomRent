@@ -1,24 +1,25 @@
 import React, { useState } from 'react'
-import { Link } from 'react-scroll'
+import { Link as ScrollLink } from 'react-scroll'
+import { Link as RouterLink } from 'react-router-dom'
 import { FaXmark, FaBars } from 'react-icons/fa6'
 import logo from '../assets/images/roomrent.png'
 import useDarkMode from './useDarkMode';
 import { FaPhoneAlt, FaUserCircle } from 'react-icons/fa'
 
 const Header = () => {
-  const { darkMode} = useDarkMode();
+  const { darkMode } = useDarkMode();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
   const navItems = [
-    { link: 'Home', path: 'home' },
-    { link: 'About', path: 'about' },
-    { link: 'Properties', path: 'properties' },
-    { link: 'Services', path: 'services' },
-    { link: 'Testimonials', path: 'testimonials' },
-    { link: 'Contact', path: 'contact' },
+    { link: 'Inicio', path: 'Inicio' },
+    { link: 'Acerca de', path: 'about' },
+    { link: 'Propiedades', path: 'properties' },
+    { link: 'Servicios', path: 'services' },
+    { link: 'Testimonios', path: 'testimonials' },
+    { link: 'Contacto', path: 'contact' },
   ];
 
   return (
@@ -30,7 +31,7 @@ const Header = () => {
       {/* Desktop Menu */}
       <ul className="lg:flex justify-center items-center gap-8 hidden">
         {navItems.map(({ link, path }) => (
-          <Link
+          <ScrollLink
             key={path}
             className="text-black text-[15px] uppercase cursor-pointer px-3 py-2 dark:text-white rounded-lg hover:bg-[#517399] hover:text-white"
             to={path}
@@ -39,7 +40,7 @@ const Header = () => {
             smooth={true}
           >
             {link}
-          </Link>
+          </ScrollLink>
         ))}
       </ul>
 
@@ -56,7 +57,7 @@ const Header = () => {
       <div className={`${isMenuOpen ? 'flex' : 'hidden'} w-full h-fit bg-slate-800 p-4 absolute top-20 left-0`} onClick={closeMenu}>
         <ul className="flex flex-col justify-center items-center gap-2 w-full">
           {navItems.map(({ link, path }) => (
-            <Link
+            <ScrollLink
               key={path}
               className="text-white uppercase font-semibold cursor-pointer p-3 rounded-lg hover:bg-[#517399] hover:text-black w-full text-center"
               to={path}
@@ -65,18 +66,24 @@ const Header = () => {
               smooth={true}
             >
               {link}
-            </Link>
+            </ScrollLink>
           ))}
+
+          {/* NEW: Login inside mobile menu */}
+          <RouterLink
+            to="/login"
+            className="text-white uppercase font-semibold cursor-pointer p-3 rounded-lg hover:bg-[#35516d] w-full text-center"
+          >
+            Login
+          </RouterLink>
         </ul>
       </div>
 
-      {/* Contact Info */}
+      {/* LOGIN ICON */}
       <div className="flex items-center lg:gap-8 gap-2">
-        <div className="flex items-center lg:gap-3 gap-1">
-          <FaPhoneAlt className="size-7 text-[#517399]" />
-          <h1 className="lg:text-xl text-sm text-black dark:text-white font-semibold">300-000-00-00</h1>
-        </div>
-        <FaUserCircle className="size-7 text-[#517399]" />
+        <RouterLink
+          to="/login"
+          className="px-8 py-2 bg-[#517399] text-white rounded-lg hover:bg-[#35516d] transition-colors">Iniciar Sesion</RouterLink>
       </div>
     </nav>
   );

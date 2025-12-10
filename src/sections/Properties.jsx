@@ -30,7 +30,7 @@ const Properties = () => {
   return (
     <div className={`${darkMode ? "dark bg-black" : "light bg-transparent"}`}>
       <section
-        id="Properties"
+        id="properties"
         className="lg:w-[90%] m-auto lg:px-20 px-6 py-20 w-full flex flex-col justify-center items-start gap-10"
       >
         <div className="flex flex-col justify-center items-start gap-4">
