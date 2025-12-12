@@ -25,7 +25,7 @@ const Header = () => {
   return (
     <nav className={`${darkMode ? 'dark bg-[#65727c]' : 'light bg-[#cadffb]'} flex justify-between items-center gap-4 lg:px-20 px-4 py-3 sticky top-0 z-30`}>
       <div id='logo'>
-        <img src={logo} alt="Room Rent Logo" className="lg:w-[150px] w-[120px] rounded-xl dark:invert" />
+        <img src={logo} alt="Room Rent Logo" className="lg:w-[50px] w-[50px] rounded-xl dark:invert" />
       </div>
 
       {/* Desktop Menu */}
@@ -44,15 +44,6 @@ const Header = () => {
         ))}
       </ul>
 
-      {/* Mobile Icon */}
-      <div className="flex lg:hidden" onClick={toggleMenu}>
-        {isMenuOpen ? (
-          <FaXmark className="text-black dark:text-white text-2xl cursor-pointer" />
-        ) : (
-          <FaBars className="text-black dark:text-white text-2xl cursor-pointer" />
-        )}
-      </div>
-
       {/* Mobile Menu */}
       <div className={`${isMenuOpen ? 'flex' : 'hidden'} w-full h-fit bg-slate-800 p-4 absolute top-20 left-0`} onClick={closeMenu}>
         <ul className="flex flex-col justify-center items-center gap-2 w-full">
@@ -69,17 +60,16 @@ const Header = () => {
             </ScrollLink>
           ))}
 
-          {/* NEW: Login inside mobile menu */}
+          {/* login route*/}
           <RouterLink
             to="/login"
-            className="text-white uppercase font-semibold cursor-pointer p-3 rounded-lg hover:bg-[#35516d] w-full text-center"
-          >
+            className="text-white uppercase font-semibold cursor-pointer p-3 rounded-lg hover:bg-[#35516d] w-full text-center">
             Login
           </RouterLink>
         </ul>
       </div>
 
-      {/* LOGIN ICON */}
+      {/* LOGIN BUTTON */}
       <div className="flex items-center lg:gap-8 gap-2">
         <RouterLink
           to="/login"

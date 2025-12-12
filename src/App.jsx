@@ -36,7 +36,7 @@ const App = () => {
         />
 
         {/* RUTA LOGIN */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />}  />
 
         {/* RUTA REGISTRO */}
         <Route path="/register" element={<Register />} />
