@@ -10,7 +10,6 @@ import Contact from './sections/Contact';
 import Footer from './components/Footer';
 
 import Login from "./components/Login";
-import Register from "./components/Register";
 
 const App = () => {
   return (
@@ -37,9 +36,6 @@ const App = () => {
 
         {/* RUTA LOGIN */}
         <Route path="/login" element={<Login />}  />
-
-        {/* RUTA REGISTRO */}
-        <Route path="/register" element={<Register />} />
 
       </Routes>
     </>
