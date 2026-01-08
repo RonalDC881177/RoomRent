@@ -89,7 +89,7 @@ const Footer = () => {
           <FaArrowUp className="size-6 text-white" />
         </Link>
       </div>
-      {/* dark mode button */}
+      {/* dark mode button.. */}
       <div>
   <button
     onClick={toggleDarkMode}
