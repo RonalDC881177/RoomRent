@@ -17,7 +17,7 @@ const Home = () => {
   const { darkMode } = useDarkMode();
   return (
     <>
-      <div className={`${darkMode ? "dark bg-black" : "light bg-white"}`}>
+      <div className={`${darkMode ? "dark bg-[#0b2236]" : "light bg-white"}`}>
         <section
           id="home"
           className="w-[95%] h-[600px] m-auto bg-cover bg-center rounded-xl flex justify-center flex-col items-start lg:px-28 px-10 gap-7 z-20"
@@ -41,7 +41,7 @@ const Home = () => {
 
       {/* Form Section */}
 
-      <div className={`${darkMode ? 'dark bg-black' :'light bg-transparent'} z-10`}>
+      <div className={`${darkMode ? 'dark bg-[#0b2236]' :'light bg-transparent'} z-10`}>
         <div data-aos="zoom-in" id='form' className={`${darkMode ? 'dark bg-[#65727c]' : 'light bg-white'} lg:w-[70%] w-full m-auto grid lg:grid-cols-4 grid-cols-1 justify-center items-center gap-6 p-8 rounded-xl -mt-14`}>
           <div className='w-full'>
             <h1 className='text-black font-semibold dark:text-white'>LOCALIDAD</h1>

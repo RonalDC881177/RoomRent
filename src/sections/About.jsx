@@ -18,7 +18,7 @@ const About = () => {
   const { darkMode } = useDarkMode();
 
   return (
-    <section id='about' className={`${darkMode ? "dark bg-black" : "light bg-transparent"} w-full m-auto lg:px-40 px-10 py-20 grid lg:grid-cols-2 grid-cols-1 justify-center items-center gap-10`}>
+    <section id='about' className={`${darkMode ? "dark bg-[#0b2236]" : "light bg-transparent"} w-full m-auto lg:px-40 px-10 py-20 grid lg:grid-cols-2 grid-cols-1 justify-center items-center gap-10`}>
       <div>
         <img data-aos="zoom-in" src={aboutimg} alt="About image" className='rounded-xl lg:w-[400px] lg:h-[600px]' />
       </div>

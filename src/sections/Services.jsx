@@ -17,7 +17,7 @@ const Services = () => {
   const { darkMode } = useDarkMode();
   return (
     <div
-      className={`${darkMode ? "dark bg-black" : "light bg-transparent"} pb-20`}
+      className={`${darkMode ? "dark bg-[#0b2236]" : "light bg-transparent"} pb-20`}
     >
       <section
         id="services"

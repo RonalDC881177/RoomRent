@@ -19,7 +19,7 @@ const PopularAreas = () => {
   const { darkMode } = useDarkMode();
 
   return (
-    <div className={`${darkMode ? "dark bg-black" : "light bg-transparent"}`}>
+    <div className={`${darkMode ? "dark bg-[#0b2236]" : "light bg-transparent"}`}>
       <section
         className={`${
           darkMode ? "dark bg-[#65727c]" : "light bg-[#cadffb]"

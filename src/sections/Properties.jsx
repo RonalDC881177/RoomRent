@@ -28,7 +28,7 @@ const Properties = () => {
 
   const { darkMode } = useDarkMode();
   return (
-    <div className={`${darkMode ? "dark bg-black" : "light bg-transparent"}`}>
+    <div className={`${darkMode ? "dark bg-[#0b2236]" : "light bg-transparent"}`}>
       <section
         id="properties"
         className="lg:w-[90%] m-auto lg:px-20 px-6 py-20 w-full flex flex-col justify-center items-start gap-10"

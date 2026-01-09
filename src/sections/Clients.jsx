@@ -18,7 +18,7 @@ const Clients = () => {
   const { darkMode } = useDarkMode();
 
   return (
-    <div className={darkMode ? "dark bg-black" : "light bg-transparent"}>
+    <div className={darkMode ? "dark bg-[#0b2236]" : "light bg-transparent"}>
       <section
         id="testimonials"
         className="lg:w-[95%] w-full h-fit m-auto bg-cover bg-center rounded-xl flex justify-center flex-col items-start lg:px-20 px-6 py-20 gap-20"
