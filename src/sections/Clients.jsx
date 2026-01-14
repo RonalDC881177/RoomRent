@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Client } from "../components/Export";
+import { clients } from "../data/clients";
 import useDarkMode from "../components/useDarkMode";
 import { FaStar } from "react-icons/fa";
 import AOS from "aos";
@@ -35,7 +35,7 @@ const Clients = () => {
           id="clients-box"
           className="grid lg:grid-cols-3 grid-cols-1 justify-center items-center gap-8 w-full"
         >
-          {Client.map((item, index) => (
+          {clients.map((item, index) => (
             <div
               data-aos="zoom-in"
               data-aos-delay="200"

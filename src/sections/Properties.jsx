@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import useDarkMode from "../components/useDarkMode";
-import { property } from "../components/Export";
+import { properties } from "../data/properties";
+import { Link } from "react-router-dom";
 import {
   FaBath,
   FaShareAlt,
@@ -51,12 +52,11 @@ const Properties = () => {
           id="grid-box"
           className="w-full grid lg:grid-cols-3 grid-cols-1 justify-center items-center gap-8"
         >
-          {property.map((item, index) => (
-            <div
-              data-aos="zoom-in"
-              data-aos-delay="200"
-              key={index}
-              className="bg-white dark:bg-gray-800 rounded-xl w-full"
+          {properties.map((item) => (
+            <Link
+              key={item.id}
+              to={`/properties/${item.id}`}
+              className="block"
             >
               <div
                 id="image-box"
@@ -126,14 +126,14 @@ const Properties = () => {
                       <h1 className="dark:text-white">{item.owner}</h1>
                     </div>
                     <div className=" flex justify-center items-center gap-4">
-                      <div className=" p-2 border-2 border-gray-200 hover:bg-black cursor-pointer transform hover: scale-110 transition-transform duration-300"><FaShareAlt className="size-4 text-[#517399]"/></div>
-                      <div className=" p-2 border-2 border-gray-200 hover:bg-black cursor-pointer transform hover: scale-110 transition-transform duration-300"><FaHeart className="size-4 text-[#517399]"/></div>
-                      <div className=" p-2 border-2 border-gray-200 hover:bg-black cursor-pointer transform hover: scale-110 transition-transform duration-300"><FaPlus className="size-4 text-[#517399]"/></div>
+                      <div className=" p-2 border-2 border-gray-200 hover:bg-black cursor-pointer transform hover: scale-110 transition-transform duration-300"><FaShareAlt className="size-4 text-[#517399]" /></div>
+                      <div className=" p-2 border-2 border-gray-200 hover:bg-black cursor-pointer transform hover: scale-110 transition-transform duration-300"><FaHeart className="size-4 text-[#517399]" /></div>
+                      <div className=" p-2 border-2 border-gray-200 hover:bg-black cursor-pointer transform hover: scale-110 transition-transform duration-300"><FaPlus className="size-4 text-[#517399]" /></div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

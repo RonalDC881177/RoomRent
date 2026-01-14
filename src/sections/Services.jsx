@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Service } from "../components/Export";
+import { services } from "../data/services";
 import useDarkMode from "../components/useDarkMode";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -40,7 +40,7 @@ const Services = () => {
           id="service-box"
           className=" grid lg:grid-cols-3 grid-cols-1 justify-center items-center gap-8"
         >
-          {Service.map((service, index) => (
+          {services.map((service, index) => (
             <div
               data-aos="zoom-in"
               data-aos-delay="200"
