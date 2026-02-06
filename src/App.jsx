@@ -4,7 +4,6 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./sections/Home";
 import About from "./sections/About";
 import PopularAreas from "./sections/PopularAreas";
-import Properties from "./sections/Properties";
 import Services from "./sections/Services";
 import Clients from "./sections/Clients";
 import Contact from "./sections/Contact";
@@ -17,40 +16,29 @@ const App = () => {
   return (
     <Routes>
 
+      <Route element={<MainLayout />}>
+
       {/* LANDING */}
       <Route
-        path="/"
+        index
         element={
-          <MainLayout>
+          <>
             <Home />
             <About />
             <PopularAreas />
             <Clients />
             <Services />
             <Contact />
-          </MainLayout>
+          </>
         }
       />
 
       {/* PROPERTIES LIST */}
-      <Route
-        path="/properties"
-        element={
-          <MainLayout>
-            <PropertiesPage />
-          </MainLayout>
-        }
-      />
+      <Route path="properties" element={ <PropertiesPage />} />
 
       {/* PROPERTY DETAIL */}
-      <Route
-        path="/properties/:id"
-        element={
-          <MainLayout>
-            <PropertyDetail />
-          </MainLayout>
-        }
-      />
+      <Route path="properties/:id" element={ <PropertyDetail /> }/>
+      </Route>
 
       {/* LOGIN */}
       <Route path="/login" element={<Login />} />

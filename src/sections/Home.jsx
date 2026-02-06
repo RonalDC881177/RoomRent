@@ -3,6 +3,7 @@ import useDarkMode from "../components/useDarkMode";
 import cityimg from "../assets/images/city.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useLocation } from "react-router-dom";
 
 const Home = () => {
   useEffect(() => {
@@ -12,9 +13,21 @@ const Home = () => {
       easing: "ease-in-sine",
       delay: 100,
     });
-  }, [])
+  }, []);
 
   const { darkMode } = useDarkMode();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      const section = document.getElementById(location.state.scrollTo);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
+
+
   return (
     <>
       <div className={`${darkMode ? "dark bg-[#0b2236]" : "light bg-white"}`}>
