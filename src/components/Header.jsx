@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
-import { Link as ScrollLink } from 'react-scroll'
-import { Link as RouterLink } from 'react-router-dom'
-import { FaXmark, FaBars } from 'react-icons/fa6'
-import logo from '../assets/images/roomrent.png'
-import useDarkMode from './useDarkMode';
-import { FaPhoneAlt, FaUserCircle } from 'react-icons/fa'
+import React, { useState } from "react";
+import { Link as ScrollLink } from "react-scroll";
+import { Link as RouterLink, useLocation } from "react-router-dom";
+import { FaXmark, FaBars } from "react-icons/fa6";
+import logo from "../assets/images/roomrent.png";
+import useDarkMode from "./useDarkMode";
 
 const Header = () => {
   const { darkMode } = useDarkMode();
@@ -13,68 +12,139 @@ const Header = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
   const navItems = [
-    { link: 'Inicio', path: 'Inicio' },
-    { link: 'Acerca de', path: 'about' },
-    { link: 'Propiedades', path: 'properties' },
-    { link: 'Servicios', path: 'services' },
-    { link: 'Testimonios', path: 'testimonials' },
-    { link: 'Contacto', path: 'contact' },
+    { link: "Inicio", path: "home", type: "scroll" },
+    { link: "Nosotros", path: "about", type: "scroll" },
+    { link: "Propiedades", path: "/properties", type: "route" },
+    { link: "Servicios", path: "services", type: "scroll" },
+    { link: "Testimonios", path: "testimonials", type: "scroll" },
+    { link: "Contacto", path: "contact", type: "scroll" },
   ];
 
   return (
-    <nav className={`${darkMode ? 'dark bg-[#65727c]' : 'light bg-[#cadffb]'} flex justify-between items-center gap-4 lg:px-20 px-4 py-3 sticky top-0 z-30`}>
-      <div id='logo'>
-        <img src={logo} alt="Room Rent Logo" className="lg:w-[50px] w-[50px] rounded-xl dark:invert" />
+    <nav
+      className={`${
+        darkMode ? "dark bg-[#65727c]" : "light bg-[#cadffb]"
+      } flex justify-between items-center gap-4 lg:px-20 px-4 py-3 sticky top-0 z-30`}
+    >
+      {/* LOGO */}
+      <div id="logo">
+        <img
+          src={logo}
+          alt="Room Rent Logo"
+          className="lg:w-[50px] w-[50px] rounded-xl dark:invert"
+        />
       </div>
 
-      {/* Desktop Menu */}
+      {/* DESKTOP MENU */}
       <ul className="lg:flex justify-center items-center gap-8 hidden">
-        {navItems.map(({ link, path }) => (
-          <ScrollLink
-            key={path}
-            className="text-black text-[15px] uppercase cursor-pointer px-3 py-2 dark:text-white rounded-lg hover:bg-[#517399] hover:text-white"
-            to={path}
-            spy={true}
-            offset={-100}
-            smooth={true}
-          >
-            {link}
-          </ScrollLink>
-        ))}
-      </ul>
+        {navItems.map(({ link, path, type }) => {
+          if (!isHome && type === "scroll") {
+            return (
+              <RouterLink
+                key={link}
+                to="/"
+                state={{ scrollTo: path }}
+                className="text-black text-[15px] uppercase px-3 py-2 dark:text-white rounded-lg hover:bg-[#517399] hover:text-white"
+              >
+                {link}
+              </RouterLink>
+            );
+          }
 
-      {/* Mobile Menu */}
-      <div className={`${isMenuOpen ? 'flex' : 'hidden'} w-full h-fit bg-slate-800 p-4 absolute top-20 left-0`} onClick={closeMenu}>
-        <ul className="flex flex-col justify-center items-center gap-2 w-full">
-          {navItems.map(({ link, path }) => (
+          if (type === "route") {
+            return (
+              <RouterLink
+                key={link}
+                to={path}
+                className="text-black text-[15px] uppercase px-3 py-2 dark:text-white rounded-lg hover:bg-[#517399] hover:text-white"
+              >
+                {link}
+              </RouterLink>
+            );
+          }
+
+          return (
             <ScrollLink
-              key={path}
-              className="text-white uppercase font-semibold cursor-pointer p-3 rounded-lg hover:bg-[#517399] hover:text-black w-full text-center"
+              key={link}
               to={path}
-              spy={true}
+              smooth
               offset={-100}
-              smooth={true}
+              className="text-black text-[15px] uppercase px-3 py-2 dark:text-white rounded-lg hover:bg-[#517399] hover:text-white cursor-pointer"
             >
               {link}
             </ScrollLink>
-          ))}
+          );
+        })}
+      </ul>
 
-          {/* login route*/}
-          <RouterLink
-            to="/login"
-            className="text-white uppercase font-semibold cursor-pointer p-3 rounded-lg hover:bg-[#35516d] w-full text-center">
-            Login
-          </RouterLink>
-        </ul>
-      </div>
+      {/* MOBILE MENU BUTTON */}
+      <button
+        onClick={toggleMenu}
+        className="lg:hidden text-2xl text-black dark:text-white"
+      >
+        {isMenuOpen ? <FaXmark /> : <FaBars />}
+      </button>
 
-      {/* LOGIN BUTTON */}
-      <div className="flex items-center lg:gap-8 gap-2">
-        <RouterLink
-          to="/login"
-          className="px-8 py-2 bg-[#517399] text-white rounded-lg hover:bg-[#35516d] transition-colors">Iniciar Sesion</RouterLink>
-      </div>
+      {/* MOBILE MENU */}
+      {isMenuOpen && (
+        <div className="w-full bg-slate-800 p-4 absolute top-20 left-0">
+          <ul className="flex flex-col gap-2">
+            {navItems.map(({ link, path, type }) => {
+              if (!isHome && type === "scroll") {
+                return (
+                  <RouterLink
+                    key={link}
+                    to="/"
+                    state={{ scrollTo: path }}
+                    onClick={closeMenu}
+                    className="text-white uppercase p-3 rounded-lg hover:bg-[#517399]"
+                  >
+                    {link}
+                  </RouterLink>
+                );
+              }
+
+              if (type === "route") {
+                return (
+                  <RouterLink
+                    key={link}
+                    to={path}
+                    onClick={closeMenu}
+                    className="text-white uppercase p-3 rounded-lg hover:bg-[#517399]"
+                  >
+                    {link}
+                  </RouterLink>
+                );
+              }
+
+              return (
+                <ScrollLink
+                  key={link}
+                  to={path}
+                  smooth
+                  offset={-100}
+                  onClick={closeMenu}
+                  className="text-white uppercase p-3 rounded-lg hover:bg-[#517399] cursor-pointer"
+                >
+                  {link}
+                </ScrollLink>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
+      {/* LOGIN */}
+      <RouterLink
+        to="/login"
+        className="px-8 py-2 bg-[#517399] text-white rounded-lg hover:bg-[#35516d]"
+      >
+        Iniciar Sesión
+      </RouterLink>
     </nav>
   );
 };
