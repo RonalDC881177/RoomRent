@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Service } from "../components/Export";
+import { services } from "../data/services";
 import useDarkMode from "../components/useDarkMode";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -17,7 +17,7 @@ const Services = () => {
   const { darkMode } = useDarkMode();
   return (
     <div
-      className={`${darkMode ? "dark bg-black" : "light bg-transparent"} pb-20`}
+      className={`${darkMode ? "dark bg-[#0b2236]" : "light bg-transparent"} pb-20`}
     >
       <section
         id="services"
@@ -40,7 +40,7 @@ const Services = () => {
           id="service-box"
           className=" grid lg:grid-cols-3 grid-cols-1 justify-center items-center gap-8"
         >
-          {Service.map((service, index) => (
+          {services.map((service, index) => (
             <div
               data-aos="zoom-in"
               data-aos-delay="200"

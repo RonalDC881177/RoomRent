@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Client } from "../components/Export";
+import { clients } from "../data/clients";
 import useDarkMode from "../components/useDarkMode";
 import { FaStar } from "react-icons/fa";
 import AOS from "aos";
@@ -18,7 +18,7 @@ const Clients = () => {
   const { darkMode } = useDarkMode();
 
   return (
-    <div className={darkMode ? "dark bg-black" : "light bg-transparent"}>
+    <div className={darkMode ? "dark bg-[#0b2236]" : "light bg-transparent"}>
       <section
         id="testimonials"
         className="lg:w-[95%] w-full h-fit m-auto bg-cover bg-center rounded-xl flex justify-center flex-col items-start lg:px-20 px-6 py-20 gap-20"
@@ -35,7 +35,7 @@ const Clients = () => {
           id="clients-box"
           className="grid lg:grid-cols-3 grid-cols-1 justify-center items-center gap-8 w-full"
         >
-          {Client.map((item, index) => (
+          {clients.map((item, index) => (
             <div
               data-aos="zoom-in"
               data-aos-delay="200"
