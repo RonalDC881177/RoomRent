@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Función para conectar a MongoDB con reconexión automática
 const connectWithRetry = () => {
-  console.log("🔄 Intentando conectar a MongoDB...");
+  console.log("Intentando conectar a MongoDB...");
   
   mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -19,10 +19,10 @@ const connectWithRetry = () => {
     serverSelectionTimeoutMS: 10000, // espera hasta 10 segundos
     socketTimeoutMS: 45000,
   })
-  .then(() => console.log("✅ Conectado a MongoDB Atlas"))
+  .then(() => console.log("Conectado a MongoDB Atlas"))
   .catch(err => {
-    console.error("❌ Error de conexión:", err.message);
-    console.log("⏱ Reintentando en 5 segundos...");
+    console.error("Error de conexión:", err.message);
+    console.log("Reintentando en 5 segundos...");
     setTimeout(connectWithRetry, 5000); // reintenta cada 5 segundos
   });
 };
