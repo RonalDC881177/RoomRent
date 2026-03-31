@@ -52,4 +52,4 @@ userSchema.pre('save', async function(next) {
 // Exportar el modelo como default
 const User = mongoose.model('User', userSchema);
 export default User;
->>>>>>> bfa9408 (Choore: Se avanza en el diseño del  backend)
+
