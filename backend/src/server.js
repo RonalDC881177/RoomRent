@@ -1,37 +1,91 @@
-// src/server.js
-import express from "express";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+/**
+ * SEERVIDOR PRINCIPAL
+ * 
+ * punto de estrada a la publicacion backend
+ * configura Express,cors,conecta MongoDB, define rutas y cinecta con el frontend
+ */
 
-dotenv.config();
+require('dotenv').config();
 
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const morgan =require('morgan');
+const config =require('./config');
+
+
+/**
+ * validaciones iniciales 
+ * verificar que las variables de entorno requeridas esten definidas 
+*/
+
+if(!process.env.MONGODB_URI){
+    console.error('Error: MONGODB_URI no esta definida en .env');
+    process.exit(1);
+}
+
+if(!process.env.JWT_SECRET){
+    console.error('Error: JWT_SECRET no esta definida en .env');
+    process.exit(1);
+}
+
+// importar todas las rutas
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productsRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
+const subcategoryRoutes = require('./routes/subcategoryRoutes');
+const statisticsRoutes = require('./routes/statisticsRoutes');
+// iniciar express
 const app = express();
-const PORT = process.env.PORT || 3000;
+
+// Cors permite las solicitudes
+app.use(cors({
+    origin:'http://localhost:3001',
+    credentials:true,
+
+}));
+
+// Morgan registra todas las solicitudes HTPP en consola para depuracion
+app.use(morgan('dev'));
+
+// Express JSOn parswa bodies en formato JSON
 app.use(express.json());
 
-// Función para conectar a MongoDB con reconexión automática
-const connectWithRetry = () => {
-  console.log("Intentando conectar a MongoDB...");
-  
-  mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 10000, // espera hasta 10 segundos
-    socketTimeoutMS: 45000,
-  })
-  .then(() => console.log("Conectado a MongoDB Atlas"))
+
+//  Express URL  encoded soporta datos form-encoded
+app.use(express.urlencoded({extended:true}))
+
+// conexion a mongodb 
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('MongoDB conectado correctamente'))
   .catch(err => {
-    console.error("Error de conexión:", err.message);
-    console.log("Reintentando en 5 segundos...");
-    setTimeout(connectWithRetry, 5000); // reintenta cada 5 segundos
+    console.error('Error de conexion a mongoDB', err.message);
   });
-};
 
-// Llamar la función al inicio
-connectWithRetry();
+//  Registra Rutas
 
-// Ruta de prueba
-app.get("/", (req, res) => res.send("¡Servidor funcionando!"));
+// Rutas de autenticacion y usuarios
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 
-// Iniciar servidor
-app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
+// Rutas de categorias & subcategorias
+app.use('/api/categories', categoryRoutes);
+app.use('/api/subcategories', subcategoryRoutes);
+
+// Rutas de productos
+app.use('/api/products', productRoutes);
+
+// Rutas de estadisticas
+app.use('/api/statistics', statisticsRoutes);
+// manejo de erroes Globales
+app.use((req,res)=>{
+    res.status(404).json({
+    success:false,
+    message:'ruta no encontrada'
+})})
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT,()=>{
+    console.log(`servidor corriendo en http://localhost:${PORT}`)
+})

@@ -1,77 +1,55 @@
-// modelo de usuario
+// src/models/user.js
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const { use } = require('react');
-
-// estructura del usuario
-const UserSchema = new mongoose.Schema({
-    // definimos los campos del usuario
-    name: {
-        type: String,
-        required: true
-    },
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true // Elimina espacios en blanco al inicio y al final
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true, // convierte en minúsculas
-        trim: true, // Elimina espacios en blanco al inicio y al final
-        match: [/\S+@\S+\.\S+/, 'El correo electrónico no es válido'] // Validación de formato de correo electrónico    
-
-    },
-    password: {
-        type: String,
-        required: true,
-        minlength: 6,
-        select: false // No incluir el campo password en las consultas por defecto
-    },
-    DOB: {
-        type: Date,
-        required: true
-    },
-    datecreation: {
-        type: Date,
-        default: Date.now
-    },
-    rol: {
-        type: String,
-        enum: ['Admin', 'coordinador', 'auxiliar'],
-        default: 'auxiliar'
-    },
-    status: {
-        type: Boolean,
-        default: true // El usuario está activo por defecto
-    },
-},
-    {
-        timestamps: true, // Agrega campos createdAt y updatedAt automáticamente
-        versionKey: false // Elimina el campo __v que Mongoose agrega por defecto
-    }
-);
-
-UserSchema.pre('save', async function (next) {
-    try {
-        // Solo hashea la contraseña si ha sido modificada o es nueva
-        const salt = await bcrypt.genSalt(10);
-
-        // encripta la contraseña
-        this.password = await bcrypt.hash(this.password, salt);
-
-        // continúa con el siguiente middleware o guarda el documento
-        next();
-
-    } catch (error) {
-        // si ocurre un error, pásalo al siguiente middleware de manejo de errores
-        next(error);
-    }
+const userSchema = new mongoose.Schema({
+  username: { 
+    type: String,
+    required: true,
+    unique: true,
+    trim: true
+  },
+  email: { 
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    trim: true,
+    match: [/\S+@\S+\.\S+/, 'El correo no es valido']
+  },
+  password: {
+    type: String,
+    required: true,
+    minLength: 6,
+    select: false
+  },
+  role: {
+    type: String,
+    enum: ['admin', 'arrendador', 'arrendatario'],
+    default: 'arrendatario'
+  },
+  active: {
+    type: Boolean,
+    default: true
+  }
+}, {
+  timestamps: true,
+  versionKey: false
 });
 
-// crear y exportar el modelo de usuario
-module.exports = mongoose.model('User', UserSchema);
+// Middleware: encripta la contraseña antes de guardar
+userSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next();
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Exportar el modelo como default
+const User = mongoose.model('User', userSchema);
+export default User;
+>>>>>>> bfa9408 (Choore: Se avanza en el diseño del  backend)
