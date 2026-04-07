@@ -34,7 +34,7 @@ module.exports = {
   createProperty,
 };
 
-//obtener propiedades.
+//obtener listado de propiedades.
 const getProperties = async (req, res) => {
   try {
     const properties = await Property.find()
@@ -44,6 +44,26 @@ const getProperties = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: 'Error al obtener propiedades',
+    });
+  }
+};
+
+//optener una sola propiedad
+const getPropertyById = async (req, res) => {
+  try {
+    const property = await Property.findById(req.params.id)
+      .populate('propietario', 'name email');
+
+    if (!property) {
+      return res.status(404).json({
+        message: 'Propiedad no encontrada',
+      });
+    }
+
+    res.status(200).json(property);
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error al obtener la propiedad',
     });
   }
 };
