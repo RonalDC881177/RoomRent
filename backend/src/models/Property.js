@@ -13,6 +13,10 @@ const propertySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    enum: ['apartment', 'house', 'room'],
+  },
   description: {
     type: String,
   },
