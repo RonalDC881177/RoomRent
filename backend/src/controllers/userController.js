@@ -1,7 +1,7 @@
 // src/controllers/userController.js
-const User = require("../models/user.js");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import User from "../models/user.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 // Crear usuario
 export const createUser = async (req, res) => {

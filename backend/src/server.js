@@ -5,13 +5,13 @@
  * configura Express,cors,conecta MongoDB, define rutas y cinecta con el frontend
  */
 
-require('dotenv').config();
+import('dotenv').config();
 
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const morgan =require('morgan');
-const config =require('./config');
+const express = import('express');
+const mongoose = import('mongoose');
+const cors = import('cors');
+const morgan =import('morgan');
+const config =import('./config');
 
 
 /**
@@ -30,12 +30,12 @@ if(!process.env.JWT_SECRET){
 }
 
 // importar todas las rutas
-const authRoutes = require('./routes/authRoutes');
-const userRoutes = require('./routes/userRoutes');
-const productRoutes = require('./routes/productsRoutes');
-const categoryRoutes = require('./routes/categoryRoutes');
-const subcategoryRoutes = require('./routes/subcategoryRoutes');
-const statisticsRoutes = require('./routes/statisticsRoutes');
+const authRoutes = import('./routes/authRoutes');
+const userRoutes = import('./routes/userRoutes');
+const productRoutes = import('./routes/productsRoutes');
+const categoryRoutes = import('./routes/categoryRoutes');
+const subcategoryRoutes = import('./routes/subcategoryRoutes');
+const statisticsRoutes = import('./routes/statisticsRoutes');
 // iniciar express
 const app = express();
 

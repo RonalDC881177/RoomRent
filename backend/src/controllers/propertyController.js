@@ -1,7 +1,7 @@
-const Property = require('../models/Property');
+import Property from '../models/Property.js';
 
 // crear propiedad
-const createProperty = async (req, res) => {
+export const createProperty = async (req, res) => {
   try {
     const { title, price, location, description } = req.body;
 
@@ -16,7 +16,7 @@ const createProperty = async (req, res) => {
       price,
       location,
       description,
-      owner: req.user.id, // 🔥 clave aquí
+      owner: req.user.id,
     });
 
     res.status(201).json({
@@ -30,45 +30,39 @@ const createProperty = async (req, res) => {
   }
 };
 
-//obtener listado de propiedades.
-const getProperties = async (req, res) => {
+// obtener propiedades
+export const getProperties = async (req, res) => {
   try {
     const { location, minPrice, maxPrice, type } = req.query;
 
     let filter = {};
 
-    // filtrar por ubicación
-    if (location) {
-      filter.location = location;
-    }
+    if (location) filter.location = location;
 
-    // filtrar por precio
     if (minPrice || maxPrice) {
       filter.price = {};
       if (minPrice) filter.price.$gte = Number(minPrice);
       if (maxPrice) filter.price.$lte = Number(maxPrice);
     }
 
-    // tipo de propiedad
-    if (type) {
-      filter.type = type;
-    }
+    if (type) filter.type = type;
 
     const properties = await Property.find(filter).populate('owner', 'name');
 
     res.json(properties);
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       message: 'Error al obtener las propiedades',
     });
   }
 };
 
-//optener una sola propiedad
-const getPropertyById = async (req, res) => {
+// obtener por id
+export const getPropertyById = async (req, res) => {
   try {
     const property = await Property.findById(req.params.id)
-      .populate('propietario', 'name email');
+      .populate('owner', 'name email');
 
     if (!property) {
       return res.status(404).json({
@@ -84,30 +78,27 @@ const getPropertyById = async (req, res) => {
   }
 };
 
-//actalizar una propiedad.
-const updateProperty = async (req, res) => {
+// actualizar
+export const updateProperty = async (req, res) => {
   try {
     const property = await Property.findById(req.params.id);
 
-    // 1. verificar si existe
     if (!property) {
       return res.status(404).json({
         message: 'Propiedad no encontrada',
       });
     }
 
-    // 2. verificar dueño
     if (property.owner.toString() !== req.user.id) {
       return res.status(401).json({
         message: 'No autorizado',
       });
     }
 
-    // 3. actualizar
     const updatedProperty = await Property.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true } // devuelve actualizado
+      { new: true }
     );
 
     res.status(200).json(updatedProperty);
@@ -118,28 +109,23 @@ const updateProperty = async (req, res) => {
   }
 };
 
-
-//Eliminar una propiedad.
-const deleteProperty = async (req, res) => {
+// eliminar
+export const deleteProperty = async (req, res) => {
   try {
-    // 1. buscar propiedad
     const property = await Property.findById(req.params.id);
 
-    // 2. verificar existencia
     if (!property) {
       return res.status(404).json({
         message: 'Propiedad no encontrada',
       });
     }
 
-    // 3. verificar dueño
     if (property.owner.toString() !== req.user.id) {
       return res.status(401).json({
         message: 'No autorizado',
       });
     }
 
-    // 4. eliminar
     await property.deleteOne();
 
     res.status(200).json({
@@ -150,12 +136,4 @@ const deleteProperty = async (req, res) => {
       message: 'Error al eliminar',
     });
   }
-};
-
-module.exports = {
-  createProperty,
-  getProperties,
-  getPropertyById,
-  updateProperty,
-  deleteProperty
 };

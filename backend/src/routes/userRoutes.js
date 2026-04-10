@@ -1,15 +1,12 @@
-import express from 'express';
-import { createUser } from '../controllers/userController.js';
+import express from "express";
+import { createUser, loginUser } from "../controllers/userController.js";
+import { protect } from "../middlewares/authMiddleware.js";
 
-const routes = express.Router();
+const router = express.Router();
 
 // POST /api/users
-routes.post('/', createUser);
-routes.post('/login', loginUser);
-
-export default routes;
-
-const protect = require('../middlewares/authMiddleware');
+router.post("/register", createUser);
+router.post("/login", loginUser);
 
 router.get('/profile', protect, (req, res) => {
   res.json({
@@ -17,3 +14,5 @@ router.get('/profile', protect, (req, res) => {
     user: req.user,
   });
 });
+
+export default router;

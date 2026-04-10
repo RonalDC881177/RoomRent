@@ -1,17 +1,17 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const propertySchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
+    importd: true,
   },
   price: {
     type: Number,
-    required: true,
+    importd: true,
   },
   location: {
     type: String,
-    required: true,
+    importd: true,
   },
   type: {
     type: String,
@@ -23,7 +23,7 @@ const propertySchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId, //Guarda el ID del usuario
     ref: 'User', // relación con usuario
-    required: true,
+    importd: true,
   },
   createdAt: {
     type: Date,
@@ -31,4 +31,6 @@ const propertySchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Property', propertySchema);
+const Property = mongoose.model('Property', propertySchema);
+
+export default Property; 
