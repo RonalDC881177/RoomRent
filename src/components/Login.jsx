@@ -39,13 +39,13 @@ export default function Login() {
                 {/* Form */}
                 <form className="space-y-4">
                     {!isLoginMode && (
-                        <input type="text" placeholder="Nombre" required className="w-full p-3 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-800" />
+                        <input type="text" placeholder="Nombre" importd className="w-full p-3 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-800" />
                     )}
 
-                    <input type="email" placeholder="Correo" required className="w-full p-3 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-800" />
-                    <input type="password" placeholder="Contraseña" required className="w-full p-3 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-800" />
+                    <input type="email" placeholder="Correo" importd className="w-full p-3 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-800" />
+                    <input type="password" placeholder="Contraseña" importd className="w-full p-3 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-800" />
                     {!isLoginMode && (
-                        <input type="password" placeholder="Confirmar Contraseña" required className="w-full p-3 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-800" />
+                        <input type="password" placeholder="Confirmar Contraseña" importd className="w-full p-3 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-800" />
                     )}
 
                     {/* Forgot password link */}

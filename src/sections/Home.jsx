@@ -4,6 +4,8 @@ import cityimg from "../assets/images/city.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Home = () => {
   useEffect(() => {
@@ -26,7 +28,17 @@ const Home = () => {
       }
     }
   }, [location]);
+  const navigate = useNavigate();
 
+  const [locationFilter, setLocationFilter] = useState("");
+  const [type, setType] = useState("");
+  const [price, setPrice] = useState("");
+
+  const handleSearch = () => {
+    navigate(
+      `/properties?location=${locationFilter}&type=${type}&price=${price}`,
+    );
+  };
 
   return (
     <>
@@ -46,20 +58,34 @@ const Home = () => {
             data-aos="zoom-in"
             className="text-white text-xl lg:pr-[500px] pr-0"
           >
-            Cada rincón de Bogotá guarda un nuevo comienzo, una historia esperando ser vivida. Encuentra el tuyo hoy y da el siguiente paso hacia el hogar que te hará sentir en el lugar correcto.
+            Cada rincón de Bogotá guarda un nuevo comienzo, una historia
+            esperando ser vivida. Encuentra el tuyo hoy y da el siguiente paso
+            hacia el hogar que te hará sentir en el lugar correcto.
           </p>
         </section>
       </div>
 
-
       {/* Form Section */}
 
-      <div className={`${darkMode ? 'dark bg-[#0b2236]' :'light bg-transparent'} z-10`}>
-        <div data-aos="zoom-in" id='form' className={`${darkMode ? 'dark bg-[#65727c]' : 'light bg-white'} lg:w-[70%] w-full m-auto grid lg:grid-cols-4 grid-cols-1 justify-center items-center gap-6 p-8 rounded-xl -mt-14`}>
-          <div className='w-full'>
-            <h1 className='text-black font-semibold dark:text-white'>LOCALIDAD</h1>
-            <select name="selectOption" id="selectOption" className='bg-white p-2 border-b w-full mt-2 border-[#c9c7c1] text-gray-500 text-md rounded-xl'>
-              <option value="Localidad" disabled selected>Selecciona Localidad</option>
+      <div
+        className={`${darkMode ? "dark bg-[#0b2236]" : "light bg-transparent"} z-10`}
+      >
+        <div
+          data-aos="zoom-in"
+          id="form"
+          className={`${darkMode ? "dark bg-[#65727c]" : "light bg-white"} lg:w-[70%] w-full m-auto grid lg:grid-cols-4 grid-cols-1 justify-center items-center gap-6 p-8 rounded-xl -mt-14`}
+        >
+          <div className="w-full">
+            <h1 className="text-black font-semibold dark:text-white">
+              LOCALIDAD
+            </h1>
+            <select
+              onChange={(e) => setLocationFilter(e.target.value)}
+              className="bg-white p-2 border-b w-full mt-2 border-[#c9c7c1] text-gray-500 text-md rounded-xl"
+            >
+              <option value="Localidad" disabled selected>
+                Selecciona Localidad
+              </option>
               <option value="Option1">Antonio Nariño</option>
               <option value="Option2">Barrios Unidos</option>
               <option value="Option3">Bosa</option>
@@ -81,35 +107,48 @@ const Home = () => {
               <option value="Option19">La Candelaria</option>
             </select>
           </div>
-          <div className='w-full'>
-            <h1 className='text-black font-semibold dark:text-white'>TIPO</h1>
-            <select name="selectOption" id="selectOption" className='bg-white p-2 border-b w-full mt-2 border-[#c9c7c1] text-gray-500 text-md rounded-xl'>
-              <option value="" disabled selected>Selecciona Tipo</option>
+          <div className="w-full">
+            <h1 className="text-black font-semibold dark:text-white">TIPO</h1>
+            <select
+              onChange={(e) => setType(e.target.value)}
+              className="bg-white p-2 border-b w-full mt-2 border-[#c9c7c1] text-gray-500 text-md rounded-xl"
+            >
+              <option value="" disabled selected>
+                Selecciona Tipo
+              </option>
               <option value="Option1">Casa</option>
               <option value="Option2">Apartamento</option>
               <option value="Option3">Habitación</option>
               <option value="Option4">Roomie</option>
             </select>
           </div>
-          <div className='w-full'>
-            <h1 className='text-black font-semibold dark:text-white'>PRECIO</h1>
-            <select name="selectOption" id="selectOption" className='bg-white p-2 border-b w-full mt-2 border-[#c9c7c1] text-gray-500 text-md rounded-xl'>
-              <option value="Precio" disabled selected>Selecciona Precio</option>
-              <option value="Option1">Menos de 500.000</option>
-              <option value="Option2">De 500.000 a 1.000.000</option>
-              <option value="Option3">De 1.000.000 a 1.500.000</option>
-              <option value="Option4">Más de 1.500.000</option>
+          <div className="w-full">
+            <h1 className="text-black font-semibold dark:text-white">PRECIO</h1>
+            <select
+              onChange={(e) => setPrice(e.target.value)}
+              className="bg-white p-2 border-b w-full mt-2 border-[#c9c7c1] text-gray-500 text-md rounded-xl"
+            >
+              <option value="Precio" disabled selected>
+                Selecciona Precio
+              </option>
+              <option value="0-500000">Menos de 500.000</option>
+              <option value="500000-1000000">De 500.000 a 1.000.000</option>
+              <option value="1000000-1500000">De 1.000.000 a 1.500.000</option>
+              <option value="1500000+">Más de 1.500.000</option>
             </select>
           </div>
-          <div className='w-full'>
-            <button className='bg-[#71bFD1] dark:bg-[#71bFD1] hover:bg-[#0B2236] dark:hover:bg-white dark:hover:text-black text-lg p-4 w-full text-white font-semibold rounded-xl cursor-pointer transform hover:scale-110 transition-transform duration-300'>Buscar</button>
-            
+          <div className="w-full">
+            <button
+              onClick={handleSearch}
+              className="bg-[#71bFD1] dark:bg-[#71bFD1] hover:bg-[#0B2236] dark:hover:bg-white dark:hover:text-black text-lg p-4 w-full text-white font-semibold rounded-xl cursor-pointer transform hover:scale-110 transition-transform duration-300"
+            >
+              Buscar
+            </button>
           </div>
-
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default Home;
