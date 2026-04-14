@@ -21,7 +21,7 @@ const Properties = () => {
         minPrice = min;
         maxPrice = max;
       }
-       const data = await getProperties({
+      const data = await getProperties({
       location: filters.location,
       type: filters.type,
       minPrice,
