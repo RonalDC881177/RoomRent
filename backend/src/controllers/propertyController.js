@@ -16,7 +16,7 @@ export const createProperty = async (req, res) => {
       price,
       location,
       description,
-      owner: req.user.id,
+      owner: req.user._id,
     });
 
     res.status(201).json({

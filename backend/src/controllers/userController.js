@@ -6,9 +6,9 @@ import jwt from "jsonwebtoken";
 // Crear usuario
 export const createUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, username } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !username) {
       return res
         .status(400)
         .json({ message: "Todos los campos son obligatorios" });
@@ -20,26 +20,49 @@ export const createUser = async (req, res) => {
       return res.status(400).json({ message: "El usuario ya existe" });
     }
 
-    const user = await User.create({ name, email, password });
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    res.status(201).json({ message: "Usuario creado correctamente", user });
+    const user = await User.create({
+      name,
+      email,
+      password,
+      username,
+    });
+
+    res.status(201).json({
+      message: "Usuario creado correctamente",
+      user: {
+        id: user._id,
+        username: user.username,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        active: user.active,
+      },
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error del servidor" });
+    console.error(error);
+    res.status(500).json({ message: error.message });
   }
 };
 
 // Función para login
 export const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
 
-    if (!email || !password) {
+    const { identifier, password } = req.body;
+    
+    
+
+    if (!identifier || !password) {
       return res
         .status(400)
-        .json({ message: "Email y password son obligatorios" });
+        .json({ message: "Email/username y password son obligatorios" });
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({
+      $or: [{ email: identifier }, { username: identifier }],
+    }).select("+password");
 
     if (!user) {
       return res.status(400).json({ message: "Usuario no encontrado" });
@@ -66,6 +89,7 @@ export const loginUser = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ message: "Error al iniciar sesión" });
+    console.error("LOGIN ERROR:", error);
+    res.status(500).json({ message: error.message });
   }
 };

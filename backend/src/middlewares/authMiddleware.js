@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
+import User from "../models/user.js";
 
-export const protect = (req, res, next) => {
+export const protect = async (req, res, next) => {
   let token;
 
   if (
@@ -10,9 +11,19 @@ export const protect = (req, res, next) => {
     try {
       token = req.headers.authorization.split(" ")[1];
 
+      // verificar token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      req.user = decoded;
+      // buscar usuario real en DB
+      const user = await User.findById(decoded.id).select("-password");
+
+      if (!user) {
+        return res.status(401).json({
+          message: "Usuario no existe",
+        });
+      }
+
+      req.user = user;
 
       next();
     } catch (error) {
@@ -20,9 +31,7 @@ export const protect = (req, res, next) => {
         message: "Token inválido",
       });
     }
-  }
-
-  if (!token) {
+  } else {
     return res.status(401).json({
       message: "No autorizado, sin token",
     });
