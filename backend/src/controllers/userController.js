@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 // Crear usuario
 export const createUser = async (req, res) => {
   try {
+    console.log("BODY RECIBIDO:", req.body);
     const { name, email, password, username } = req.body;
 
     if (!name || !email || !password || !username) {
