@@ -1,4 +1,3 @@
-// src/controllers/userController.js
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
