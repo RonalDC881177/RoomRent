@@ -21,6 +21,7 @@ const Properties = () => {
   const [loading, setLoading] = useState(true);
   const locationHook = useLocation();
   const [properties, setProperties] = useState([]);
+  const { darkMode } = useDarkMode();
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -73,7 +74,7 @@ const Properties = () => {
     </div>
   );
 }
-  const { darkMode } = useDarkMode();
+  
   return (
     <div
       className={`${darkMode ? "dark bg-[#0b2236]" : "light bg-transparent"}`}
@@ -185,7 +186,7 @@ const Properties = () => {
                     >
                       <div className=" flex justify-center items-center gap-2">
                         <FaUserCircle className="size-5 text-[#71bFD1]" />
-                        <h1 className="dark:text-white">{item.owner}</h1>
+                        <h1 className="dark:text-white">{item.owner?.name}</h1>
                       </div>
                       <div className=" flex justify-center items-center gap-4">
                         <div className=" p-2 border-2 border-gray-200 hover:bg-black cursor-pointer transform hover: scale-110 transition-transform duration-300">

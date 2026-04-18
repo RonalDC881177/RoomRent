@@ -1,6 +1,17 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
 
+export const authorize = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({
+        message: "No tienes permisos para esta acción",
+      });
+    }
+    next();
+  };
+};
+
 export const protect = async (req, res, next) => {
   let token;
 
