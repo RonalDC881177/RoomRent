@@ -1,31 +1,42 @@
-import User from "../models/user.js";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import Message from "../models/Message.js";
+import Property from "../models/Property.js";
 
-//obtener user desde el token
-export const getUserToken = async (req, res) =>{
-    try{
-        const token = req.headers.autorization?.split("") [1];
-        if(!token){
-            return res.status(401).json({
-                message: 'Token no valido'
+export const createMessage = async (req, res) => {
+    try {
+        const { propertyId, message } = req.body;
+
+        //1. validar datos
+        if (!propertyId || !message) {
+            return res.status(400).json({
+                message: "Todos los campos son obligatorios",
             });
         }
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decoded.id).select("-password");
-        if(!user){
-            return res.status(404).json({
-                message: 'Usuario no encontrado'
-            });
-        } 
-        res.status(200).json({
-            user: {
-                id: user._id,
-                username : user.username,
-                name: user.name,
-                email: user.email
-            }
-        })
 
+        //2. buscar propiedad
+        const property = await Property.findById(propertyId);
+
+        if (!property) {
+            return res.status(404).json({
+                message: "Propiedad no encontrada",
+            });
+        }
+
+        //3. crear mensaje
+        const newMessage = await Message.create({
+            sender: req.userId, 
+            receiver: property.owner, //dueño de la propiedad
+            property: propertyId,
+            message,
+        });
+
+        res.status(201).json({
+            message: "Mensaje enviado correctamente",
+            data: newMessage,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            message: "Error al enviar el mensaje",
+        });
     }
-}
+};

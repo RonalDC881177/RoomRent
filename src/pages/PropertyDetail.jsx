@@ -6,6 +6,17 @@ const PropertyDetail = () => {
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  // auto ocultar mensaje
+  useEffect(() => {
+    if (success) {
+      setTimeout(() => setSuccess(false), 3000);
+    }
+  }, [success]);
+
+  // abrir modal
   const handleContactClick = () => {
     const token = localStorage.getItem("token");
 
@@ -16,11 +27,37 @@ const PropertyDetail = () => {
 
     setIsModalOpen(true);
   };
-  const [message, setMessage] = useState("");
-  const handleSendMessage = () => {
-    console.log("Mensaje:", message);
+
+  const handleSendMessage = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await fetch("http://localhost:5000/api/message", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          propertyId: id,
+          message: message,
+        }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+
+      if (response.ok) {
+        setIsModalOpen(false); // cerrar modal
+        setMessage(""); // limpiar textarea
+        setSuccess(true); // mostrar notificación
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
+  // obtener propiedad
   useEffect(() => {
     const fetchProperty = async () => {
       try {
@@ -40,6 +77,7 @@ const PropertyDetail = () => {
     fetchProperty();
   }, [id]);
 
+  // loading
   if (loading) {
     return <p className="text-white p-10">Cargando propiedad...</p>;
   }
@@ -48,6 +86,7 @@ const PropertyDetail = () => {
     return <p className="text-white p-10">Propiedad no encontrada</p>;
   }
 
+  // UI
   return (
     <div className="p-10 text-white">
       {/* Imagen principal */}
@@ -65,6 +104,12 @@ const PropertyDetail = () => {
           />
         ))}
       </div>
+      {/* NOTIFICACIÓN */}
+      {success && (
+        <div className="fixed top-5 right-5 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg z-50">
+          Mensaje enviado correctamente
+        </div>
+      )}
 
       {/* Info */}
       <div className="mt-6 flex flex-col gap-2">
@@ -96,39 +141,39 @@ const PropertyDetail = () => {
       >
         Contactar propietario
       </button>
-      {
-    isModalOpen && (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-        <div className="bg-white p-6 rounded-xl w-[400px]">
-          <h2 className="text-xl text-black font-bold mb-4">Contactar propietario</h2>
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-6 rounded-xl w-[400px]">
+            <h2 className="text-xl text-black font-bold mb-4">
+              Contactar propietario
+            </h2>
 
-          <textarea
-            placeholder="Escribe tu mensaje..."
-            className="w-full text-black border border-gray-300 p-2 rounded mb-4"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
+            <textarea
+              placeholder="Escribe tu mensaje..."
+              className="w-full text-black border border-gray-300 p-2 rounded mb-4"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
 
-          <div className="flex justify-end gap-2">
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="px-4 py-2 bg-gray-300 rounded"
-            >
-              Cancelar
-            </button>
+            <div className="flex justify-end gap-2">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 bg-gray-300 rounded"
+              >
+                Cancelar
+              </button>
 
-            <button
-              onClick={handleSendMessage} className="px-4 py-2 bg-[#71bFD1] text-black rounded"
-            >
-              Enviar
-            </button>
+              <button
+                onClick={handleSendMessage}
+                className="px-4 py-2 bg-[#71bFD1] text-black rounded"
+              >
+                Enviar
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    )}
+      )}
     </div>
   );
 };
-  
-
 export default PropertyDetail;
