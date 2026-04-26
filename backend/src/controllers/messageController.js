@@ -23,7 +23,7 @@ export const createMessage = async (req, res) => {
 
         //3. crear mensaje
         const newMessage = await Message.create({
-            sender: req.userId, 
+            sender: req.userId,
             receiver: property.owner, //dueño de la propiedad
             property: propertyId,
             message,
@@ -38,5 +38,54 @@ export const createMessage = async (req, res) => {
         res.status(500).json({
             message: "Error al enviar el mensaje",
         });
+    }
+};
+// Obtener inbox del usuario
+export const getInbox = async (req, res) => {
+    try {
+        // 🔥 SIEMPRE PRIMERO
+        const userId = req.userId;
+
+        const messages = await Message.find({
+            $or: [{ sender: userId }, { receiver: userId }],
+        })
+            .sort({ createdAt: -1 })
+            .populate("sender", "username email")
+            .populate("receiver", "username email")
+            .populate("property", "title");
+
+        const conversationsMap = new Map();
+
+        messages.forEach((msg) => {
+            
+            if (!msg.sender || !msg.receiver || !msg.property) return;
+            console.log("👉 COMPARANDO:");
+console.log("sender:", msg.sender._id.toString());
+console.log("userId:", userId.toString());
+
+            // ✅ ahora sí puedes usar userId
+            const otherUser =
+                msg.sender._id.toString() === userId.toString()
+                    ? msg.receiver
+                    : msg.sender;
+
+            const key = `${otherUser._id}-${msg.property._id}`;
+
+            if (!conversationsMap.has(key)) {
+                conversationsMap.set(key, {
+                    user: otherUser,
+                    property: msg.property,
+                    lastMessage: msg.message,
+                    date: msg.createdAt,
+                });
+            }
+        });
+
+        const conversations = Array.from(conversationsMap.values());
+
+        res.json(conversations);
+    } catch (error) {
+        console.error("ERROR INBOX:", error);
+        res.status(500).json({ message: error.message });
     }
 };
