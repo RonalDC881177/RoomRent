@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 // Crear usuario
 export const createUser = async (req, res) => {
   try {
-    //console.log("BODY RECIBIDO:", req.body);
     const { name, email, password, username } = req.body;
 
     if (!name || !email || !password || !username) {
@@ -19,9 +18,6 @@ export const createUser = async (req, res) => {
     if (userExists) {
       return res.status(400).json({ message: "El usuario ya existe" });
     }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     const user = await User.create({
       name,
       email,

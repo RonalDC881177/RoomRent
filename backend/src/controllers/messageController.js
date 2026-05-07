@@ -43,8 +43,9 @@ export const createMessage = async (req, res) => {
 // Obtener inbox del usuario
 export const getInbox = async (req, res) => {
     try {
-        // 🔥 SIEMPRE PRIMERO
-        const userId = req.userId;
+        const userId = req.user._id;
+
+        //console.log("USER ID:", userId);
 
         const messages = await Message.find({
             $or: [{ sender: userId }, { receiver: userId }],
@@ -54,16 +55,13 @@ export const getInbox = async (req, res) => {
             .populate("receiver", "username email")
             .populate("property", "title");
 
+        //console.log("MENSAJES:", messages);
+
         const conversationsMap = new Map();
 
         messages.forEach((msg) => {
-            
             if (!msg.sender || !msg.receiver || !msg.property) return;
-            console.log("👉 COMPARANDO:");
-console.log("sender:", msg.sender._id.toString());
-console.log("userId:", userId.toString());
 
-            // ✅ ahora sí puedes usar userId
             const otherUser =
                 msg.sender._id.toString() === userId.toString()
                     ? msg.receiver
@@ -83,7 +81,7 @@ console.log("userId:", userId.toString());
 
         const conversations = Array.from(conversationsMap.values());
 
-        res.json(conversations);
+        return res.json(conversations);
     } catch (error) {
         console.error("ERROR INBOX:", error);
         res.status(500).json({ message: error.message });

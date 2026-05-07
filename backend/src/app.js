@@ -5,6 +5,7 @@ import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 import cors from "cors";
 import messageRoutes from "./routes/messageRoutes.js";
+import { errorMiddleware } from './middlewares/errorMiddleware.js';
 
 dotenv.config();
 
@@ -21,10 +22,6 @@ app.use(cors({
 // Middleware JSON
 app.use(express.json());
 
-// Rutas
-app.use('/api/users', userRoutes);
-app.use('/api/properties', propertyRoutes);
-
 // Home
 app.get('/', (req, res) => {
   res.send('Servidor funcionando');
@@ -33,11 +30,17 @@ app.get('/', (req, res) => {
 // Iniciar servidor
 const PORT = process.env.PORT || 5000;
 
+
+//rutas.
+app.use("/api/message", messageRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/properties', propertyRoutes);
+
+// Midleware de manejo de errores.
+app.use(errorMiddleware)
+
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
 });
-
-//rutas para mensajes
-app.use("/api/message", messageRoutes);
 
 export default app;
