@@ -1,50 +1,42 @@
 import User from "../models/user.js";
+import AppError from "../utils/appError.js";
+import asyncHandler from "../utils/asyncHandler.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 // Crear usuario
-export const createUser = async (req, res) => {
-  try {
-    //console.log("BODY RECIBIDO:", req.body);
-    const { name, email, password, username } = req.body;
+export const createUser = asyncHandler(async (req, res, next) => {
+  const { name, email, password, username } = req.body;
 
-    if (!name || !email || !password || !username) {
-      return res
-        .status(400)
-        .json({ message: "Todos los campos son obligatorios" });
-    }
-
-    const userExists = await User.findOne({ email });
-
-    if (userExists) {
-      return res.status(400).json({ message: "El usuario ya existe" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await User.create({
-      name,
-      email,
-      password,
-      username,
-    });
-
-    res.status(201).json({
-      message: "Usuario creado correctamente",
-      user: {
-        id: user._id,
-        username: user.username,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        active: user.active,
-      },
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: error.message });
+  if (!name || !email || !password || !username) {
+    return next(new AppError("Todos los campos son obligatorios", 400));
   }
-};
+
+  const userExists = await User.findOne({ email });
+
+  if (userExists) {
+    return next(new AppError("El usuario ya existe", 400));
+  }
+
+  const user = await User.create({
+    name,
+    email,
+    password,
+    username,
+  });
+
+  res.status(201).json({
+    message: "Usuario creado correctamente",
+    user: {
+      id: user._id,
+      username: user.username,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      active: user.active,
+    },
+  });
+});
 
 // Función para login
 export const loginUser = async (req, res) => {

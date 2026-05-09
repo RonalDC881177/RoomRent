@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout";
 
 import Home from "./sections/Home";
 import About from "./sections/About";
@@ -11,16 +10,15 @@ import Contact from "./sections/Contact";
 import Login from "./components/Login";
 import PropertiesPage from "./pages/PropertiesPage";
 import PropertyDetail from "./pages/PropertyDetail";
+import Inbox from "./pages/Inbox";
 
 const App = () => {
   return (
     <Routes>
 
-      <Route element={<MainLayout />}>
-
       {/* LANDING */}
       <Route
-        index
+        path="/"
         element={
           <>
             <Home />
@@ -33,12 +31,12 @@ const App = () => {
         }
       />
 
-      {/* PROPERTIES LIST */}
-      <Route path="properties" element={ <PropertiesPage />} />
+      {/* PROPERTIES */}
+      <Route path="/properties" element={<PropertiesPage />} />
+      <Route path="/properties/:id" element={<PropertyDetail />} />
 
-      {/* PROPERTY DETAIL */}
-      <Route path="properties/:id" element={ <PropertyDetail /> }/>
-      </Route>
+      {/* INBOX 👇 */}
+      <Route path="/inbox" element={<Inbox />} />
 
       {/* LOGIN */}
       <Route path="/login" element={<Login />} />
