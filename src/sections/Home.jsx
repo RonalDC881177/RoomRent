@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useDarkMode from "../components/useDarkMode";
 import cityimg from "../assets/images/city.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Home = () => {
   useEffect(() => {
@@ -18,16 +16,16 @@ const Home = () => {
   }, []);
 
   const { darkMode } = useDarkMode();
-  const location = useLocation();
+  const currentLocation = useLocation();
 
   useEffect(() => {
-    if (location.state?.scrollTo) {
-      const section = document.getElementById(location.state.scrollTo);
+    if (currentLocation.state?.scrollTo) {
+      const section = document.getElementById(currentLocation.state.scrollTo);
       if (section) {
         section.scrollIntoView({ behavior: "smooth" });
       }
     }
-  }, [location]);
+  }, [currentLocation]);
   const navigate = useNavigate();
 
   const [locationFilter, setLocationFilter] = useState("");
@@ -35,10 +33,10 @@ const Home = () => {
   const [price, setPrice] = useState("");
 
   const handleSearch = () => {
-    navigate(
-      `/properties?location=${locationFilter}&type=${type}&price=${price}`,
-    );
-  };
+  navigate(
+    `/properties?location=${locationFilter}&type=${type}&price=${price}`
+  );
+};
 
   return (
     <>
@@ -68,67 +66,72 @@ const Home = () => {
       {/* Form Section */}
 
       <div
-        className={`${darkMode ? "dark bg-[#0b2236]" : "light bg-transparent"} z-10`}
-      >
+  className={`${
+    darkMode ? "dark bg-[#0b2236]" : "light bg-transparent"
+  } z-10`}
+>
         <div
           data-aos="zoom-in"
           id="form"
-          className={`${darkMode ? "dark bg-[#65727c]" : "light bg-white"} lg:w-[70%] w-full m-auto grid lg:grid-cols-4 grid-cols-1 justify-center items-center gap-6 p-8 rounded-xl -mt-14`}
+          className={`${darkMode ? "dark bg-gray-600" : "light bg-white"} lg:w-[70%] w-full m-auto grid lg:grid-cols-4 grid-cols-1 justify-center items-center gap-6 p-8 rounded-xl -mt-14`}
         >
           <div className="w-full">
             <h1 className="text-black font-semibold dark:text-white">
               LOCALIDAD
             </h1>
             <select
+              value={locationFilter}
               onChange={(e) => setLocationFilter(e.target.value)}
               className="bg-white p-2 border-b w-full mt-2 border-[#c9c7c1] text-gray-500 text-md rounded-xl"
             >
-              <option value="Localidad" disabled selected>
+              <option value="" disabled>
                 Selecciona Localidad
               </option>
-              <option value="Option1">Antonio Nariño</option>
-              <option value="Option2">Barrios Unidos</option>
-              <option value="Option3">Bosa</option>
-              <option value="Option4">Chapinero</option>
-              <option value="Option5">Engativá</option>
-              <option value="Option6">Fontibón</option>
-              <option value="Option7">Kennedy</option>
-              <option value="Option8">Usaquén</option>
-              <option value="Option9">Santa Fe</option>
-              <option value="Option10">San Cristobal</option>
-              <option value="Option11">Usme</option>
-              <option value="Option12">Tunjuelito</option>
-              <option value="Option13">Suba</option>
-              <option value="Option14">Teusaquillo</option>
-              <option value="Option15">Los Mártires</option>
-              <option value="Option16">Puente Aranda</option>
-              <option value="Option17">Rafael Uribe Uribe</option>
-              <option value="Option18">Ciudad Bolívar</option>
-              <option value="Option19">La Candelaria</option>
+              <option value="Antonio Nariño">Antonio Nariño</option>
+              <option value="Barrios Unidos">Barrios Unidos</option>
+              <option value="Bosa">Bosa</option>
+              <option value="Chapinero">Chapinero</option>
+              <option value="Engativá">Engativá</option>
+              <option value="Fontibón">Fontibón</option>
+              <option value="Kennedy">Kennedy</option>
+              <option value="Usaquén">Usaquén</option>
+              <option value="Santa Fe">Santa Fe</option>
+              <option value="San Cristobal">San Cristobal</option>
+              <option value="Usme">Usme</option>
+              <option value="Tunjuelito">Tunjuelito</option>
+              <option value="Suba">Suba</option>
+              <option value="Teusaquillo">Teusaquillo</option>
+              <option value="Los Mártires">Los Mártires</option>
+              <option value="Puente Aranda">Puente Aranda</option>
+              <option value="Rafael Uribe Uribe">Rafael Uribe Uribe</option>
+              <option value="Ciudad Bolívar">Ciudad Bolívar</option>
+              <option value="La Candelaria">La Candelaria</option>
             </select>
           </div>
           <div className="w-full">
             <h1 className="text-black font-semibold dark:text-white">TIPO</h1>
             <select
+              value={type}
               onChange={(e) => setType(e.target.value)}
               className="bg-white p-2 border-b w-full mt-2 border-[#c9c7c1] text-gray-500 text-md rounded-xl"
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Selecciona Tipo
               </option>
-              <option value="Option1">Casa</option>
-              <option value="Option2">Apartamento</option>
-              <option value="Option3">Habitación</option>
-              <option value="Option4">Roomie</option>
+              <option value="Casa">Casa</option>
+              <option value="Apartamento">Apartamento</option>
+              <option value="Habitación">Habitación</option>
+              <option value="Roomie">Roomie</option>
             </select>
           </div>
           <div className="w-full">
             <h1 className="text-black font-semibold dark:text-white">PRECIO</h1>
             <select
+              value={price}
               onChange={(e) => setPrice(e.target.value)}
               className="bg-white p-2 border-b w-full mt-2 border-[#c9c7c1] text-gray-500 text-md rounded-xl"
             >
-              <option value="Precio" disabled selected>
+              <option value="" disabled>
                 Selecciona Precio
               </option>
               <option value="0-500000">Menos de 500.000</option>
