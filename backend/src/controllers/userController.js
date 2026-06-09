@@ -1,55 +1,38 @@
 import User from "../models/user.js";
 import AppError from "../utils/appError.js";
-import asyncHandler from "../utils/asyncHandler.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import asyncHandler from "../utils/asyncHandler.js";
+import { createUserService } from "../services/userService.js";
 
-// Crear usuario
-export const createUser = asyncHandler(async (req, res, next) => {
-  const { name, email, password, username } = req.body;
+export const createUser = asyncHandler(async (req, res) => {
 
-  if (!name || !email || !password || !username) {
-    return next(new AppError("Todos los campos son obligatorios", 400));
-  }
-
-  const userExists = await User.findOne({ email });
-
-  if (userExists) {
-    return next(new AppError("El usuario ya existe", 400));
-  }
-
-  const user = await User.create({
-    name,
-    email,
-    password,
-    username,
-  });
+  const user = await createUserService(req.body);
 
   res.status(201).json({
+    success: true,
     message: "Usuario creado correctamente",
-    user: {
-      id: user._id,
-      username: user.username,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      active: user.active,
+    data: {
+      user: {
+        id: user._id,
+        username: user.username,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        active: user.active,
+      },
     },
   });
+
 });
-
 // Función para login
-export const loginUser = async (req, res) => {
-  try {
-
+export const loginUser = asyncHandler(async (req, res, next) => {
     const { identifier, password } = req.body;
-    
-    
+
+
 
     if (!identifier || !password) {
-      return res
-        .status(400)
-        .json({ message: "Email/username y password son obligatorios" });
+      throw new AppError("Email/username y password son obligatorios", 400);
     }
 
     const user = await User.findOne({
@@ -57,14 +40,14 @@ export const loginUser = async (req, res) => {
     }).select("+password");
 
     if (!user) {
-      return res.status(400).json({ message: "Usuario no encontrado" });
+      throw new AppError("Usuario no encontrado", 404);
     }
-
+    
     //comparar password
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res.status(400).json({ message: "Contraseña incorrecta" });
+      throw new AppError("Contraseña incorrecta", 400);
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -80,8 +63,5 @@ export const loginUser = async (req, res) => {
         email: user.email,
       },
     });
-  } catch (error) {
-    console.error("LOGIN ERROR:", error);
-    res.status(500).json({ message: error.message });
-  }
-};
+});
+
