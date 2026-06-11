@@ -5,7 +5,7 @@ import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 import cors from "cors";
 import messageRoutes from "./routes/messageRoutes.js";
-import { errorMiddleware } from './middlewares/errorMiddleware.js';
+import errorMiddleware from './middlewares/errorMiddleware.js';
 
 dotenv.config();
 
