@@ -5,8 +5,8 @@ const validate = (schema) => {
         const result = schema.safeParse(req.body);
 
         if (!result.success) {
-            const errors = result.error.errors.map(
-                (error) => error.message
+            const errors = result.error.issues.map(
+                (issue) => issue.message
             );
 
             return next(

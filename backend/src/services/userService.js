@@ -8,10 +8,6 @@ import {
 export const createUserService = async (userData) => {
     const { name, email, password, username } = userData;
 
-    if (!name || !email || !password || !username) {
-        throw new AppError("Todos los campos son obligatorios", 400);
-    }
-
     const existingUser = await findUserByEmail(email);
 
     if (existingUser) {

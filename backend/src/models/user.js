@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minLength: 6,
+    minLength: 8,
     select: false
   },
   role: {
@@ -50,6 +50,6 @@ userSchema.pre('save', async function(next) {
 });
 
 // Exportar el modelo como default
-const User = mongoose.model('User', userSchema);
+const User = mongoose.models.User || mongoose.model('User', userSchema);
 export default User;
 

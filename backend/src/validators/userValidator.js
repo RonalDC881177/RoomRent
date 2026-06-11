@@ -8,6 +8,8 @@ export const createUserSchema = z.object({
 
     username: z
         .string()
+        .trim()
+        .toLowerCase()
         .min(3, "El username debe tener mínimo 3 caracteres")
         .max(30, "El username no puede superar 30 caracteres")
         .regex(
@@ -17,6 +19,8 @@ export const createUserSchema = z.object({
 
     email: z
         .string()
+        .trim()
+        .toLowerCase()
         .email("Debe ingresar un correo válido"),
 
     password: z

@@ -1,36 +1,127 @@
 import mongoose from "mongoose";
 
-const propertySchema = new mongoose.Schema({
-  title: {
-    type: String,
-    importd: true,
-  },
-  price: {
-    type: Number,
-    importd: true,
-  },
-  location: {
-    type: String,
-    importd: true,
-  },
-  type: {
-    type: String,
-    enum: ['apartment', 'house', 'room'],
-  },
-  description: {
-    type: String,
-  },
-  owner: {
-    type: mongoose.Schema.Types.ObjectId, //Guarda el ID del usuario
-    ref: 'User', // relación con usuario
-    importd: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+const propertySchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
 
-const Property = mongoose.model('Property', propertySchema);
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
 
-export default Property; 
+    propertyType: {
+      type: String,
+      required: true,
+      enum: [
+        "habitacion",
+        "apartamento",
+        "casa",
+        "apartaestudio",
+      ],
+    },
+
+    price: {
+      amount: {
+        type: Number,
+        required: true,
+      },
+
+      currency: {
+        type: String,
+        default: "COP",
+      },
+
+      period: {
+        type: String,
+        enum: ["daily", "weekly", "monthly"],
+        default: "monthly",
+      },
+    },
+
+    city: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    locality: {
+      type: String,
+      trim: true,
+    },
+
+    neighborhood: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    address: {
+      type: String,
+      trim: true,
+    },
+
+    bedrooms: {
+      type: Number,
+      default: 1,
+    },
+
+    bathrooms: {
+      type: Number,
+      default: 1,
+    },
+
+    amenities: [
+      {
+        type: String,
+      },
+    ],
+
+    images: [
+      {
+        type: String,
+      },
+    ],
+
+    status: {
+      type: String,
+      enum: [
+        "disponible",
+        "reservado",
+        "ocupado",
+        "inactivo",
+      ],
+      default: "disponible",
+    },
+
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
+    views: {
+      type: Number,
+      default: 0,
+    },
+
+    featured: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+    versionKey: false,
+  }
+);
+
+const Property =
+  mongoose.models.Property ||
+  mongoose.model("Property", propertySchema);
+
+export default Property;
