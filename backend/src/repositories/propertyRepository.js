@@ -34,10 +34,17 @@ export const updateProperty = async (
     );
 };
 
-export const deleteProperty = async (
+export const deactivateProperty = async (
     propertyId
 ) => {
-    return await Property.findByIdAndDelete(
-        propertyId
+    return await Property.findByIdAndUpdate(
+        propertyId,
+        {
+            status: "inactivo",
+        },
+        {
+            new: true,
+            runValidators: true,
+        }
     );
 };

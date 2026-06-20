@@ -41,20 +41,71 @@ export const getAllPropertiesService = async () => {
     return properties;
 };
 
-export const updatePropertyService = async (propertyId, updateData, user) => {
-    const property = await findPropertyById(propertyId);
+export const updatePropertyService = async (
+    propertyId,
+    updateData,
+    user
+) => {
+
+    const property = await findPropertyById(
+        propertyId
+    );
 
     if (!property) {
-        throw new AppError('Propiedad no encontrada', 404);
+        throw new AppError(
+            "Propiedad no encontrada",
+            404
+        );
     }
 
-    // Verificar permisos del usuario
-    if (property.owner.toString() !== user._id.toString()) {
-        throw new AppError('No tienes permisos para actualizar esta propiedad', 403);
+    const isOwner =
+        property.owner._id.toString() ===
+        user._id.toString();
+
+    const isAdmin =
+        user.role === "admin";
+
+    if (!isOwner && !isAdmin) {
+        throw new AppError(
+            "No tienes permisos para actualizar esta propiedad",
+            403
+        );
     }
 
-    const updatedProperty = await updateProperty(propertyId, updateData);
+    const updatedProperty =
+        await updateProperty(
+            propertyId,
+            updateData
+        );
+
     return updatedProperty;
 };
 
-export const deletePropertyService = async (propertyId, user) => { };
+export const deletePropertyService = async (propertyId, user) => { 
+
+    const property = await findPropertyById(
+        propertyId
+    )
+
+    if(!property) {
+        throw new AppError("Propiedad no encontrada", 404);
+    }
+
+    const isOwner =
+        property.owner._id.toString() ===
+        user._id.toString();
+
+    const isAdmin =
+        user.role === "admin";
+
+    if (!isOwner && !isAdmin) {
+        throw new AppError( "No tienes permisos para desactivar esta propiedad",403);
+    }
+
+    const propertyDeactivated =
+    await deactivateProperty(
+        propertyId
+    );
+
+    return propertyDeactivated;
+};
