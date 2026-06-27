@@ -5,8 +5,8 @@ import {
   getPropertyById,
   updateProperty,
   deleteProperty } from "../controllers/propertyController.js";
-import { protect } from "../middlewares/authMiddleware.js";
-import { validate } from "../middlewares/validate.js";
+import { protect, authorize } from "../middlewares/authMiddleware.js";
+import validate from "../middlewares/validate.js";
 import { 
   createPropertySchema, 
   updatePropertySchema } from "../validators/propertyValidator.js";

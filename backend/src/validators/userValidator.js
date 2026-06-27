@@ -27,4 +27,8 @@ export const createUserSchema = z.object({
         .string()
         .min(8, "La contraseña debe tener mínimo 8 caracteres")
         .max(100, "La contraseña es demasiado larga"),
+
+    role: z.enum(
+        ["arrendador", "arrendatario"]
+    ).optional()
 });

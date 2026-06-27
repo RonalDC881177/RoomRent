@@ -6,7 +6,7 @@ import {
 } from "../repositories/userRepository.js";
 
 export const createUserService = async (userData) => {
-    const { name, email, password, username } = userData;
+    const { name, email, password, username, role } = userData;
 
     const existingUser = await findUserByEmail(email);
 
@@ -14,12 +14,7 @@ export const createUserService = async (userData) => {
         throw new AppError("El usuario ya existe", 400);
     }
 
-    const user = await createUserRepository({
-        name,
-        email,
-        password,
-        username,
-    });
-
+    const user = await createUserRepository(userData);
+        
     return user;
 };
