@@ -3,13 +3,20 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
-  username: { 
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 3,
+    maxlength: 100,
+  },
+  username: {
     type: String,
     required: true,
     unique: true,
     trim: true
   },
-  email: { 
+  email: {
     type: String,
     required: true,
     unique: true,
@@ -38,7 +45,7 @@ const userSchema = new mongoose.Schema({
 });
 
 // Middleware: encripta la contraseña antes de guardar
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   try {
     const salt = await bcrypt.genSalt(10);

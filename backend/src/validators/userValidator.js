@@ -3,6 +3,7 @@ import { z } from "zod";
 export const createUserSchema = z.object({
     name: z
         .string()
+        .trim()
         .min(3, "El nombre debe tener mínimo 3 caracteres")
         .max(100, "El nombre no puede superar 100 caracteres"),
 

@@ -71,23 +71,45 @@ export const updatePropertyService = async (
             403
         );
     }
+    const allowedFields = [
+        "title",
+        "description",
+        "price",
+        "address",
+        "bedrooms",
+        "bathrooms",
+        "amenities",
+        "images",
+        "status",
+    ];
 
-    const updatedProperty =
-        await updateProperty(
-            propertyId,
-            updateData
+    const filteredData = filterAllowedFields(
+        updateData,
+        allowedFields
+    );
+
+    const updatedProperty = await updateProperty(
+        propertyId,
+        filteredData
+    );
+
+    if (Object.keys(filteredData).length === 0) {
+        throw new AppError(
+            "No hay campos válidos para actualizar",
+            400
         );
+    }
 
     return updatedProperty;
 };
 
-export const deletePropertyService = async (propertyId, user) => { 
+export const deletePropertyService = async (propertyId, user) => {
 
     const property = await findPropertyById(
         propertyId
     )
 
-    if(!property) {
+    if (!property) {
         throw new AppError("Propiedad no encontrada", 404);
     }
 
@@ -99,13 +121,13 @@ export const deletePropertyService = async (propertyId, user) => {
         user.role === "admin";
 
     if (!isOwner && !isAdmin) {
-        throw new AppError( "No tienes permisos para desactivar esta propiedad",403);
+        throw new AppError("No tienes permisos para desactivar esta propiedad", 403);
     }
 
     const propertyDeactivated =
-    await deactivateProperty(
-        propertyId
-    );
+        await deactivateProperty(
+            propertyId
+        );
 
     return propertyDeactivated;
 };
