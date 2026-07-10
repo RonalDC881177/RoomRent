@@ -1,6 +1,10 @@
 // src/models/user.js
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import {
+  USER_ROLES,
+  DEFAULT_ROLE,
+} from "../constants/userConstants.js";
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -32,8 +36,8 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['admin', 'arrendador', 'arrendatario'],
-    default: 'arrendatario'
+    enum: USER_ROLES,
+    default: DEFAULT_ROLE,
   },
   active: {
     type: Boolean,

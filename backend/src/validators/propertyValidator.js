@@ -1,4 +1,8 @@
 import { z } from "zod";
+import {
+    PROPERTY_TYPES,
+    PRICE_PERIODS,
+} from "../constants/propertyConstants.js";
 
 export const createPropertySchema = z.object({
     title: z
@@ -14,12 +18,7 @@ export const createPropertySchema = z.object({
         .max(2000, "La descripción es demasiado larga"),
 
     propertyType: z.enum(
-        [
-            "habitacion",
-            "apartamento",
-            "casa",
-            "apartaestudio",
-        ],
+        PROPERTY_TYPES,
         {
             errorMap: () => ({
                 message: "Tipo de propiedad inválido",
@@ -34,11 +33,11 @@ export const createPropertySchema = z.object({
 
         currency: z
             .string()
-            .default("COP"),
+            .default(DEFAULT_CURRENCY),
 
         period: z.enum(
-            ["daily", "weekly", "monthly"]
-        ).default("monthly"),
+            PRICE_PERIODS,
+        ).default(DEFAULT_PERIOD),
     }),
 
     city: z

@@ -47,7 +47,7 @@ export const getPropertyById = asyncHandler(
 export const getAllProperties = asyncHandler(
   async (req, res) => {
 
-    const properties = await getAllPropertiesService();
+    const properties = await getAllPropertiesService( req.query );
     res.status(200).json({
       "success": true,
       "results": properties.length,

@@ -2,9 +2,12 @@ import AppError from '../errors/AppError.js';
 import {
     createProperty,
     findPropertyById,
-    findAllProperties,
+    findProperties,
     updateProperty
 } from '../repositories/propertyRepository.js';
+import {
+    ALLOWED_PROPERTY_UPDATE_FIELDS,
+} from "../constants/propertyConstants.js";
 
 
 export const createPropertyService = async (propertyData, user) => {
@@ -35,12 +38,14 @@ export const getPropertyByIdService = async (propertyId) => {
 
 };
 
-export const getAllPropertiesService = async () => {
-    const properties = await findAllProperties();
+export const getAllPropertiesService = async (query) => {
 
-    return properties;
+    const filters =
+        buildPropertyFilters(query);
+
+    return await findProperties(filters);
+
 };
-
 export const updatePropertyService = async (
     propertyId,
     updateData,
@@ -71,21 +76,9 @@ export const updatePropertyService = async (
             403
         );
     }
-    const allowedFields = [
-        "title",
-        "description",
-        "price",
-        "address",
-        "bedrooms",
-        "bathrooms",
-        "amenities",
-        "images",
-        "status",
-    ];
-
     const filteredData = filterAllowedFields(
         updateData,
-        allowedFields
+        ALLOWED_PROPERTY_UPDATE_FIELDS
     );
 
     const updatedProperty = await updateProperty(
