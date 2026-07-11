@@ -3,6 +3,7 @@ import { z } from "zod";
 export const createUserSchema = z.object({
     name: z
         .string()
+        .trim()
         .min(3, "El nombre debe tener mínimo 3 caracteres")
         .max(100, "El nombre no puede superar 100 caracteres"),
 
@@ -27,4 +28,8 @@ export const createUserSchema = z.object({
         .string()
         .min(8, "La contraseña debe tener mínimo 8 caracteres")
         .max(100, "La contraseña es demasiado larga"),
+
+    role: z.enum(
+        ["arrendador", "arrendatario"]
+    ).optional()
 });
