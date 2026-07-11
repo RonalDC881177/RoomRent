@@ -1,4 +1,11 @@
 import mongoose from "mongoose";
+import {
+    PROPERTY_TYPES,
+    PROPERTY_STATUS,
+    PRICE_PERIODS,
+    DEFAULT_CURRENCY,
+    DEFAULT_PERIOD,
+} from "../constants/propertyConstants.js";
 
 const propertySchema = new mongoose.Schema(
   {
@@ -17,12 +24,7 @@ const propertySchema = new mongoose.Schema(
     propertyType: {
       type: String,
       required: true,
-      enum: [
-        "habitacion",
-        "apartamento",
-        "casa",
-        "apartaestudio",
-      ],
+      enum: PROPERTY_TYPES
     },
 
     price: {
@@ -33,13 +35,13 @@ const propertySchema = new mongoose.Schema(
 
       currency: {
         type: String,
-        default: "COP",
+        default: DEFAULT_CURRENCY
       },
 
       period: {
         type: String,
-        enum: ["daily", "weekly", "monthly"],
-        default: "monthly",
+        enum: PRICE_PERIODS,
+        default: DEFAULT_PERIOD
       },
     },
 
@@ -89,13 +91,8 @@ const propertySchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: [
-        "disponible",
-        "reservado",
-        "ocupado",
-        "inactivo",
-      ],
-      default: "disponible",
+      enum: PROPERTY_STATUS,
+      default: DEFAULT_STATUS
     },
 
     owner: {
