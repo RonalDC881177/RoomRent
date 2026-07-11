@@ -10,8 +10,18 @@ const buildPropertyFilters = (query) => {
 ];
 
 for (const field of allowedFilters) {
-    if (query[field]) {
+    if (query[field] !== undefined) {
         filters[field] = query[field];
+    }
+}
+
+if (query.minPrice !== undefined || query.maxPrice !== undefined) {
+    filters["price.amount"] = {};
+    if (query.minPrice !== undefined) {
+        filters.price.$gte = query.minPrice;
+    }
+    if (query.maxPrice !== undefined) {
+        filters.price.$lte = query.maxPrice;
     }
 }
 
