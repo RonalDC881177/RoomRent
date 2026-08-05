@@ -21,14 +21,25 @@ export const findAllProperties = async () => {
 };
 
 export const findProperties = async (
-    filters = {}
+    filters = {},
+    pagination
 ) => {
+
+    const { skip, limit } = pagination;
+
     return Property.find(filters)
+        .skip(skip)
+        .limit(limit)
         .populate(
             "owner",
             "name username email role"
         );
 };
+
+export const countProperties =async (filters = {}) => {
+    
+    return Property .countDocuments(filters);
+}
 
 export const updateProperty = async (
     propertyId,
@@ -58,3 +69,4 @@ export const deactivateProperty = async (
         }
     );
 };
+

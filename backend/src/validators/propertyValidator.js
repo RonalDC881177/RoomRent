@@ -132,6 +132,18 @@ export const getPropertiesQuerySchema = z.object({
         .int()
         .min(0, "Baños inválidos")
         .optional(),
+    page: z
+        .coerce
+        .number()
+        .int()
+        .min(1, "La pagina debe ser mayor a 0")
+        .default(1),
+    limint: z
+        .coerce
+        .number()
+        .int()
+        .min(1, "El limite debe ser mayor a 0")
+        .default(10),
 
 })
 export const getPropertyByIdSchema = z.object({

@@ -3,13 +3,15 @@ import {
     createProperty,
     findPropertyById,
     findProperties,
-    updateProperty
+    updateProperty,
+    countProperties,
 } from '../repositories/propertyRepository.js';
 import {
     ALLOWED_PROPERTY_UPDATE_FIELDS,
 } from "../constants/propertyConstants.js";
 import buildPropertyFilters from "../utils/buildPropertyFilters.js";
 import filterAllowedFields from "../utils/filterAllowedFields.js";
+import buildPagination from "../utils/buildPagination.js";
 
 
 export const createPropertyService = async (propertyData, user) => {
@@ -42,10 +44,10 @@ export const getPropertyByIdService = async (propertyId) => {
 
 export const getAllPropertiesService = async (query) => {
 
-    const filters =
-        buildPropertyFilters(query);
+    const filters = buildPropertyFilters(query);
+    const pagination = buildPagination(query);
 
-    return findProperties(filters);
+    return await findProperties(filters, pagination);
 
 };
 export const updatePropertyService = async (
