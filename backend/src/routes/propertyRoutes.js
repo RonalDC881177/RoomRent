@@ -9,14 +9,21 @@ import { protect, authorize } from "../middlewares/authMiddleware.js";
 import validate from "../middlewares/validate.js";
 import { 
   createPropertySchema, 
-  updatePropertySchema } from "../validators/propertyValidator.js";
+  updatePropertySchema,
+  getPropertiesQuerySchema,
+  getPropertyByIdSchema
+} from "../validators/propertyValidator.js";
 
 const router = express.Router();
 
-router.get("/", getAllProperties);
-router.get("/:id", getPropertyById);
+router.get(
+    "/",
+    validate(getPropertiesQuerySchema, "query"),
+    getAllProperties
+);
+router.get("/:id", validate(getPropertyByIdSchema, "params"), getPropertyById);
 router.post("/", protect, validate(createPropertySchema), createProperty);
-router.put("/:id", protect, validate(updatePropertySchema), updateProperty);
+router.put("/:id", protect, validate(updatePropertySchema, "params"), updateProperty);
 router.delete("/:id", protect, deleteProperty);
 
 export default router;

@@ -23,7 +23,7 @@ export const findAllProperties = async () => {
 export const findProperties = async (
     filters = {}
 ) => {
-    return await Property.find(filters)
+    return Property.find(filters)
         .populate(
             "owner",
             "name username email role"

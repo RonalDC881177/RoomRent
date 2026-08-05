@@ -8,6 +8,8 @@ import {
 import {
     ALLOWED_PROPERTY_UPDATE_FIELDS,
 } from "../constants/propertyConstants.js";
+import buildPropertyFilters from "../utils/buildPropertyFilters.js";
+import filterAllowedFields from "../utils/filterAllowedFields.js";
 
 
 export const createPropertyService = async (propertyData, user) => {
@@ -43,7 +45,7 @@ export const getAllPropertiesService = async (query) => {
     const filters =
         buildPropertyFilters(query);
 
-    return await findProperties(filters);
+    return findProperties(filters);
 
 };
 export const updatePropertyService = async (
