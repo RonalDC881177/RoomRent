@@ -46,8 +46,23 @@ export const getAllPropertiesService = async (query) => {
 
     const filters = buildPropertyFilters(query);
     const pagination = buildPagination(query);
+    const properties = await findProperties(filters, pagination);
+    const total = await countProperties(filters);
+    const totalPages = Math.ceil(total / pagination.limit);
+    const hasNext = pagination.page < totalPages;
+    const hasPrev = pagination.page > 1;
 
-    return await findProperties(filters, pagination);
+    return {
+        properties,
+        pagination: {
+            page: pagination.page,
+            limit: pagination.limit,
+            total,
+            totalPages,
+            hasNext,
+            hasPrev,
+        },
+    };
 
 };
 export const updatePropertyService = async (

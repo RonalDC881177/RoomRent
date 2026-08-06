@@ -35,10 +35,10 @@ export const getPropertyById = asyncHandler(
       req.params.id
     );
     res.status(200).json({
-      "success": true,
-      "message": "Propiedad obtenida correctamente",
-      "data": {
-        "property": property
+      success: true,
+      message: "Propiedad obtenida correctamente",
+      data: {
+        property: property
       }
     });
   }
@@ -47,17 +47,17 @@ export const getPropertyById = asyncHandler(
 export const getAllProperties = asyncHandler(
   async (req, res) => {
 
-    const properties = await getAllPropertiesService( req.query );
+    const {properties,pagination,} = await getAllPropertiesService(req.query);
     res.status(200).json({
-      "success": true,
-      "results": properties.length,
-      "message": "Propiedades obtenidas correctamente",
-      "data": {
+    success: true,
+    results: properties.length,
+    message: "Propiedades obtenidas correctamente",
+    pagination,
+    data: {
         properties,
-      },
+    },
     });
-  }
-);
+});
 
 export const updateProperty = asyncHandler(
   async (req, res) => {
@@ -89,7 +89,7 @@ export const deleteProperty = asyncHandler(
       message: "Propiedad desactivada correctamente",
       data: {
         property,
-      }
-    })
+      },
+    });
   }
 );
