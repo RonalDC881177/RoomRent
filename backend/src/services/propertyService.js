@@ -12,6 +12,7 @@ import {
 import buildPropertyFilters from "../utils/buildPropertyFilters.js";
 import filterAllowedFields from "../utils/filterAllowedFields.js";
 import buildPagination from "../utils/buildPagination.js";
+import buildSort from "../utils/buildSort.js";
 
 
 export const createPropertyService = async (propertyData, user) => {
@@ -46,7 +47,8 @@ export const getAllPropertiesService = async (query) => {
 
     const filters = buildPropertyFilters(query);
     const pagination = buildPagination(query);
-    const properties = await findProperties(filters, pagination);
+    const sort = buildSort(query);
+    const properties = await findProperties(filters, pagination, sort);
     const total = await countProperties(filters);
     const totalPages = Math.ceil(total / pagination.limit);
     const hasNext = pagination.page < totalPages;

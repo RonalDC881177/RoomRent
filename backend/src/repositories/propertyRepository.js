@@ -22,12 +22,18 @@ export const findAllProperties = async () => {
 
 export const findProperties = async (
     filters = {},
-    pagination
+    pagination,
+    sort
 ) => {
-
     const { skip, limit } = pagination;
 
-    return Property.find(filters)
+    let propertyQuery = Property.find(filters);
+
+    if (sort) {
+        propertyQuery = propertyQuery.sort(sort);
+    }
+
+    return propertyQuery
         .skip(skip)
         .limit(limit)
         .populate(
