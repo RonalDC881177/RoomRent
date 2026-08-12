@@ -101,6 +101,11 @@ export const getPropertiesQuerySchema = z.object({
         .trim()
         .optional(),
 
+    locality: z
+    .string()
+    .trim()
+    .optional(),
+
     propertyType: z.enum(
         PROPERTY_TYPES
     )

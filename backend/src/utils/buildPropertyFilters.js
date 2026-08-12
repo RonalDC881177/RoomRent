@@ -3,6 +3,7 @@ const buildPropertyFilters = (query) => {
 
     const allowedFilters = [
         "city",
+        "locality",
         "status",
         "propertyType",
         "bedrooms",

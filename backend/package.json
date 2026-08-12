@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/app.js",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "seed:properties": "node src/seeds/propertySeed.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
