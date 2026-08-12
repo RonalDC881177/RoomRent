@@ -16,6 +16,7 @@ import {
 import { MdSpaceDashboard } from "react-icons/md";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { getProperties } from "../api/properties";
 
 const Properties = () => {
   const [loading, setLoading] = useState(true);
@@ -27,32 +28,42 @@ const Properties = () => {
     const fetchProperties = async () => {
       try {
         setLoading(true);
+
         const params = new URLSearchParams(locationHook.search);
 
-        const location = params.get("location");
-        const type = params.get("type");
-        const price = params.get("price");
+        const locality = params.get("locality");
+        const propertyType = params.get("propertyType");
+        const minPrice = params.get("minPrice");
+        const maxPrice = params.get("maxPrice");
 
-        let minPrice, maxPrice;
+        const filters = {};
 
-        if (price) {
-          const [min, max] = price.split("-");
-          minPrice = min;
-          maxPrice = max;
+        if (locality) {
+          filters.locality = locality;
         }
 
-        const response = await fetch(
-          `http://localhost:5000/api/properties?location=${location || ""}&type=${type || ""}&minPrice=${minPrice || ""}&maxPrice=${maxPrice || ""}`,
-        );
-        
-        const data = await response.json();
+        if (propertyType) {
+          filters.propertyType = propertyType;
+        }
+
+        if (minPrice) {
+          filters.minPrice = minPrice;
+        }
+
+        if (maxPrice) {
+          filters.maxPrice = maxPrice;
+        }
+
+        const data = await getProperties(filters);
+
+        setProperties(data);
 
         console.log("DATA REAL:", data);
-        setProperties(data);
       } catch (error) {
         console.error("Error:", error);
+        setProperties([]);
       } finally {
-      setLoading(false);
+        setLoading(false);
       }
     };
 
@@ -60,21 +71,21 @@ const Properties = () => {
   }, [locationHook.search]);
 
   if (loading) {
-  return (
-    <div className="grid lg:grid-cols-3 gap-8 p-10">
-      {[1,2,3,4,5,6].map((i) => (
-        <div key={i} className="rounded-xl overflow-hidden">
-          <div className="h-[200px] bg-gray-300 dark:bg-gray-700 animate-pulse"></div>
-          <div className="p-4 space-y-2">
-            <div className="h-4 bg-gray-300 dark:bg-gray-700 animate-pulse w-3/4"></div>
-            <div className="h-4 bg-gray-300 dark:bg-gray-700 animate-pulse w-1/2"></div>
+    return (
+      <div className="grid lg:grid-cols-3 gap-8 p-10">
+        {[1, 2, 3, 4, 5, 6].map((i) => (
+          <div key={i} className="rounded-xl overflow-hidden">
+            <div className="h-[200px] bg-gray-300 dark:bg-gray-700 animate-pulse"></div>
+            <div className="p-4 space-y-2">
+              <div className="h-4 bg-gray-300 dark:bg-gray-700 animate-pulse w-3/4"></div>
+              <div className="h-4 bg-gray-300 dark:bg-gray-700 animate-pulse w-1/2"></div>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-  
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div
       className={`${darkMode ? "dark bg-[#0b2236]" : "light bg-transparent"}`}
@@ -133,7 +144,7 @@ const Properties = () => {
                     </div>
                     <div className="flex justify-between items-center gap-3">
                       <button className="px-3 py-1 bg-[#517399] hover:bg-white hover:text-black text-white rounded-full text-[13px]">
-                        {item.type}
+                        {item.propertyType}
                       </button>
                     </div>
                   </div>
@@ -156,27 +167,27 @@ const Properties = () => {
                     {item.title}
                   </h1>
                   <h1 className="text-2xl text- text-[#71bFD1] font-bold dark:text-white">
-                    ${item.price?.toLocaleString()}
+                    ${item.price?.amount?.toLocaleString()}
                   </h1>
                   <p className="text-gray-500 dark:text-gray-300 text-sm">
-                    {item.location}
+                    {item.city}
                   </p>
-                  <p className="dark:text-white">{item.about}</p>
+                  <p className="dark:text-white">{item.description}</p>
                   <div
                     id="icons"
                     className="flex justify-center items-start gap-4"
                   >
                     <div className="flex justify-center items-start gap-2">
                       <FaBath className="size-5 text-[#71bFD1]" />
-                      <h1 className="dark:text-white">{item.bath}</h1>
+                      <h1 className="dark:text-white">{item.bathrooms}</h1>
                     </div>
                     <div className="flex justify-center items-start gap-2">
                       <FaBed className="size-5 text-[#71bFD1]" />
-                      <h1 className="dark:text-white">{item.bed}</h1>
+                      <h1 className="dark:text-white">{item.bedrooms}</h1>
                     </div>
                     <div className="flex justify-center items-start gap-2">
                       <MdSpaceDashboard className="size-5 text-[#71bFD1]" />
-                      <h1 className="dark:text-white">{item.area}</h1>
+                      <h1 className="dark:text-white">{item.locality}</h1>
                     </div>
                   </div>
                   <div className="w-full mt-8">

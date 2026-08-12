@@ -10,8 +10,11 @@ export const getProperties = async (filters = {}) => {
 
     const data = await response.json();
 
-    return data;
+    return data.data.properties;
+
   } catch (error) {
     console.error('Error obteniendo propiedades', error);
+
+    return [];
   }
 };

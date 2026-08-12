@@ -143,7 +143,7 @@ export const getPropertiesQuerySchema = z.object({
         .int()
         .min(1, "La pagina debe ser mayor a 0")
         .default(1),
-    limint: z
+    limit: z
         .coerce
         .number()
         .int()
