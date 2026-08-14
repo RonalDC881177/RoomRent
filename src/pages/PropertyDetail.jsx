@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { getPropertyById } from "../api/properties";
 
 const PropertyDetail = () => {
   const { id } = useParams();
@@ -60,19 +61,20 @@ const PropertyDetail = () => {
   // obtener propiedad
   useEffect(() => {
     const fetchProperty = async () => {
-      try {
-        setLoading(true);
+  try {
+    setLoading(true);
 
-        const res = await fetch(`http://localhost:5000/api/properties/${id}`);
-        const data = await res.json();
+    const data = await getPropertyById(id);
 
-        setProperty(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    console.log("PROPIEDAD:", data);
+
+    setProperty(data);
+  } catch (error) {
+    console.error("Error obteniendo propiedad:", error);
+  } finally {
+    setLoading(false);
+  }
+};
 
     fetchProperty();
   }, [id]);
@@ -115,22 +117,22 @@ const PropertyDetail = () => {
       <div className="mt-6 flex flex-col gap-2">
         <h1 className="text-3xl font-bold">{property.title}</h1>
 
-        <p className="text-gray-400">{property.location}</p>
+        <p className="text-gray-400">{property.city}</p>
 
         <span className="bg-[#71bFD1] text-black px-3 py-1 rounded-full w-fit text-sm">
-          {property.type}
+          {property.propertyType}
         </span>
 
         <h2 className="text-2xl font-semibold text-[#71bFD1]">
-          ${property.price?.toLocaleString()}
+          ${property.price?.amount?.toLocaleString()}
         </h2>
 
         <p className="mt-4 text-gray-300">{property.description}</p>
       </div>
       <div className="flex gap-6 mt-4">
-        <span> {property.bed} habitaciones</span>
-        <span> {property.bath} baños</span>
-        <span> {property.area} m²</span>
+        <span> {property.bedrooms} habitaciones</span>
+        <span> {property.bathrooms} baños</span>
+        <span>{property.neighborhood}</span>
       </div>
       <p className="mt-2 text-gray-400">
         Publicado por: {property.owner?.name}

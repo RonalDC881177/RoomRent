@@ -4,8 +4,8 @@ export const createProperty = async (propertyData) => {
     return await Property.create(propertyData);
 };
 
-export const findPropertyById = async (propertyId) => {
-    return await Property.findById(propertyId)
+export const findPropertyById = async (Id) => {
+    return await Property.findById(Id)
         .populate(
             "owner",
             "name username email role"
