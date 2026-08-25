@@ -23,7 +23,7 @@ router.get(
 );
 router.get("/:id", validate(getPropertyByIdSchema, "params"), getPropertyById);
 router.post("/", protect, validate(createPropertySchema), createProperty);
-router.put("/:id", protect, validate(updatePropertySchema, "params"), updateProperty);
+router.put("/:id", protect, validate(updatePropertySchema, "body"), updateProperty);
 router.delete("/:id", protect, deleteProperty);
 
 export default router;

@@ -9,6 +9,7 @@ import {
   FaCamera,
   FaHeart,
   FaShareAlt,
+  FaEdit,
 } from "react-icons/fa";
 
 const PropertyDetail = () => {
@@ -207,6 +208,34 @@ const PropertyDetail = () => {
     "Propietario";
 
   // ============================================================
+  // USUARIO ACTUAL
+  // ============================================================
+
+  const storedUser = localStorage.getItem("user");
+
+  let currentUser = null;
+
+  try {
+    currentUser = storedUser ? JSON.parse(storedUser) : null;
+  } catch (error) {
+    console.error("Error leyendo usuario:", error);
+  }
+
+  // ============================================================
+  // PERMISOS DE EDICIÓN
+  // ============================================================
+
+  const currentUserId = currentUser?.id || currentUser?._id;
+
+  const ownerId =
+    typeof property.owner === "object"
+      ? property.owner?._id
+      : property.owner;
+
+  const canEdit =
+    currentUser?.role === "admin" ||
+    (currentUserId && ownerId && currentUserId === ownerId);
+  // ============================================================
   // UI
   // ============================================================
 
@@ -298,6 +327,18 @@ const PropertyDetail = () => {
 
               <div className="flex gap-3">
 
+                {/* EDITAR */}
+                {canEdit && (
+                  <Link
+                    to={`/properties/${property._id}/edit`}
+                    className="p-3 rounded-full border border-gray-600 hover:bg-[#0b2236] transition"
+                    title="Editar propiedad"
+                  >
+                    <FaEdit className="text-[#71bfd1]" />
+                  </Link>
+                )}
+
+                {/* COMPARTIR */}
                 <button
                   type="button"
                   className="p-3 rounded-full border border-gray-600 hover:bg-[#0b2236] transition"
@@ -306,6 +347,7 @@ const PropertyDetail = () => {
                   <FaShareAlt className="text-[#71bfd1]" />
                 </button>
 
+                {/* FAVORITO */}
                 <button
                   type="button"
                   className="p-3 rounded-full border border-gray-600 hover:bg-[#0b2236] transition"
