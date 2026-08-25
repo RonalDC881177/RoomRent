@@ -2,7 +2,6 @@ const API_URL = 'http://localhost:5000/api/properties';
 
 export const getProperties = async (filters = {}) => {
   try {
-
     // construir query params
     const query = new URLSearchParams(filters).toString();
 
@@ -14,7 +13,6 @@ export const getProperties = async (filters = {}) => {
       properties: data.data.properties,
       pagination: data.pagination,
     };
-
   } catch (error) {
     console.error('Error obteniendo propiedades', error);
 
@@ -33,9 +31,30 @@ export const getProperties = async (filters = {}) => {
 };
 
 export const getPropertyById = async (id) => {
-    const response = await fetch(`${API_URL}/${id}`);
+  const response = await fetch(`${API_URL}/${id}`);
 
-    const data = await response.json();
+  const data = await response.json();
 
-    return data.data.property;
+  return data.data.property;
+};
+
+export const updateProperty = async (id, data, token) => {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  const responseData = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      responseData.message || "Error actualizando la propiedad"
+    );
+  }
+
+  return responseData.data.property;
 };

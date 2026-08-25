@@ -8,38 +8,65 @@ import Clients from "./sections/Clients";
 import Contact from "./sections/Contact";
 
 import Login from "./components/Login";
+
 import PropertiesPage from "./pages/PropertiesPage";
 import PropertyDetail from "./pages/PropertyDetail";
+import EditProperty from "./pages/EditProperty";
 import Inbox from "./pages/Inbox";
+
+import MainLayout from "./layouts/MainLayout";
 
 const App = () => {
   return (
     <Routes>
 
-      {/* LANDING */}
-      <Route
-        path="/"
-        element={
-          <>
-            <Home />
-            <About />
-            <PopularAreas />
-            <Clients />
-            <Services />
-            <Contact />
-          </>
-        }
-      />
+      {/* RUTAS CON HEADER Y FOOTER */}
+      <Route element={<MainLayout />}>
 
-      {/* PROPERTIES */}
-      <Route path="/properties" element={<PropertiesPage />} />
-      <Route path="/properties/:id" element={<PropertyDetail />} />
+        {/* LANDING */}
+        <Route
+          path="/"
+          element={
+            <>
+              <Home />
+              <About />
+              <PopularAreas />
+              <Clients />
+              <Services />
+              <Contact />
+            </>
+          }
+        />
 
-      {/* INBOX 👇 */}
-      <Route path="/inbox" element={<Inbox />} />
+        {/* PROPERTIES */}
+        <Route
+          path="/properties"
+          element={<PropertiesPage />}
+        />
+
+        <Route
+          path="/properties/:id"
+          element={<PropertyDetail />}
+        />
+
+        <Route
+          path="/properties/:id/edit"
+          element={<EditProperty />}
+        />
+
+        {/* INBOX */}
+        <Route
+          path="/inbox"
+          element={<Inbox />}
+        />
+
+      </Route>
 
       {/* LOGIN */}
-      <Route path="/login" element={<Login />} />
+      <Route
+        path="/login"
+        element={<Login />}
+      />
 
     </Routes>
   );
