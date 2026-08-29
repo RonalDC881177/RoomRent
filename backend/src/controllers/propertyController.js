@@ -4,6 +4,7 @@ import {
   createPropertyService,
   getPropertyByIdService,
   getAllPropertiesService,
+  getMyPropertiesService,
   updatePropertyService,
   deletePropertyService,
 } from "../services/propertyService.js";
@@ -58,6 +59,23 @@ export const getAllProperties = asyncHandler(
     },
     });
 });
+
+export const getMyProperties = asyncHandler(
+  async (req, res) => {
+    const properties = await getMyPropertiesService(
+      req.user
+    );
+
+    res.status(200).json({
+      success: true,
+      results: properties.length,
+      message: "Mis propiedades obtenidas correctamente",
+      data: {
+        properties,
+      },
+    });
+  }
+);
 
 export const updateProperty = asyncHandler(
   async (req, res) => {

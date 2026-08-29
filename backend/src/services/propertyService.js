@@ -2,9 +2,12 @@ import AppError from '../errors/AppError.js';
 import {
     createProperty,
     findPropertyById,
-    findProperties,
+    findProperties,                                     
+    findMyProperties,
+    findPropertiesByOwner,
     updateProperty,
     countProperties,
+    deactivateProperty,
 } from '../repositories/propertyRepository.js';
 import {
     ALLOWED_PROPERTY_UPDATE_FIELDS,
@@ -41,6 +44,12 @@ export const getPropertyByIdService = async (propertyId) => {
 
     return property;
 
+};
+
+export const getMyPropertiesService = async (user) => {
+    const properties = await findPropertiesByOwner(user._id);
+
+    return properties;
 };
 
 export const getAllPropertiesService = async (query) => {
