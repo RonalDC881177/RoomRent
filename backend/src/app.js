@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import messageRoutes from "./routes/messageRoutes.js";
 import errorMiddleware from './middlewares/errorMiddleware.js';
+import roomieRoutes from "./routes/roomieRoutes.js";
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ const PORT = process.env.PORT || 5000;
 app.use("/api/message", messageRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/properties', propertyRoutes);
+app.use("/api/roomies", roomieRoutes);
 
 // Midleware de manejo de errores.
 app.use(errorMiddleware)
