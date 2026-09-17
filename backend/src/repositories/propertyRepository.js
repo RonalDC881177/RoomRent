@@ -31,42 +31,44 @@ export const findAllProperties = async () => {
         );
 };
 
-export const findProperties = async (
-    filters = {},
-    pagination,
-    sort
-) => {
+export const findProperties = async (filters = {}, pagination, sort) => {
     const { skip, limit } = pagination;
 
-    let propertyQuery = Property.find(filters);
+    const propertyQuery = Property.find({
+        ...filters,
+        status: {
+            $ne: "inactivo",
+        },
+    });
 
     if (sort) {
-        propertyQuery = propertyQuery.sort(sort);
+        propertyQuery.sort(sort);
     }
 
     return propertyQuery
         .skip(skip)
         .limit(limit)
-        .populate(
-            "owner",
-            "name username email role"
-        );
+        .populate("owner", "name username email role");
 };
 
 export const findPropertiesByOwner = async (ownerId) => {
     return await Property.find({
         owner: ownerId,
-    })
-        .populate(
-            "owner",
-            "name username email role"
-        );
+        status: { $ne: "inactivo" },
+    }).populate(
+        "owner",
+        "name username email role"
+    );
 };
 
-export const countProperties =async (filters = {}) => {
-    
-    return Property .countDocuments(filters);
-}
+export const countProperties = async (filters = {}) => {
+    return Property.countDocuments({
+        ...filters,
+        status: {
+            $ne: "inactivo",
+        },
+    });
+};
 
 export const updateProperty = async (
     propertyId,

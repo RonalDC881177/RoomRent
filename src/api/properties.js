@@ -82,3 +82,28 @@ export const updateProperty = async (id, data, token) => {
 
   return responseData.data.property;
 };
+
+//Delete property
+
+export const deleteProperty = async (id) => {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(`${API_URL}/${id}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    const data = await response.json();
+
+    console.log("RESPUESTA DELETE:", data);
+
+    if (!response.ok) {
+        throw new Error(
+            data.message || "No se pudo eliminar la propiedad"
+        );
+    }
+
+    return data.data.property;
+};

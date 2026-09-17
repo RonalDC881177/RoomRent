@@ -2,8 +2,8 @@ import express from "express";
 import {
   createProperty,
   getAllProperties,
-  getMyProperties,
   getPropertyById,
+  getMyProperties,
   updateProperty,
   deleteProperty
 } from "../controllers/propertyController.js";

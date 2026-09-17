@@ -13,6 +13,7 @@ import PropertiesPage from "./pages/PropertiesPage";
 import PropertyDetail from "./pages/PropertyDetail";
 import EditProperty from "./pages/EditProperty";
 import Inbox from "./pages/Inbox";
+import MyPropertiesPage from "./pages/MyPropertiesPage";
 
 import MainLayout from "./layouts/MainLayout";
 
@@ -37,6 +38,12 @@ const App = () => {
             </>
           }
         />
+
+        {/* MY PROPERTIES */}
+        <Route
+          path="my-properties"
+          element={<MyPropertiesPage />}
+          />
 
         {/* PROPERTIES */}
         <Route
