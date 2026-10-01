@@ -5,6 +5,7 @@ import {
     PRICE_PERIODS,
     DEFAULT_CURRENCY,
     DEFAULT_PERIOD,
+    DEFAULT_STATUS,
 } from "../constants/propertyConstants.js";
 
 const propertySchema = new mongoose.Schema(

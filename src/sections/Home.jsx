@@ -33,10 +33,34 @@ const Home = () => {
   const [price, setPrice] = useState("");
 
   const handleSearch = () => {
-  navigate(
-    `/properties?location=${locationFilter}&type=${type}&price=${price}`
-  );
-};
+    const params = new URLSearchParams();
+
+    if (locationFilter) {
+      params.set("locality", locationFilter);
+    }
+
+    if (type) {
+      params.set("propertyType", type);
+    }
+
+    if (price) {
+      if (price.endsWith("+")) {
+        params.set("minPrice", price.replace("+", ""));
+      } else {
+        const [minPrice, maxPrice] = price.split("-");
+
+        if (minPrice) {
+          params.set("minPrice", minPrice);
+        }
+
+        if (maxPrice) {
+          params.set("maxPrice", maxPrice);
+        }
+      }
+    }
+
+    navigate(`/properties?${params.toString()}`);
+  };
 
   return (
     <>
@@ -66,10 +90,10 @@ const Home = () => {
       {/* Form Section */}
 
       <div
-  className={`${
-    darkMode ? "dark bg-[#0b2236]" : "light bg-transparent"
-  } z-10`}
->
+        className={`${
+          darkMode ? "dark bg-[#0b2236]" : "light bg-transparent"
+        } z-10`}
+      >
         <div
           data-aos="zoom-in"
           id="form"
@@ -118,10 +142,10 @@ const Home = () => {
               <option value="" disabled>
                 Selecciona Tipo
               </option>
-              <option value="Casa">Casa</option>
-              <option value="Apartamento">Apartamento</option>
-              <option value="Habitación">Habitación</option>
-              <option value="Roomie">Roomie</option>
+              <option value="casa">Casa</option>
+              <option value="apartamento">Apartamento</option>
+              <option value="habitacion">Habitación</option>
+              <option value="apartaestudio">Apartaestudio</option>
             </select>
           </div>
           <div className="w-full">

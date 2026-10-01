@@ -2,12 +2,20 @@ import AppError from '../errors/AppError.js';
 import {
     createProperty,
     findPropertyById,
-    findProperties,
-    updateProperty
+    findProperties,                                     
+    findMyProperties,
+    findPropertiesByOwner,
+    updateProperty,
+    countProperties,
+    deactivateProperty,
 } from '../repositories/propertyRepository.js';
 import {
     ALLOWED_PROPERTY_UPDATE_FIELDS,
 } from "../constants/propertyConstants.js";
+import buildPropertyFilters from "../utils/buildPropertyFilters.js";
+import filterAllowedFields from "../utils/filterAllowedFields.js";
+import buildPagination from "../utils/buildPagination.js";
+import buildSort from "../utils/buildSort.js";
 
 
 export const createPropertyService = async (propertyData, user) => {
@@ -38,12 +46,34 @@ export const getPropertyByIdService = async (propertyId) => {
 
 };
 
+export const getMyPropertiesService = async (user) => {
+    const properties = await findPropertiesByOwner(user._id);
+
+    return properties;
+};
+
 export const getAllPropertiesService = async (query) => {
 
-    const filters =
-        buildPropertyFilters(query);
+    const filters = buildPropertyFilters(query);
+    const pagination = buildPagination(query);
+    const sort = buildSort(query);
+    const properties = await findProperties(filters, pagination, sort);
+    const total = await countProperties(filters);
+    const totalPages = Math.ceil(total / pagination.limit);
+    const hasNext = pagination.page < totalPages;
+    const hasPrev = pagination.page > 1;
 
-    return await findProperties(filters);
+    return {
+        properties,
+        pagination: {
+            page: pagination.page,
+            limit: pagination.limit,
+            total,
+            totalPages,
+            hasNext,
+            hasPrev,
+        },
+    };
 
 };
 export const updatePropertyService = async (

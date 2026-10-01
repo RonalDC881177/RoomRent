@@ -2,6 +2,10 @@ import { z } from "zod";
 import {
     PROPERTY_TYPES,
     PRICE_PERIODS,
+    PROPERTY_STATUS,
+    DEFAULT_CURRENCY,
+    DEFAULT_PERIOD,
+    DEFAULT_STATUS
 } from "../constants/propertyConstants.js";
 
 export const createPropertySchema = z.object({
@@ -90,3 +94,63 @@ export const createPropertySchema = z.object({
 });
 
 export const updatePropertySchema = createPropertySchema.partial();
+
+export const getPropertiesQuerySchema = z.object({
+    city: z
+        .string()
+        .trim()
+        .optional(),
+
+    locality: z
+    .string()
+    .trim()
+    .optional(),
+
+    propertyType: z.enum(
+        PROPERTY_TYPES
+    )
+        .optional(),
+
+    status: z.enum(
+        PROPERTY_STATUS
+    )
+        .optional(),
+
+    minPrice: z
+        .coerce.number()
+        .positive("El precio mínimo debe ser mayor a 0")
+        .optional(),
+
+    maxPrice: z
+        .coerce.number()
+        .positive("El precio máximo debe ser mayor a 0")
+        .optional(),
+
+    bedrooms: z
+        .coerce.number()
+        .int()
+        .min(0, "Habitaciones inválidas")
+        .optional(),
+
+    bathrooms: z
+        .coerce.number()
+        .int()
+        .min(0, "Baños inválidos")
+        .optional(),
+    page: z
+        .coerce
+        .number()
+        .int()
+        .min(1, "La pagina debe ser mayor a 0")
+        .default(1),
+    limit: z
+        .coerce
+        .number()
+        .int()
+        .min(1, "El limite debe ser mayor a 0")
+        .default(10),
+
+})
+export const getPropertyByIdSchema = z.object({
+    id: z.string().trim().min(1, "El id es obligatorio")
+});

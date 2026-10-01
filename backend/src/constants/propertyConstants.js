@@ -28,6 +28,7 @@ export const ALLOWED_PROPERTY_UPDATE_FIELDS = [
     "title",
     "description",
     "price",
+    "propertyType",
     "address",
     "bedrooms",
     "bathrooms",
