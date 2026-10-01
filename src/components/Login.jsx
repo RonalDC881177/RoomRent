@@ -79,9 +79,9 @@ export default function Login() {
                 }
 
                 // guardar sesión
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("user", JSON.stringify(data.user));
-
+                localStorage.setItem("token", data.data.token);
+                localStorage.setItem("user", JSON.stringify(data.data.user));
+            
                 alert("Login exitoso");
 
                 // redirección al home
