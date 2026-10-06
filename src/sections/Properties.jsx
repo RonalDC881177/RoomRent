@@ -1,22 +1,11 @@
 import React, { useEffect } from "react";
 import useDarkMode from "../components/useDarkMode";
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  FaBath,
-  FaShareAlt,
-  FaBed,
-  FaUserCircle,
-  FaPlus,
-  FaMapMarkerAlt,
-  FaVideo,
-  FaCamera,
-  FaHeart,
-} from "react-icons/fa";
-import { MdSpaceDashboard } from "react-icons/md";
+import { useLocation, useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { getProperties } from "../api/properties";
+import PropertyCard from "../components/PropertyCard";
 
 const Properties = () => {
   const [loading, setLoading] = useState(true);
@@ -140,43 +129,13 @@ const Properties = () => {
           ) : (
             <div className="grid lg:grid-cols-3 gap-8">
               {properties.map((item) => (
-                <div
-                  key={item._id || item.id}
-                  className="rounded-xl overflow-hidden bg-white dark:bg-[#163041]"
-                >
-                  <div className="h-[200px] bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                    {item.image ? (
-                      <img
-                        src={item.image}
-                        alt={item.title || "Propiedad"}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <FaCamera className="text-4xl text-gray-400" />
-                    )}
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-lg dark:text-white">
-                      {item.title || "Propiedad"}
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      {item.locality || ""}
-                    </p>
-                    <div className="flex items-center justify-between mt-2">
-                      <span className="font-semibold dark:text-white">
-                        {item.price ? `$${item.price}` : ""}
-                      </span>
-                      <Link to={`/properties/${item._id || item.id}`} className="text-sm text-[#517399]">
-                        Ver
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+                <PropertyCard key={item._id} property={item} />
               ))}
             </div>
           )}
 
           {/* Paginación */}
+
           <div className="flex justify-center items-center gap-4 mt-8 w-full">
             <button
               onClick={() => {
