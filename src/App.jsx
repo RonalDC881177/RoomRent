@@ -10,6 +10,7 @@ import Contact from "./sections/Contact";
 import Login from "./components/Login";
 
 import PropertiesPage from "./pages/PropertiesPage";
+import CreateProperty from "./pages/CreateProperty";
 import PropertyDetail from "./pages/PropertyDetail";
 import EditProperty from "./pages/EditProperty";
 import Inbox from "./pages/Inbox";
@@ -43,12 +44,19 @@ const App = () => {
         <Route
           path="my-properties"
           element={<MyPropertiesPage />}
-          />
+        />
 
         {/* PROPERTIES */}
         <Route
           path="/properties"
           element={<PropertiesPage />}
+        />
+
+        {/* CREATE PROPERTY */}
+
+        <Route
+          path="/properties/create"
+          element={<CreateProperty />}
         />
 
         <Route

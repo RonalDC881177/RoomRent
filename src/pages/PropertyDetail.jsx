@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { getPropertyById } from "../api/properties";
 import {
   FaBath,
   FaBed,
@@ -33,27 +34,14 @@ const PropertyDetail = () => {
         setLoading(true);
         setError("");
 
-        const response = await fetch(
-          `http://localhost:5000/api/properties/${id}`
-        );
-
-        const data = await response.json();
-
-        console.log("PROPERTY DETAIL RESPONSE:", data);
-
-        if (!response.ok) {
-          throw new Error(
-            data.message || "No se pudo obtener la propiedad"
-          );
-        }
-
-        const propertyData = data?.data?.property || data?.data;
+        const propertyData = await getPropertyById(id);
 
         if (!propertyData) {
           throw new Error("No se encontró la información de la propiedad");
         }
 
         setProperty(propertyData);
+        
       } catch (error) {
         console.error("Error obteniendo propiedad:", error);
         setError(error.message);
