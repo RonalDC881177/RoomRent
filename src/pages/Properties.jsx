@@ -10,25 +10,19 @@ const Properties = () => {
     const fetchData = async () => {
       const params = new URLSearchParams(locationHook.search);
       const filters = {
-        location: params.get("location"),
-        type: params.get("type"),
-        price: params.get("price"),
+        locality: params.get("locality"),
+        propertyType: params.get("propertyType"),
+        minPrice: params.get("minPrice"),
+        maxPrice: params.get("maxPrice"),
       };
-      let minPrice, maxPrice;
-
-      if (filters.price) {
-        const [min, max] = filters.price.split("-");
-        minPrice = min;
-        maxPrice = max;
-      }
       const data = await getProperties({
-      location: filters.location,
-      type: filters.type,
-      minPrice,
-      maxPrice,
-    });
+        locality: filters.locality,
+        propertyType: filters.propertyType,
+        minPrice: filters.minPrice,
+        maxPrice: filters.maxPrice,
+      });
 
-      setProperties(data);
+      setProperties(data.properties);
     };
     fetchData();
   }, [locationHook.search]);
@@ -37,8 +31,8 @@ const Properties = () => {
       {properties.map((prop) => (
         <div key={prop._id}>
           <h3>{prop.title}</h3>
-          <p>{prop.location}</p>
-          <p>${prop.price}</p>
+          <p>{prop.locality}</p>
+          <p>${prop.price.amount}</p>
         </div>
       ))}
     </div>
