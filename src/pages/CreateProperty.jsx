@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createProperty } from "../api/properties";
 import { locations } from "../data/locations";
+import { bogotaSectors } from "../data/bogotaSectors";
+import { transformBogotaLocations } from "../data/transformBogotaLocations";
 
 const CreateProperty = () => {
     const navigate = useNavigate();
@@ -21,12 +23,16 @@ const CreateProperty = () => {
 
     const cities = Object.keys(locations);
 
-    const localities = formData.city
-        ? Object.keys(locations[formData.city].localidades)
-        : [];
+    const bogotaLocations = transformBogotaLocations(bogotaSectors);
+
+    const localities =
+        formData.city === "Bogotá"
+            ? Object.keys(bogotaLocations)
+            : [];
+
     const neighborhoods =
-        formData.city && formData.locality
-            ? locations[formData.city].localidades[formData.locality]
+        formData.city === "Bogotá" && formData.locality
+            ? bogotaLocations[formData.locality] || []
             : [];
 
     const [loading, setLoading] = useState(false);
