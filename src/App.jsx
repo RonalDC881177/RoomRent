@@ -15,6 +15,7 @@ import PropertyDetail from "./pages/PropertyDetail";
 import EditProperty from "./pages/EditProperty";
 import Inbox from "./pages/Inbox";
 import MyPropertiesPage from "./pages/MyPropertiesPage";
+import CreateRoomie from "./pages/CreateRoomie";
 
 import MainLayout from "./layouts/MainLayout";
 
@@ -57,6 +58,13 @@ const App = () => {
         <Route
           path="/properties/create"
           element={<CreateProperty />}
+        />
+
+        {/* CREATE ROOMIE */}
+
+        <Route
+          path="/roomie/create"
+          element={<CreateRoomie />}
         />
 
         <Route
