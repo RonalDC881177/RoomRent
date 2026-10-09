@@ -19,6 +19,7 @@ const Header = () => {
     { link: "Inicio", path: "home", type: "scroll" },
     { link: "Nosotros", path: "about", type: "scroll" },
     { link: "Propiedades", path: "/properties", type: "route" },
+    { link: "Roomie", path: "/roomie", type: "route" },
     { link: "Servicios", path: "services", type: "scroll" },
     { link: "Testimonios", path: "testimonials", type: "scroll" },
     { link: "Contacto", path: "contact", type: "scroll" },
