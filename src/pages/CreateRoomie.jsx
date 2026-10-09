@@ -1,8 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { bogotaSectors } from "../data/bogotaSectors";
 import { transformBogotaLocations } from "../data/transformBogotaLocations";
+import {
+    createRoomie,
+    getMyRoomie,
+    updateRoomie,
+} from "../api/roomieService";
+import { useLocation } from "react-router-dom";
 
 const CreateRoomie = () => {
+    const location = useLocation();
+    const isEditing = location.pathname === "/roomie/edit";
+
     const [formData, setFormData] = useState({
         city: "",
         locality: "",
@@ -11,6 +20,40 @@ const CreateRoomie = () => {
         description: "",
         preferences: [],
     });
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+    const [roomieId, setRoomieId] = useState(null);
+
+    useEffect(() => {
+        if (!isEditing) return;
+
+        const fetchRoomie = async () => {
+            setLoading(true);
+            setError("");
+
+            try {
+                const roomie = await getMyRoomie();
+                setRoomieId(roomie._id);
+
+                setFormData({
+                    city: roomie.city,
+                    locality: roomie.locality,
+                    maxBudget: String(roomie.maxBudget),
+                    moveInDate: String(roomie.moveInDate).split("T")[0],
+                    description: roomie.description,
+                    preferences: roomie.preferences || [],
+                });
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchRoomie();
+    }, [isEditing]);
 
     const bogotaLocations = transformBogotaLocations(bogotaSectors);
 
@@ -30,19 +73,48 @@ const CreateRoomie = () => {
         }));
     };
 
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        setLoading(true);
+        setError("");
+        setSuccess("");
+
+        const roomieData = {
+            ...formData,
+            maxBudget: Number(formData.maxBudget),
+        };
+
+        try {
+            if (isEditing) {
+                await updateRoomie(roomieId, roomieData);
+                setSuccess("¡Tu perfil de Roomie se actualizó correctamente!");
+            } else {
+                await createRoomie(roomieData);
+                setSuccess("¡Tu perfil de Roomie se creó correctamente!");
+            }
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="max-w-2xl mx-auto p-6">
 
-            <h1 className="text-3xl font-bold mb-2">
-                Crear perfil de Roomie
-            </h1>
+            <h1 className="text-3xl font-bold mb-2"> {isEditing ? "Editar perfil de Roomie" : "Crear perfil de Roomie"} </h1>
 
             <p className="mb-6 text-gray-600">
                 Completa tu información para encontrar personas
                 compatibles para compartir vivienda.
             </p>
 
-            <form className="space-y-5">
+            <form
+                onSubmit={handleSubmit}
+                className="space-y-5"
+            >
 
                 <div className="flex flex-col gap-2">
                     <label
@@ -135,7 +207,8 @@ const CreateRoomie = () => {
                         className="border rounded-lg p-3"
                     />
                 </div>
-                <div className="flex flex-col gap-2">
+                
+                <div className="flex flex-col gap-2 w-full min-w-0">
                     <label
                         htmlFor="description"
                         className="font-medium"
@@ -150,9 +223,10 @@ const CreateRoomie = () => {
                         onChange={handleChange}
                         rows="5"
                         placeholder="Cuéntanos qué estás buscando y cómo eres como compañero de vivienda..."
-                        className="border rounded-lg p-3"
+                        className="w-full min-w-0 max-w-full box-border border rounded-lg p-3 resize-y"
                     />
                 </div>
+
                 <div className="flex flex-col gap-3">
                     <label className="font-medium">
                         Preferencias
@@ -197,11 +271,32 @@ const CreateRoomie = () => {
                         </label>
                     ))}
                 </div>
+
+                {error && (
+                    <p className="text-red-600" role="alert">
+                        {error}
+                    </p>
+                )}
+
+                {success && (
+                    <p className="text-green-600" role="status">
+                        {success}
+                    </p>
+                )}
+
                 <button
                     type="submit"
-                    className="bg-black text-white rounded-lg px-5 py-3 mt-4"
+                    disabled={loading}
+                    className="bg-black text-white rounded-lg px-5 py-3 mt-4 disabled:opacity-50"
                 >
-                    Crear perfil de Roomie
+
+                    {loading
+                        ? "Guardando..."
+                        : isEditing
+                            ? "Actualizar perfil"
+                            : "Crear perfil de Roomie"}
+
+
                 </button>
 
             </form>

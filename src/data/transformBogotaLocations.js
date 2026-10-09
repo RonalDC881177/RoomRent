@@ -11,15 +11,19 @@ export const transformBogotaLocations = (sectors) => {
         }
 
         if (!locations[locality]) {
-            locations[locality] = [];
+            locations[locality] = new Set();
         }
 
-        locations[locality].push(name);
+        locations[locality].add(name);
     }
 
-    return locations;
-};
 
-console.log(
-    transformBogotaLocations(bogotaSectors)
-);
+    return Object.fromEntries(
+        Object.entries(locations)
+            .map(([locality, names]) => [
+                locality,
+                [...names].sort((a, b) => a.localeCompare(b, "es")),
+            ])
+            .sort(([a], [b]) => a.localeCompare(b, "es"))
+    );
+};

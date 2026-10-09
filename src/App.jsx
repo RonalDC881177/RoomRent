@@ -6,9 +6,7 @@ import PopularAreas from "./sections/PopularAreas";
 import Services from "./sections/Services";
 import Clients from "./sections/Clients";
 import Contact from "./sections/Contact";
-
 import Login from "./components/Login";
-
 import PropertiesPage from "./pages/PropertiesPage";
 import CreateProperty from "./pages/CreateProperty";
 import PropertyDetail from "./pages/PropertyDetail";
@@ -16,6 +14,8 @@ import EditProperty from "./pages/EditProperty";
 import Inbox from "./pages/Inbox";
 import MyPropertiesPage from "./pages/MyPropertiesPage";
 import CreateRoomie from "./pages/CreateRoomie";
+import RoomiePage from "./pages/RoomiePage";
+import DiscoverRoomies from "./pages/DiscoverRoomies";
 
 import MainLayout from "./layouts/MainLayout";
 
@@ -60,11 +60,32 @@ const App = () => {
           element={<CreateProperty />}
         />
 
+        {/* ROOMIE */}
+
+        <Route
+          path="/roomie"
+          element={<RoomiePage />}
+        />
+
         {/* CREATE ROOMIE */}
 
         <Route
           path="/roomie/create"
           element={<CreateRoomie />}
+        />
+
+        {/* EDIT ROOMIE */}
+
+        <Route
+          path="/roomie/edit"
+          element={<CreateRoomie />}
+        />
+
+        {/* DISCOVER ROOMIES */}
+
+        <Route
+          path="/roomie/discover"
+          element={<DiscoverRoomies />}
         />
 
         <Route
