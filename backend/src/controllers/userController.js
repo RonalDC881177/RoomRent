@@ -1,6 +1,7 @@
 import asyncHandler from "../utils/asyncHandler.js";
 import { createUserService } from "../services/userService.js";
 import { loginUserService } from "../services/authService.js"
+import { getPublicUserProfileService } from "../services/userService.js";
 
 
 // Funcion para crear usuario.
@@ -34,4 +35,15 @@ export const loginUser = asyncHandler(async (req, res) => {
     message: "Inicio de sesión con éxito",
     data: result,
   });
+});
+
+export const getPublicUserProfile = asyncHandler(async (req, res) => {
+    const user = await getPublicUserProfileService(req.params.id);
+
+    res.status(200).json({
+        success: true,
+        data: {
+            user,
+        },
+    });
 });

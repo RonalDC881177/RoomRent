@@ -10,6 +10,7 @@ import Login from "./components/Login";
 import PropertiesPage from "./pages/PropertiesPage";
 import CreateProperty from "./pages/CreateProperty";
 import PropertyDetail from "./pages/PropertyDetail";
+import UserProfile from "./pages/UserProfile";
 import EditProperty from "./pages/EditProperty";
 import Inbox from "./pages/Inbox";
 import MyPropertiesPage from "./pages/MyPropertiesPage";
@@ -17,6 +18,7 @@ import CreateRoomie from "./pages/CreateRoomie";
 import RoomiePage from "./pages/RoomiePage";
 import DiscoverRoomies from "./pages/DiscoverRoomies";
 import Conversation from "./pages/Conversation";
+
 
 import MainLayout from "./layouts/MainLayout";
 
@@ -92,6 +94,12 @@ const App = () => {
         <Route
           path="/properties/:id"
           element={<PropertyDetail />}
+        />
+
+        {/* PUBLIC USER PROFILE */}
+        <Route
+          path="/users/:id"
+          element={<UserProfile />}
         />
 
         <Route

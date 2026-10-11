@@ -16,3 +16,8 @@ export const findUserForLogin = async (identifier) => {
         ],
     }).select("+password");
 };
+
+export const findPublicUserById = async (userId) => {
+    return await User.findById(userId)
+        .select("name role createdAt active");
+};

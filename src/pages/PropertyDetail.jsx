@@ -41,7 +41,7 @@ const PropertyDetail = () => {
         }
 
         setProperty(propertyData);
-        
+
       } catch (error) {
         console.error("Error obteniendo propiedad:", error);
         setError(error.message);
@@ -517,6 +517,17 @@ const PropertyDetail = () => {
               </div>
 
             </div>
+
+
+            {ownerId && (
+              <Link
+                to={`/users/${ownerId}`}
+                className="block mt-5 text-center text-[#71bfd1] font-semibold hover:text-white transition"
+              >
+                Ver perfil público →
+              </Link>
+            )}
+
 
             <button
               onClick={handleContactClick}
