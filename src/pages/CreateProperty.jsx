@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createProperty } from "../api/properties";
-import { locations } from "../data/locations";
-import { bogotaSectors } from "../data/bogotaSectors";
-import { transformBogotaLocations } from "../data/transformBogotaLocations";
+import {
+    getCities,
+    getLocalities,
+    getNeighborhoods,
+} from "../data/geographicCatalog";
 
 const CreateProperty = () => {
     const navigate = useNavigate();
@@ -21,20 +23,15 @@ const CreateProperty = () => {
         },
     });
 
-    const cities = Object.keys(locations);
+    const cities = getCities();
 
-    const bogotaLocations = transformBogotaLocations(bogotaSectors);
+    const localities = getLocalities(formData.city);
 
-    const localities =
-        formData.city === "Bogotá"
-            ? Object.keys(bogotaLocations)
-            : [];
-
-    const neighborhoods =
-        formData.city === "Bogotá" && formData.locality
-            ? bogotaLocations[formData.locality] || []
-            : [];
-
+    const neighborhoods = getNeighborhoods(
+        formData.city,
+        formData.locality
+    );
+    
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
@@ -242,7 +239,7 @@ const CreateProperty = () => {
                 </div>
                 <div className="space-y-2">
                     <label className="block font-semibold">
-                        Barrio <span className="text-red-500">*</span>
+                        Sector o barrio <span className="text-red-500">*</span>
                     </label>
 
                     <select
