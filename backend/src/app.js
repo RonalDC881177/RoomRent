@@ -14,11 +14,24 @@ connectDB();
 
 const app = express();
 
+app.use((req, res, next) => {
+    if (req.method === "OPTIONS") {
+        console.log("Preflight recibido:", {
+            path: req.originalUrl,
+            origin: req.headers.origin,
+            requestedMethod: req.headers["access-control-request-method"],
+        });
+    }
+
+    next();
+});
+
 app.use(cors({
-  origin: "http://localhost:5173",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
 }));
+
 
 // Middleware JSON
 app.use(express.json());

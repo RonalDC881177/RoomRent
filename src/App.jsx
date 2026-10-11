@@ -16,6 +16,7 @@ import MyPropertiesPage from "./pages/MyPropertiesPage";
 import CreateRoomie from "./pages/CreateRoomie";
 import RoomiePage from "./pages/RoomiePage";
 import DiscoverRoomies from "./pages/DiscoverRoomies";
+import Conversation from "./pages/Conversation";
 
 import MainLayout from "./layouts/MainLayout";
 
@@ -104,14 +105,20 @@ const App = () => {
           element={<Inbox />}
         />
 
+        {/* CONVERSATION */}
+
+        <Route
+          path="/inbox/:propertyId/:otherUserId"
+          element={<Conversation />}
+        />
+
+        {/* LOGIN */}
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
       </Route>
-
-      {/* LOGIN */}
-      <Route
-        path="/login"
-        element={<Login />}
-      />
-
     </Routes>
   );
 };
