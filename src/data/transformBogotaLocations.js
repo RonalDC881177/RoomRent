@@ -1,5 +1,3 @@
-import { bogotaSectors } from "./bogotaSectors";
-
 export const transformBogotaLocations = (sectors) => {
     const locations = {};
 

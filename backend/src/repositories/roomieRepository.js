@@ -8,7 +8,7 @@ export const findRoomieById = async (id) => {
     return await Roomie.findById(id)
         .populate(
             "owner",
-            "name username email role"
+            "name username role"
         );
 };
 
@@ -18,7 +18,7 @@ export const findRoomieByOwner = async (ownerId) => {
         active: true,
     }).populate(
         "owner",
-        "name username email role"
+        "name username role"
     );
 };
 
@@ -27,7 +27,7 @@ export const findActiveRoomies = async () => {
         active: true,
     }).populate(
         "owner",
-        "name username email role"
+        "name username role"
     );
 };
 
@@ -41,7 +41,7 @@ export const updateRoomie = async (id, updateData) => {
         }
     ).populate(
         "owner",
-        "name username email role"
+        "name username role"
     );
 };
 
@@ -57,6 +57,6 @@ export const deactivateRoomie = async (id) => {
         }
     ).populate(
         "owner",
-        "name username email role"
+        "name username role"
     );
 };

@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 import {
-    PROPERTY_TYPES,
-    PROPERTY_STATUS,
-    PRICE_PERIODS,
-    DEFAULT_CURRENCY,
-    DEFAULT_PERIOD,
-    DEFAULT_STATUS,
+  PROPERTY_TYPES,
+  PROPERTY_STATUS,
+  PRICE_PERIODS,
+  DEFAULT_CURRENCY,
+  DEFAULT_PERIOD,
+  DEFAULT_STATUS,
 } from "../constants/propertyConstants.js";
 
 const propertySchema = new mongoose.Schema(
@@ -66,6 +66,12 @@ const propertySchema = new mongoose.Schema(
     address: {
       type: String,
       trim: true,
+    },
+
+    addressVisibility: {
+      type: String,
+      enum: ["private", "public"],
+      default: "private",
     },
 
     bedrooms: {

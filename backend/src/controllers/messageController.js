@@ -146,8 +146,8 @@ export const getInbox = async (req, res) => {
             $or: [{ sender: userId }, { receiver: userId }],
         })
             .sort({ createdAt: -1 })
-            .populate("sender", "username email")
-            .populate("receiver", "username email")
+            .populate("sender", "username")
+            .populate("receiver", "username")
             .populate("property", "title");
 
         const conversationsMap = new Map();

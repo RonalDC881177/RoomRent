@@ -36,8 +36,6 @@ const CreateProperty = () => {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
-    console.log(formData);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
