@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-    getPropertyById,
+    getPrivatePropertyById,
     updateProperty,
 } from "../api/properties";
 
@@ -12,6 +12,8 @@ const EditProperty = () => {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [loadError, setLoadError] = useState("");
 
     const [formData, setFormData] = useState({
         title: "",
@@ -31,8 +33,13 @@ const EditProperty = () => {
             try {
                 setLoading(true);
 
-                const data = await getPropertyById(id);
+                const token = localStorage.getItem("token");
 
+                if (!token) {
+                    throw new Error("No hay sesión activa");
+                }
+
+                const data = await getPrivatePropertyById(id, token);
                 console.log("PROPIEDAD PARA EDITAR:", data);
 
                 setProperty(data);
@@ -46,11 +53,14 @@ const EditProperty = () => {
                     locality: data.locality || "",
                     neighborhood: data.neighborhood || "",
                     address: data.address || "",
-                    bedrooms: data.bedrooms || "",
-                    bathrooms: data.bathrooms || "",
+                    bedrooms: data.bedrooms ?? "",
+                    bathrooms: data.bathrooms ?? "",
                 });
             } catch (error) {
                 console.error("Error obteniendo propiedad:", error);
+                setLoadError(
+                    error.message || "No se pudo cargar la propiedad"
+                );
             } finally {
                 setLoading(false);
             }
@@ -60,57 +70,40 @@ const EditProperty = () => {
     }, [id]);
 
     const handleChange = (e) => {
-    const { name, value } = e.target;
+        const { name, value } = e.target;
 
-    console.log("CAMBIO EN FORMULARIO:", name, value);
+        console.log("CAMBIO EN FORMULARIO:", name, value);
 
-    setSuccessMessage("");
+        setSuccessMessage("");
+        setSuccessMessage("");
+        setErrorMessage("");
 
-    setFormData({
-        ...formData,
-        [name]: value,
-    });
-};
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try {
-            setSaving(true);
+        setSuccessMessage("");
+        setErrorMessage("");
+        setSaving(true);
 
+        try {
             const token = localStorage.getItem("token");
 
             if (!token) {
                 throw new Error("No hay sesión activa");
             }
 
-            console.log("DATOS QUE VOY A ENVIAR:", {
-    title: formData.title,
-    description: formData.description,
-    price: {
-        amount: Number(formData.price),
-    },
-    propertyType: formData.propertyType,
-    city: formData.city,
-    locality: formData.locality,
-    neighborhood: formData.neighborhood,
-    address: formData.address,
-    bedrooms: formData.bedrooms
-        ? Number(formData.bedrooms)
-        : undefined,
-    bathrooms: formData.bathrooms
-        ? Number(formData.bathrooms)
-        : undefined,
-});
-
-            const updatedProperty = await updateProperty(
+            await updateProperty(
                 id,
                 {
                     title: formData.title,
                     description: formData.description,
-                    price: {
-                        amount: Number(formData.price),
-                    },
+                    price: { amount: Number(formData.price) },
                     propertyType: formData.propertyType,
                     city: formData.city,
                     locality: formData.locality,
@@ -126,18 +119,10 @@ const EditProperty = () => {
                 token
             );
 
-            console.log(
-                "PROPIEDAD ACTUALIZADA:",
-                updatedProperty
-            );
-
             setSuccessMessage("Propiedad actualizada correctamente.");
-
         } catch (error) {
-            console.error(
-                "Error actualizando propiedad:",
-                error
-            );
+            console.error("Error actualizando propiedad:", error);
+            setErrorMessage(error.message || "Error actualizando la propiedad");
         } finally {
             setSaving(false);
         }
@@ -148,7 +133,11 @@ const EditProperty = () => {
     }
 
     if (!property) {
-        return <p className="p-10">Propiedad no encontrada.</p>;
+        return (
+            <p className="p-10 text-red-600">
+                {loadError || "Propiedad no encontrada."}
+            </p>
+        );
     }
 
     return (
@@ -161,6 +150,12 @@ const EditProperty = () => {
             {successMessage && (
                 <p className="mb-6 text-green-600 font-semibold">
                     {successMessage}
+                </p>
+            )}
+
+            {errorMessage && (
+                <p className="mb-6 text-red-600 font-semibold">
+                    {errorMessage}
                 </p>
             )}
 
@@ -283,6 +278,8 @@ const EditProperty = () => {
                 <input
                     type="number"
                     name="bedrooms"
+                    min="0"
+                    step="1"
                     value={formData.bedrooms}
                     onChange={handleChange}
                     className="w-full border rounded-lg p-3"
@@ -297,6 +294,8 @@ const EditProperty = () => {
                 <input
                     type="number"
                     name="bathrooms"
+                    min="0"
+                    step="1"
                     value={formData.bathrooms}
                     onChange={handleChange}
                     className="w-full border rounded-lg p-3"

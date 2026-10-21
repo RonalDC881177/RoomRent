@@ -25,12 +25,12 @@ export const getMyProperties = async () => {
   const response = await fetch(
     `${API_URL}/my`,
     {
-        method: "GET",
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
-);
+  );
   const data = await response.json();
 
   if (!response.ok) {
@@ -50,6 +50,24 @@ export const getPropertyById = async (id) => {
   if (!response.ok) {
     throw new Error(
       data.message || "No se pudo obtener la propiedad"
+    );
+  }
+
+  return data.data.property;
+};
+
+export const getPrivatePropertyById = async (id, token) => {
+  const response = await fetch(`${API_URL}/${id}/private`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || "No se pudo obtener la propiedad privada"
     );
   }
 

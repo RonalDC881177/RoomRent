@@ -146,17 +146,17 @@ export const updatePropertyService = async (
         ALLOWED_PROPERTY_UPDATE_FIELDS
     );
 
-    const updatedProperty = await updateProperty(
-        propertyId,
-        filteredData
-    );
-
     if (Object.keys(filteredData).length === 0) {
         throw new AppError(
             "No hay campos válidos para actualizar",
             400
         );
     }
+
+    const updatedProperty = await updateProperty(
+        propertyId,
+        filteredData
+    );
 
     return updatedProperty;
 };
