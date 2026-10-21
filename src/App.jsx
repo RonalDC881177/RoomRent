@@ -10,13 +10,15 @@ import Login from "./components/Login";
 import PropertiesPage from "./pages/PropertiesPage";
 import CreateProperty from "./pages/CreateProperty";
 import PropertyDetail from "./pages/PropertyDetail";
+import UserProfile from "./pages/UserProfile";
 import EditProperty from "./pages/EditProperty";
 import Inbox from "./pages/Inbox";
 import MyPropertiesPage from "./pages/MyPropertiesPage";
 import CreateRoomie from "./pages/CreateRoomie";
 import RoomiePage from "./pages/RoomiePage";
 import DiscoverRoomies from "./pages/DiscoverRoomies";
-
+import Conversation from "./pages/Conversation";
+import LandlordDashboard from "./pages/LandlordDashboard";
 import MainLayout from "./layouts/MainLayout";
 
 const App = () => {
@@ -51,6 +53,12 @@ const App = () => {
         <Route
           path="/properties"
           element={<PropertiesPage />}
+        />
+
+        {/* DASHBOARD */}
+        <Route
+          path="/dashboard"
+          element={<LandlordDashboard />}
         />
 
         {/* CREATE PROPERTY */}
@@ -93,6 +101,12 @@ const App = () => {
           element={<PropertyDetail />}
         />
 
+        {/* PUBLIC USER PROFILE */}
+        <Route
+          path="/users/:id"
+          element={<UserProfile />}
+        />
+
         <Route
           path="/properties/:id/edit"
           element={<EditProperty />}
@@ -104,14 +118,20 @@ const App = () => {
           element={<Inbox />}
         />
 
+        {/* CONVERSATION */}
+
+        <Route
+          path="/inbox/:propertyId/:otherUserId"
+          element={<Conversation />}
+        />
+
+        {/* LOGIN */}
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
       </Route>
-
-      {/* LOGIN */}
-      <Route
-        path="/login"
-        element={<Login />}
-      />
-
     </Routes>
   );
 };

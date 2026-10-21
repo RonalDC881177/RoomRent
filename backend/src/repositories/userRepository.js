@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User from "../models/user.js";
 
 export const findUserByEmail = async (email) => {
     return await User.findOne({ email });
@@ -15,4 +15,9 @@ export const findUserForLogin = async (identifier) => {
             { username: identifier },
         ],
     }).select("+password");
+};
+
+export const findPublicUserById = async (userId) => {
+    return await User.findById(userId)
+        .select("name role createdAt active");
 };

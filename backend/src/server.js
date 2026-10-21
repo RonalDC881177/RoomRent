@@ -41,9 +41,9 @@ const app = express();
 
 // Cors permite las solicitudes
 app.use(cors({
-    origin:'http://localhost:3001',
-    credentials:true,
-
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
 // Morgan registra todas las solicitudes HTPP en consola para depuracion

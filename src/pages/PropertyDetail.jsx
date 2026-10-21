@@ -41,7 +41,7 @@ const PropertyDetail = () => {
         }
 
         setProperty(propertyData);
-        
+
       } catch (error) {
         console.error("Error obteniendo propiedad:", error);
         setError(error.message);
@@ -179,8 +179,16 @@ const PropertyDetail = () => {
   // ============================================================
 
   const images = Array.isArray(property.images)
-    ? property.images
+    ? [...property.images].sort(
+      (a, b) =>
+        Number(Boolean(b?.isCover)) -
+        Number(Boolean(a?.isCover)) ||
+        Number(a?.order ?? 0) - Number(b?.order ?? 0)
+    )
     : [];
+
+  const getImageUrl = (image) =>
+    typeof image === "string" ? image : image?.url;
 
   const price = property.price?.amount;
 
@@ -257,7 +265,7 @@ const PropertyDetail = () => {
 
             {images.length > 0 ? (
               <img
-                src={images[0]}
+                src={getImageUrl(images[0])}
                 alt={property.title}
                 className="w-full h-full object-cover"
               />
@@ -278,7 +286,7 @@ const PropertyDetail = () => {
               className="h-[180px] rounded-2xl overflow-hidden bg-[#163041]"
             >
               <img
-                src={image}
+                src={getImageUrl(image)}
                 alt={`${property.title} ${index + 2}`}
                 className="w-full h-full object-cover hover:scale-105 transition duration-300"
               />
@@ -517,6 +525,17 @@ const PropertyDetail = () => {
               </div>
 
             </div>
+
+
+            {ownerId && (
+              <Link
+                to={`/users/${ownerId}`}
+                className="block mt-5 text-center text-[#71bfd1] font-semibold hover:text-white transition"
+              >
+                Ver perfil público →
+              </Link>
+            )}
+
 
             <button
               onClick={handleContactClick}

@@ -2,13 +2,14 @@ import AppError from '../errors/AppError.js';
 import {
     createProperty,
     findPropertyById,
-    findProperties,                                     
+    findPublicPropertyById,
+    findProperties,
     findMyProperties,
     findPropertiesByOwner,
     updateProperty,
     countProperties,
     deactivateProperty,
-} from '../repositories/propertyRepository.js';
+} from "../repositories/propertyRepository.js";
 import {
     ALLOWED_PROPERTY_UPDATE_FIELDS,
 } from "../constants/propertyConstants.js";
@@ -35,15 +36,49 @@ export const createPropertyService = async (propertyData, user) => {
     return property;
 };
 
+export const getPublicPropertyByIdService = async (propertyId) => {
+    const property = await findPublicPropertyById(propertyId);
+
+    if (!property) {
+        throw new AppError("Propiedad no encontrada", 404);
+    }
+
+    return property;
+};
+
+export const getPrivatePropertyByIdService = async (
+    propertyId,
+    user
+) => {
+    const property = await findPropertyById(propertyId);
+
+    if (!property) {
+        throw new AppError("Propiedad no encontrada", 404);
+    }
+
+    const isOwner =
+        property.owner._id.toString() ===
+        user._id.toString();
+
+    const isAdmin =
+        user.role === "admin";
+
+    if (!isOwner && !isAdmin) {
+        throw new AppError("No tienes permisos para acceder a esta propiedad", 403);
+    }
+
+    return property;
+};
+
+
 export const getPropertyByIdService = async (propertyId) => {
     const property = await findPropertyById(propertyId);
 
     if (!property) {
-        throw new AppError('propiedad no encontrada', 404);
+        throw new AppError("Propiedad no encontrada", 404);
     }
 
     return property;
-
 };
 
 export const getMyPropertiesService = async (user) => {
@@ -111,17 +146,17 @@ export const updatePropertyService = async (
         ALLOWED_PROPERTY_UPDATE_FIELDS
     );
 
-    const updatedProperty = await updateProperty(
-        propertyId,
-        filteredData
-    );
-
     if (Object.keys(filteredData).length === 0) {
         throw new AppError(
             "No hay campos válidos para actualizar",
             400
         );
     }
+
+    const updatedProperty = await updateProperty(
+        propertyId,
+        filteredData
+    );
 
     return updatedProperty;
 };
