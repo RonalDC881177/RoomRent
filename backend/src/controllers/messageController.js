@@ -162,13 +162,21 @@ export const getInbox = async (req, res) => {
 
             const key = `${otherUser._id}-${msg.property._id}`;
 
+            const isUnread =
+                msg.receiver._id.toString() === userId.toString() &&
+                !msg.read;
+
             if (!conversationsMap.has(key)) {
                 conversationsMap.set(key, {
                     user: otherUser,
                     property: msg.property,
                     lastMessage: msg.message,
                     date: msg.createdAt,
+                    unreadCount: isUnread ? 1 : 0,
                 });
+            } else if (isUnread) {
+                const conversation = conversationsMap.get(key);
+                conversation.unreadCount += 1;
             }
         });
 

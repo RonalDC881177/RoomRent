@@ -4,17 +4,20 @@ import {
     getPrivatePropertyById,
     updateProperty,
 } from "../api/properties";
+import {
+    getCities,
+    getLocalities,
+    getNeighborhoods,
+} from "../data/geographicCatalog";
 
 const EditProperty = () => {
     const { id } = useParams();
-
     const [property, setProperty] = useState(null);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [loadError, setLoadError] = useState("");
-
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -27,20 +30,26 @@ const EditProperty = () => {
         bedrooms: "",
         bathrooms: "",
     });
+    const cities = getCities();
+    const localities = getLocalities(formData.city);
+    const neighborhoods = getNeighborhoods(
+        formData.city,
+        formData.locality
+    );
 
     useEffect(() => {
         const fetchProperty = async () => {
             try {
                 setLoading(true);
+                setProperty(null);
+                setLoadError("");
 
                 const token = localStorage.getItem("token");
-
                 if (!token) {
                     throw new Error("No hay sesión activa");
                 }
 
                 const data = await getPrivatePropertyById(id, token);
-                console.log("PROPIEDAD PARA EDITAR:", data);
 
                 setProperty(data);
 
@@ -72,15 +81,31 @@ const EditProperty = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        console.log("CAMBIO EN FORMULARIO:", name, value);
-
-        setSuccessMessage("");
         setSuccessMessage("");
         setErrorMessage("");
 
-        setFormData({
-            ...formData,
-            [name]: value,
+        setFormData((previousData) => {
+            if (name === "city") {
+                return {
+                    ...previousData,
+                    city: value,
+                    locality: "",
+                    neighborhood: "",
+                };
+            }
+
+            if (name === "locality") {
+                return {
+                    ...previousData,
+                    locality: value,
+                    neighborhood: "",
+                };
+            }
+
+            return {
+                ...previousData,
+                [name]: value,
+            };
         });
     };
 
@@ -89,6 +114,13 @@ const EditProperty = () => {
 
         setSuccessMessage("");
         setErrorMessage("");
+        const priceAmount = Number(formData.price);
+
+        if (!Number.isFinite(priceAmount) || priceAmount <= 0) {
+            setErrorMessage("El precio debe ser mayor a 0.");
+            return;
+        }
+
         setSaving(true);
 
         try {
@@ -103,7 +135,7 @@ const EditProperty = () => {
                 {
                     title: formData.title,
                     description: formData.description,
-                    price: { amount: Number(formData.price) },
+                    price: { amount: priceAmount },
                     propertyType: formData.propertyType,
                     city: formData.city,
                     locality: formData.locality,
@@ -165,6 +197,9 @@ const EditProperty = () => {
                 <input
                     type="text"
                     name="title"
+                    required
+                    minLength={5}
+                    maxLength={100}
                     value={formData.title}
                     onChange={handleChange}
                     className="w-full border rounded-lg p-3"
@@ -176,6 +211,9 @@ const EditProperty = () => {
 
                 <textarea
                     name="description"
+                    required
+                    minLength={20}
+                    maxLength={2000}
                     value={formData.description}
                     onChange={handleChange}
                     className="w-full border rounded-lg p-3"
@@ -189,6 +227,8 @@ const EditProperty = () => {
                 <input
                     type="number"
                     name="price"
+                    required
+                    min="0"
                     value={formData.price}
                     onChange={handleChange}
                     className="w-full border rounded-lg p-3"
@@ -202,6 +242,7 @@ const EditProperty = () => {
 
                 <select
                     name="propertyType"
+                    required
                     value={formData.propertyType}
                     onChange={handleChange}
                     className="w-full border rounded-lg p-3"
@@ -219,13 +260,21 @@ const EditProperty = () => {
                     Ciudad
                 </label>
 
-                <input
-                    type="text"
+                <select
                     name="city"
+                    required
                     value={formData.city}
                     onChange={handleChange}
                     className="w-full border rounded-lg p-3"
-                />
+                >
+                    <option value="">Selecciona una ciudad</option>
+
+                    {cities.map((city) => (
+                        <option key={city} value={city}>
+                            {city}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             <div className="mb-6">
@@ -233,13 +282,21 @@ const EditProperty = () => {
                     Localidad
                 </label>
 
-                <input
-                    type="text"
+                <select
                     name="locality"
+                    required
                     value={formData.locality}
                     onChange={handleChange}
                     className="w-full border rounded-lg p-3"
-                />
+                >
+                    <option value="">Selecciona una localidad</option>
+
+                    {localities.map((locality) => (
+                        <option key={locality} value={locality}>
+                            {locality}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             <div className="mb-6">
@@ -247,13 +304,21 @@ const EditProperty = () => {
                     Barrio
                 </label>
 
-                <input
-                    type="text"
+                <select
                     name="neighborhood"
+                    required
                     value={formData.neighborhood}
                     onChange={handleChange}
                     className="w-full border rounded-lg p-3"
-                />
+                >
+                    <option value="">Selecciona un barrio</option>
+
+                    {neighborhoods.map((neighborhood) => (
+                        <option key={neighborhood} value={neighborhood}>
+                            {neighborhood}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             <div className="mb-6">

@@ -39,3 +39,13 @@ export const ALLOWED_PROPERTY_UPDATE_FIELDS = [
     "images",
     "status",
 ];
+
+export const PROPERTY_IMAGE_CATEGORIES = [
+    "fachada",
+    "sala_comedor",
+    "cocina",
+    "habitacion",
+    "bano",
+    "zona_comun",
+    "adicional",
+];

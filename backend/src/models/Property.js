@@ -6,6 +6,7 @@ import {
   DEFAULT_CURRENCY,
   DEFAULT_PERIOD,
   DEFAULT_STATUS,
+  PROPERTY_IMAGE_CATEGORIES,
 } from "../constants/propertyConstants.js";
 
 const propertySchema = new mongoose.Schema(
@@ -92,7 +93,30 @@ const propertySchema = new mongoose.Schema(
 
     images: [
       {
-        type: String,
+        url: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        publicId: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        category: {
+          type: String,
+          enum: PROPERTY_IMAGE_CATEGORIES,
+          required: true,
+        },
+        isCover: {
+          type: Boolean,
+          default: false,
+        },
+        order: {
+          type: Number,
+          default: 0,
+          min: 0,
+        },
       },
     ],
 

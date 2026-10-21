@@ -5,7 +5,8 @@ import {
     PROPERTY_STATUS,
     DEFAULT_CURRENCY,
     DEFAULT_PERIOD,
-    DEFAULT_STATUS
+    DEFAULT_STATUS,
+    PROPERTY_IMAGE_CATEGORIES,
 } from "../constants/propertyConstants.js";
 
 export const createPropertySchema = z.object({
@@ -84,13 +85,16 @@ export const createPropertySchema = z.object({
 
     images: z
         .array(
-            z.string().url()
+            z.object({
+                url: z.string().url("La dirección de la imagen no es válida"),
+                publicId: z.string().min(1, "Falta el identificador de la imagen"),
+                category: z.enum(PROPERTY_IMAGE_CATEGORIES),
+                isCover: z.boolean().optional(),
+                order: z.number().int().min(0).optional(),
+            })
         )
-        .min(
-            1,
-            "Debe incluir al menos una imagen"
-        )
-        .optional()
+        .max(15, "Puedes agregar hasta 15 imágenes")
+        .optional(),
 });
 
 export const updatePropertySchema = createPropertySchema.partial();
@@ -102,9 +106,9 @@ export const getPropertiesQuerySchema = z.object({
         .optional(),
 
     locality: z
-    .string()
-    .trim()
-    .optional(),
+        .string()
+        .trim()
+        .optional(),
 
     propertyType: z.enum(
         PROPERTY_TYPES

@@ -18,8 +18,7 @@ import CreateRoomie from "./pages/CreateRoomie";
 import RoomiePage from "./pages/RoomiePage";
 import DiscoverRoomies from "./pages/DiscoverRoomies";
 import Conversation from "./pages/Conversation";
-
-
+import LandlordDashboard from "./pages/LandlordDashboard";
 import MainLayout from "./layouts/MainLayout";
 
 const App = () => {
@@ -54,6 +53,12 @@ const App = () => {
         <Route
           path="/properties"
           element={<PropertiesPage />}
+        />
+
+        {/* DASHBOARD */}
+        <Route
+          path="/dashboard"
+          element={<LandlordDashboard />}
         />
 
         {/* CREATE PROPERTY */}
