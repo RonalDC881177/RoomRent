@@ -1,113 +1,133 @@
+
 import asyncHandler from "../utils/asyncHandler.js";
 
 import {
-  createPropertyService,
-  getPropertyByIdService,
-  getAllPropertiesService,
-  getMyPropertiesService,
-  updatePropertyService,
-  deletePropertyService,
+    createPropertyService,
+    getPublicPropertyByIdService,
+    getPrivatePropertyByIdService,
+    getAllPropertiesService,
+    getMyPropertiesService,
+    updatePropertyService,
+    deletePropertyService,
 } from "../services/propertyService.js";
 
 export const createProperty = asyncHandler(
-  async (req, res) => {
+    async (req, res) => {
+        const property = await createPropertyService(
+            req.body,
+            req.user
+        );
 
-    const property =
-      await createPropertyService(
-        req.body,
-        req.user
-      );
-
-    res.status(201).json({
-      success: true,
-      message:
-        "Propiedad creada correctamente",
-      data: {
-        property,
-      },
-    });
-  }
+        res.status(201).json({
+            success: true,
+            message: "Propiedad creada correctamente",
+            data: {
+                property,
+            },
+        });
+    }
 );
 
 export const getPropertyById = asyncHandler(
-  async (req, res) => {
+    async (req, res) => {
+        const property = await getPublicPropertyByIdService(
+            req.params.id
+        );
 
-    const property = await getPropertyByIdService(
-      req.params.id
-    );
-    res.status(200).json({
-      success: true,
-      message: "Propiedad obtenida correctamente",
-      data: {
-        property: property
-      }
-    });
-  }
+        res.status(200).json({
+            success: true,
+            message: "Propiedad obtenida correctamente",
+            data: {
+                property,
+            },
+        });
+    }
+);
+
+export const getPrivatePropertyById = asyncHandler(
+    async (req, res) => {
+        const property = await getPrivatePropertyByIdService(
+            req.params.id,
+            req.user
+        );
+
+        res.status(200).json({
+            success: true,
+            message: "Propiedad privada obtenida correctamente",
+            data: {
+                property,
+            },
+        });
+    }
 );
 
 export const getAllProperties = asyncHandler(
-  async (req, res) => {
+    async (req, res) => {
+        const {
+            properties,
+            pagination,
+        } = await getAllPropertiesService(req.query);
 
-    const {properties,pagination,} = await getAllPropertiesService(req.query);
-    res.status(200).json({
-    success: true,
-    results: properties.length,
-    message: "Propiedades obtenidas correctamente",
-    pagination,
-    data: {
-        properties,
-    },
-    });
-});
+        res.status(200).json({
+            success: true,
+            results: properties.length,
+            message: "Propiedades obtenidas correctamente",
+            pagination,
+            data: {
+                properties,
+            },
+        });
+    }
+);
 
 export const getMyProperties = asyncHandler(
-  async (req, res) => {
-    const properties = await getMyPropertiesService(
-      req.user
-    );
+    async (req, res) => {
+        const properties = await getMyPropertiesService(
+            req.user
+        );
 
-    res.status(200).json({
-      success: true,
-      results: properties.length,
-      message: "Mis propiedades obtenidas correctamente",
-      data: {
-        properties,
-      },
-    });
-  }
+        res.status(200).json({
+            success: true,
+            results: properties.length,
+            message: "Mis propiedades obtenidas correctamente",
+            data: {
+                properties,
+            },
+        });
+    }
 );
 
 export const updateProperty = asyncHandler(
-  async (req, res) => {
+    async (req, res) => {
+        const updatedProperty = await updatePropertyService(
+            req.params.id,
+            req.body,
+            req.user
+        );
 
-    const updatedProperty = await updatePropertyService(
-      req.params.id,
-      req.body,
-      req.user
-    );
-    res.status(200).json({
-      success: true,
-      message: "Propiedad actualizada correctamente",
-      data: {
-        property: updatedProperty,
-      },
-    });
-  }
+        res.status(200).json({
+            success: true,
+            message: "Propiedad actualizada correctamente",
+            data: {
+                property: updatedProperty,
+            },
+        });
+    }
 );
 
 export const deleteProperty = asyncHandler(
-  async (req, res) => {
-    
-    const property = await deletePropertyService(
-      req.params.id,
-      req.user
-    );
-    res.status(200).json({
-      success: true,
-      message: "Propiedad desactivada correctamente",
-      data: {
-        property,
-      },
-    });
-  }
+    async (req, res) => {
+        const property = await deletePropertyService(
+            req.params.id,
+            req.user
+        );
+
+        res.status(200).json({
+            success: true,
+            message: "Propiedad desactivada correctamente",
+            data: {
+                property,
+            },
+        });
+    }
 );

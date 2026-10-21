@@ -8,16 +8,23 @@ export const findPropertyById = async (Id) => {
     return await Property.findById(Id)
         .populate(
             "owner",
-            "name username email role"
+            "name username role"
         );
 };
+
+export const findPublicPropertyById = async (id) => {
+    return await Property.findById(id)
+        .select("-address")
+        .populate("owner", "name username role");
+};
+
 
 export const findMyProperties = async (ownerId) => {
     return await Property.find({
         owner: ownerId,
     }).populate(
         "owner",
-        "name username email role"
+        "name username role"
     );
 };
 
@@ -27,9 +34,10 @@ export const findAllProperties = async () => {
     })
         .populate(
             "owner",
-            "name username email role"
+            "name username role"
         );
 };
+
 
 export const findProperties = async (filters = {}, pagination, sort) => {
     const { skip, limit } = pagination;
@@ -46,9 +54,10 @@ export const findProperties = async (filters = {}, pagination, sort) => {
     }
 
     return propertyQuery
+        .select("-address")
         .skip(skip)
         .limit(limit)
-        .populate("owner", "name username email role");
+        .populate("owner", "name username role");
 };
 
 export const findPropertiesByOwner = async (ownerId) => {
@@ -57,7 +66,7 @@ export const findPropertiesByOwner = async (ownerId) => {
         status: { $ne: "inactivo" },
     }).populate(
         "owner",
-        "name username email role"
+        "name username role"
     );
 };
 

@@ -4,7 +4,20 @@ import { FaCamera, FaBed, FaBath } from "react-icons/fa";
 const PropertyCard = ({ property }) => {
     const navigate = useNavigate();
 
-    const image = property.images?.[0];
+    const images = Array.isArray(property.images)
+        ? property.images
+        : [];
+
+    const coverImage =
+        images.find(
+            (image) =>
+                typeof image !== "string" && image?.isCover
+        ) || images[0];
+
+    const imageUrl =
+        typeof coverImage === "string"
+            ? coverImage
+            : coverImage?.url;
 
     const formattedPrice = property.price?.amount
         ? new Intl.NumberFormat("es-CO", {
@@ -20,9 +33,9 @@ const PropertyCard = ({ property }) => {
             className="bg-white dark:bg-[#163041] rounded-xl overflow-hidden shadow hover:shadow-lg transition cursor-pointer"
         >
             <div className="h-[200px] bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                {image ? (
+                {imageUrl ? (
                     <img
-                        src={image}
+                        src={imageUrl}
                         alt={property.title || "Propiedad"}
                         className="w-full h-full object-cover"
                     />
